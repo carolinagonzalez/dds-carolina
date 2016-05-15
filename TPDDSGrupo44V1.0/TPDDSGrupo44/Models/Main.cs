@@ -8,11 +8,16 @@ namespace TPDDSGrupo44.Models
     
         public class Main
         {
-            public static void Main2()
-            {
-        
-            System.Console.WriteLine("Hello, World!"); 
-        }
+
+        //Creo lo que ingresa el usuario
+
+        string servicio = "Rentas";
+
+        string banco = "Banco Proncincia";
+
+        string parada = "114";
+
+
     }
 
- }  
+}  

@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -194,7 +195,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Horario.cs" />
-    <Compile Include="Models\Local.cs" />
+    <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\Main.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
