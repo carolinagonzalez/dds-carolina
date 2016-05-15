@@ -12,6 +12,19 @@ namespace TPDDSGrupo44.Models
         public string palabraClave { get; set; }
         public int rangoCercania { get; set; }
 
+        //Creo coleccion
+        public List<string> posibilidades;
+
         public Coordenada coordenada { get; set; }
+
+        public Boolean valida(string posibilidad)
+        {
+            foreach (string unaPosibilidad in this.posibilidades)
+            {
+                if (unaPosibilidad == posibilidad) return true;
+            }
+            return false;
+        }
+
     }
 }

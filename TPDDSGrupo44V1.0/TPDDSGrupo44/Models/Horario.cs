@@ -7,8 +7,8 @@ namespace TPDDSGrupo44.Models
 {
     public class Horario
     {
-        public DateTime horarioInicio { get; set; }
-        public DateTime horarioFin { get; set; }
+        public DateTime HorarioInicio { get; set; }
+        public DateTime HorarioFin { get; set; }
         public DateTime dia { get; set; }
     }
 }
