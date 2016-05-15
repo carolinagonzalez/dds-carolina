@@ -10,6 +10,7 @@ namespace TPDDSGrupo44.Models
         public double latitud { get; set; }
         public double longitud { get; set; }
 
+        //Agrego metodo para calcular la distancia
         public const double EarthRadius = 6371;
         public static double GetDistance(double lat1, double long1, double lat2, double long2)
         {
@@ -25,6 +26,8 @@ namespace TPDDSGrupo44.Models
 
         }
 
+
+        //Calculo la distancia a partir de una coordenada
         public double distanciaA(Coordenada coordenada)
         {
             return GetDistance(coordenada.latitud, coordenada.longitud, this.latitud, this.longitud);
