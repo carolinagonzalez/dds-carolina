@@ -1,4 +1,7 @@
 ﻿using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -6,21 +9,47 @@ namespace TPDDSGrupo44.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
 
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            try
+            {
+                Models.ParadaDeColectivo punto = new Models.ParadaDeColectivo();
+
+                punto.palabraClave = collection["palabraClave"];
+
+                if ( punto.valida(punto.palabraClave) )
+                {
+                    ViewBag.Search = "Punto encontrado";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.Search = "Punto no encontrado";
+                    return View();
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Buscá horarios de puntos de interés.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Buscá puntos de interés específicos.";
 
             return View();
         }
