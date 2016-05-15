@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TPDDSGrupo44.Models
+﻿namespace TPDDSGrupo44.Models
 {
-    
-        public class Main
+
+    public class Main
         {
 
         //Creo lo que ingresa el usuario

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using TPDDSGrupo44.Models;
-
-namespace TPDDSGrupo44
+﻿namespace TPDDSGrupo44
 {
     public static class AuthConfig
     {
