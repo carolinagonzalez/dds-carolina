@@ -587,6 +587,24 @@ tr.pager td {
 }
 
 
+
+.ok {
+    border: 1px solid #86B83D;
+    border-radius: 5px;
+    background-color: #D5E3C1;
+    padding: 15px;
+    color: #86B83D;
+}
+
+.error {
+    border: 1px solid #A15625;
+    border-radius: 5px;
+    background-color: #E3CFC1;
+    padding: 15px;
+    color: #A15625;
+}
+
+
 /********************
 *   Mobile Styles   *
 ********************/

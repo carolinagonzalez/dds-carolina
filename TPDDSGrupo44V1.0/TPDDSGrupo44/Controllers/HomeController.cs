@@ -25,12 +25,14 @@ namespace TPDDSGrupo44.Controllers
 
                 if ( punto.valida(punto.palabraClave) )
                 {
-                    ViewBag.Search = "Punto encontrado";
+                    ViewBag.SearchText = "¡Punto cercano!";
+                    ViewBag.Search = "ok";
                     return View();
                 }
                 else
                 {
-                    ViewBag.Search = "Punto no encontrado";
+                    ViewBag.SearchText = "Punto lejano o desconocido.";
+                    ViewBag.Search = "error";
                     return View();
                 }
             }
