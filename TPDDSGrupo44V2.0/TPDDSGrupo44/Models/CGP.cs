@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace TPDDSGrupo44.Models
 {
@@ -32,7 +29,7 @@ namespace TPDDSGrupo44.Models
         */
 
         //2.	Los CGP cumplen la condición de cercanía, si su coordenada está dentro de la zona delimitada por la comuna.
-        public Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil )
+        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
         {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.zonaDelimitadaPorLaComuna; //Cuadras
         }

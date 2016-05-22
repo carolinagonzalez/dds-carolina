@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace TPDDSGrupo44.Models
 {
@@ -18,10 +15,10 @@ namespace TPDDSGrupo44.Models
             this.consultoCercania = unaConsulta;
         }
 
-       
-        public Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
+
+        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
         {
-            return base.estaCerca(this.coordenada) ; //Cuadras
+            return base.estaCerca(this.coordenada); //Cuadras
         }
 
     }

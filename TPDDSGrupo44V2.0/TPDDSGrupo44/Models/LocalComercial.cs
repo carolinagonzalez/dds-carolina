@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace TPDDSGrupo44.Models
 {
@@ -35,12 +32,12 @@ namespace TPDDSGrupo44.Models
         this.posibilidades = new List<String>() { "Kiosco", "Libreria Escolar" };
     }*/
 
-        public Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
+        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
         {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.rubro.radioDeCercania; //Cuadras
         }
 
-       
+
 
 
     }

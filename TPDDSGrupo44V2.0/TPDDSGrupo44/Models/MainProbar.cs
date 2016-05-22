@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TPDDSGrupo44;
 
 namespace TPDDSGrupo44.Models
 {
-    
-        public class MainProbar
+
+    public class MainProbar
         {
         static void Main(string[] args)
         {
