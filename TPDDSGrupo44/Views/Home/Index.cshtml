@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Consulta de Cercanía";
+}
+
+<section class="featured">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+        </div>
+    </section>
+    </section>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
+        <input type="submit" value="Buscar">
+    }
+
+    <div class="@ViewBag.Search">@ViewBag.SearchText</div>
