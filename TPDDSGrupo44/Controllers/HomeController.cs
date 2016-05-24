@@ -16,6 +16,8 @@ namespace TPDDSGrupo44.Controllers
         public ActionResult Index(FormCollection collection)
         {
 
+            ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
+
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
             // Genero lista de paradas
@@ -76,7 +78,7 @@ namespace TPDDSGrupo44.Controllers
                         }
                         else
                         {
-                            ViewBag.SearchText = "No hay una parada de esa línea cerca.";
+                            ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
                             ViewBag.Search = "error";
                         }
                     }
@@ -93,13 +95,34 @@ namespace TPDDSGrupo44.Controllers
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
                             ViewBag.Search = "ok";
                             break;
-                        } else
+                        }
+                        else
                         {
-                            ViewBag.SearchText = "No hay una local de ese rubro cerca.";
+                            ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
                             ViewBag.Search = "error";
                         }
                     }
 
+                    // Si la palabra ingresada no era parada ni rubro, la busco como local
+                } else if (locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
+                {
+
+                    Models.LocalComercial punto = locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
+
+                    if (punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    }
+                    else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                } else
+                {
+                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                    ViewBag.Search = "error";
                 }
 
                 return View();

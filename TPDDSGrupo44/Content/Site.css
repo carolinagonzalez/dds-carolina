@@ -2,13 +2,23 @@
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: Roboto;
-    font-size:  17pt;
+    color: #333;
+    font-size:  13pt;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    font-size:  17pt;
+}
+
+.nav {
+    text-transform: uppercase;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    transition: 0.5s;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -26,6 +36,7 @@ textarea, button {
     font-family: roboto;
     padding: 10px;
     border-radius: 5px;
+    font-size: 15pt;
     border: 1px solid #eee;
     outline: 0;
 }
@@ -37,7 +48,6 @@ input:focus, select:focus, textarea:focus {
 
 button {
     text-transform: uppercase;
-    font-size: 15pt;
     transition: 0.5s;
     -moz-transition: 0.5s;
 }
@@ -49,4 +59,20 @@ button.call-to-action {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Slabo 13px';
+}
+
+.result {
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.ok {
+    border: 1px solid #AAFF00;
+    background-color: #D8FF8A;
+}
+
+.error {
+    border: 1px solid #FFAA00;
+    background-color: #FFE0A3;
 }
