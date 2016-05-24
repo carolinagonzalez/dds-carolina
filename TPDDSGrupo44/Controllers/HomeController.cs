@@ -54,6 +54,18 @@ namespace TPDDSGrupo44.Controllers
             locales.Add(local);
 
 
+            // Genero lista de CGPs
+            List<Models.CGP> CGPs = new List<Models.CGP>();
+
+            // Agrego CGP Lugano
+            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new Models.Coordenada(-34.6862397, -58.4606666), new Models.ConsultoCercania(), 8);
+            CGPs.Add(CGP);
+
+            // Agrego CGP Floresta
+            CGP = new Models.CGP("Sede Comunal 10", new Models.Coordenada(-34.6318411, -58.4857468), new Models.ConsultoCercania(), 10);
+            CGPs.Add(CGP);
+
+
             //Defino ubicación actual
             Models.Coordenada dispositivoTactil = new Models.Coordenada(-34.6597047, -58.4688947);
 
@@ -72,7 +84,7 @@ namespace TPDDSGrupo44.Controllers
                     //recorro todas las paradas de la DB para buscar alguna cercana con la palabra clave ingresada
                     foreach (Models.ParadaDeColectivo punto in paradas) {
                         if (punto.estaCerca(dispositivoTactil) && punto.palabraClave == palabraBusqueda ) {
-                            ViewBag.SearchText = "¡Hay una parada cerca!";
+                            ViewBag.SearchText = "¡Hay una parada del " + punto.palabraClave + " cerca!";
                             ViewBag.Search = "ok";
                            break;
                         }
@@ -119,7 +131,25 @@ namespace TPDDSGrupo44.Controllers
                         ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
                         ViewBag.Search = "error";
                     }
-                } else
+                    // Si la palabra ingresada no era parada ni rubro ni local, la busco como CGP
+                }
+                else if (CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
+                {
+
+                    Models.CGP punto = CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
+
+                    if (punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    }
+                    else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                }
+                else
                 {
                     ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
                     ViewBag.Search = "error";
