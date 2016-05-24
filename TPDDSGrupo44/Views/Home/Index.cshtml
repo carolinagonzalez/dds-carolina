@@ -2,6 +2,8 @@
     ViewBag.Title = "Consulta de Cercanía";
 }
 
+@Scripts.Render("~/scripts/index.js")
+
 <section class="featured">
     <section class="featured">
         <div class="content-wrapper">
@@ -16,7 +18,7 @@
     @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
         <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
-        <input type="submit" value="Buscar">
+        <button type="submit">Buscar</button>
     }
 
     <div class="@ViewBag.Search">@ViewBag.SearchText</div>

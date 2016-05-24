@@ -21,13 +21,30 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
+textarea, button {
     max-width: 280px;
     font-family: roboto;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #eee;
     outline: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #AAFF00;
+    box-shadow: 0 0 10px #AAFF00;
+}
+
+button {
+    text-transform: uppercase;
+    font-size: 15pt;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+}
+
+button.call-to-action {
+    background-color:#AAFF00;
+    color:#333;
 }
 
 h1, h2, h3, h4, h5, h6 {
