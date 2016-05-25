@@ -6,20 +6,30 @@ namespace TPDDSGrupo44.Models
     {
       
         public DayOfWeek dia { get; set; }
+<<<<<<< HEAD
         public int numeroDeMes { get; set; }  //Agrego atributo
+=======
+>>>>>>> origin/master
         public int horarioInicio { get; set; }
         public int horarioFin { get; set; }
 
 
         //Creo Constructor del HorarioAbierto
+<<<<<<< HEAD
         public HorarioAbierto(DayOfWeek dia, int numeroDeMes, int horarioInicio, int horarioFin)
         {
             this.dia = dia;
             this.numeroDeMes = numeroDeMes;
+=======
+        public HorarioAbierto(DayOfWeek dia, int horarioInicio, int horarioFin)
+        {
+            this.dia = dia;
+>>>>>>> origin/master
             this.horarioInicio = horarioInicio;
             this.horarioFin = horarioFin;
         }
 
+<<<<<<< HEAD
         public Boolean horarioValido(DateTime fecha) {
             DateTime dateValue = new DateTime(fecha.Year, fecha.Month, fecha.Day);
             int numeroDeDia = ((int)dateValue.DayOfWeek);
@@ -71,5 +81,7 @@ namespace TPDDSGrupo44.Models
             }
         }
 
+=======
+>>>>>>> origin/master
     }
 }
