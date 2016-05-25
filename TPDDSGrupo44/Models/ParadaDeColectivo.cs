@@ -27,6 +27,12 @@ namespace TPDDSGrupo44.Models
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < 1; //Cuadras
         }
 
+        //2.1.    El servicio de transporte de Colectivos está disponible a toda hora
+
+        public Boolean estaDisponible()
+        {
+            return true;
+        }
 
     }
 }
