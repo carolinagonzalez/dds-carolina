@@ -66,7 +66,7 @@ namespace TPDDSGrupo44.Controllers
             CGPs.Add(CGP);
 
 
-            //Defino ubicación actual
+            //Defino ubicación actual (UTN/CAMPUS)
             Models.Coordenada dispositivoTactil = new Models.Coordenada(-34.6597047, -58.4688947);
 
             string palabraBusqueda = collection["palabraClave"];
@@ -102,7 +102,7 @@ namespace TPDDSGrupo44.Controllers
 
                     foreach (Models.LocalComercial punto in locales)
                     {
-                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro == palabraBusqueda)
+                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(palabraBusqueda.ToLower()))
                         {
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
                             ViewBag.Search = "ok";
@@ -164,17 +164,17 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult About()
+        public ActionResult Punto()
         {
-            ViewBag.Message = "Buscá horarios de puntos de interés.";
+            ViewBag.Message = "Buscá puntos de interés específicos.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Horarios()
         {
-            ViewBag.Message = "Buscá puntos de interés específicos.";
-
+            
+            ViewBag.Message = "Buscá horarios de puntos de interés.";
             return View();
         }
     }
