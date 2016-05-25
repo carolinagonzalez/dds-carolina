@@ -23,10 +23,20 @@ namespace TPDDSGrupo44
             this.coordenada = unaCoordenada;
         }
 
+        //1
         public Boolean estaCerca(PuntoDeInteres unPuntoDeInteres) {
             return unPuntoDeInteres.estaCerca(this.coordenada);
 
         }
 
+
+        //2
+        /*
+        public Boolean estaDisponible(PuntoDeInteres unPuntoDeInteres)
+        {
+            return unPuntoDeInteres.estaDisponible(this.coordenada);
+
+        }
+        */
     }
 }
