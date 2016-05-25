@@ -188,6 +188,7 @@
     <Compile Include="Models\Coordenada.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
+    <Compile Include="Models\HorarioAbiertoPorServicio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\MainProbar.cs" />
