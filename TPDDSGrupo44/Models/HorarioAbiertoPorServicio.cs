@@ -11,8 +11,8 @@ namespace TPDDSGrupo44.Models
 
         // Creo Constructor
 
-        public HorarioAbiertoPorServicio(DayOfWeek dia, int numeroDeMes, int horarioInicio, int horarioFin, string nombreDelServicio)
-        : base(dia, numeroDeMes, horarioInicio, horarioFin)
+        public HorarioAbiertoPorServicio(DayOfWeek dia,  int horarioInicio, int horarioFin, string nombreDelServicio)
+        : base(dia, horarioInicio, horarioFin)
         {
             this.dia = dia;
             this.numeroDeMes = numeroDeMes;

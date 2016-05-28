@@ -13,7 +13,10 @@ namespace TPDDSGrupo44.Models
         public string nombreDelPOI { get; set; }
 
         public List<String> palabrasRelacionadas = new List<String>();
- 
+
+        public List<HorarioAbierto> horarioAbierto = new List<HorarioAbierto>();
+        public List<HorarioAbierto> horarioFeriados = new List<HorarioAbierto>();
+
 
         //Creo constructor
         public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada) {
@@ -42,7 +45,24 @@ namespace TPDDSGrupo44.Models
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5; //Cuadras
         }
 
-       
+        public Boolean estaDisponible()
+        {
+            DateTime today = DateTime.Today;
+
+            //busco entre los feriados a ver si hoy es feriado
+            HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == today.Day && x.numeroDeMes == today.Month);
+
+            //si es feriado, verificar si está abierto (pueden hacer horarios diferenciales)
+            if (todaysHours != null)
+            {
+                return todaysHours.horarioValido();
+            } else
+            {
+                // si no era feriado, busco si está abierto por día de la semana
+                todaysHours = horarioAbierto.Find(x => x.dia == today.DayOfWeek );
+                return todaysHours.horarioValido();
+            }
+        }
 
     }
 }

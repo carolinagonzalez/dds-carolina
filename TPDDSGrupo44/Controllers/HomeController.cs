@@ -202,9 +202,177 @@ namespace TPDDSGrupo44.Controllers
 
             //Defino ubicación actual (UTN/CAMPUS)
             GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
-            ViewBag.Latitud = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
-            ViewBag.Longitud = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
-            ViewBag.TextoLugar = "¡Estás acá!";
+            ViewBag.Latitude = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.Longitude = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.LocationText = "¡Estás acá!";
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Availability(FormCollection search)
+        {
+
+            ViewBag.Message = "Buscá horarios de puntos de interés.";
+
+            //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
+
+            // Genero lista de paradas
+            List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
+
+            // Agrego parada 114
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            parada.palabraClave = "114";
+            paradas.Add(parada);
+            // Agrego Parada 36
+            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
+            parada.palabraClave = "36";
+            paradas.Add(parada);
+
+
+            // Genero lista de rubros
+            List<Models.Rubro> rubros = new List<Models.Rubro>();
+
+            //Agrego Librería escolar
+            rubros.Add(new Models.Rubro("librería escolar", 5));
+            //Agrego kiosco de diarios
+            rubros.Add(new Models.Rubro("kiosco de diarios", 2));
+
+
+            // Genero lista de locales
+            List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
+
+            // Agrego librería ceit
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            locales.Add(local);
+
+            // agrego puesto de diarios 
+            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
+            locales.Add(local);
+
+
+            // Genero lista de CGPs
+            List<Models.CGP> CGPs = new List<Models.CGP>();
+
+            // Agrego CGP Lugano
+            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            CGPs.Add(CGP);
+
+            // Agrego CGP Floresta
+            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGPs.Add(CGP);
+
+            string searchWord = search["palabraClave"];
+
+            //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
+
+            try
+            {
+
+                //Si la persona ingresó un número, asumo que busca una parada de bondi
+                int linea = 0;
+                if (int.TryParse(searchWord, out linea) && linea > 0)
+                {
+
+                    //busco la parada en cuestión
+                    parada = paradas.Find(x => x.palabraClave == searchWord);
+
+                    if (parada != null) { 
+                    if (parada.estaDisponible())
+                    {
+                            ViewBag.SearchText = "La línea " + parada.palabraClave + " está disponible";
+                            ViewBag.Search = "ok";
+
+                            return View();
+
+                        } else
+                        {
+                            ViewBag.SearchText = "La línea " + parada.palabraClave + " no está disponible";
+                            ViewBag.Search = "error";
+                            return View();
+                        }
+                    } else
+                    {
+                        ViewBag.SearchText = "No tenemos información sobre una línea de colectivos con número " + searchWord;
+                        ViewBag.Search = "error";
+                        return View();
+                    }
+
+
+                    //Si la persona ingresó una palabra, me fijo si es un servicio
+                }
+                else if (rubros.Find(x => x.nombreRubro.Contains(searchWord.ToLower())) != null)
+                {
+
+                    foreach (Models.LocalComercial punto in locales)
+                    {
+                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(searchWord.ToLower()))
+                        {
+                            ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
+                            ViewBag.Search = "ok";
+                            break;
+                        }
+                        else
+                        {
+                            ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                            ViewBag.Search = "error";
+                        }
+                    }
+
+                    // Si la palabra ingresada no era parada ni rubro, la busco como local
+                }
+                else if (locales.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower())) != null)
+                {
+
+                    Models.LocalComercial punto = locales.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower()));
+
+                    if (punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    }
+                    else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                    // Si la palabra ingresada no era parada ni rubro ni local, la busco como CGP
+                }
+                else if (CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower())) != null)
+                {
+
+                    Models.CGP punto = CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower()));
+
+                    if (punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    }
+                    else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                }
+                else
+                {
+                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                    ViewBag.Search = "error";
+                }
+
+                return View();
+
+            }
+            catch
+            {
+                return View();
+            }
 
             return View();
         }
