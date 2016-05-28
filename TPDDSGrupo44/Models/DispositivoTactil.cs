@@ -21,12 +21,12 @@ namespace TPDDSGrupo44
         // Creo Constructor
         public DispositivoTactil(GeoCoordinate unaCoordenada)
         {
-            this.coordenada = unaCoordenada;
+            coordenada = unaCoordenada;
         }
 
         //1
-        public Boolean estaCerca(PuntoDeInteres unPuntoDeInteres) {
-            return unPuntoDeInteres.estaCerca(this.coordenada);
+        public bool estaCerca(PuntoDeInteres unPuntoDeInteres) {
+            return unPuntoDeInteres.estaCerca(coordenada);
 
         }
 

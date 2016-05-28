@@ -10,8 +10,8 @@
         //Creo Constructor
         public Rubro(string nombre, int radio)
         {
-            this.nombreRubro = nombre;
-            this.radioDeCercania = radio;
+            nombreRubro = nombre;
+            radioDeCercania = radio;
         }
     }
 

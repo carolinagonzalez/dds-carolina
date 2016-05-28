@@ -30,11 +30,11 @@ namespace TPDDSGrupo44.Models
         
 
 
-        public Boolean horarioValido()
+        public bool horarioValido()
         {
             DateTime today = DateTime.Today;
             int numeroDeDia = ((int)today.DayOfWeek);
-            if ((today.Hour >= this.horarioInicio) && (today.Hour < this.horarioFin)) //Contemplo rango en el que horario abre y cierra
+            if ((today.Hour >= horarioInicio) && (today.Hour < horarioFin)) //Contemplo rango en el que horario abre y cierra
             {
                 return true;
             }

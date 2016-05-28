@@ -205,7 +205,6 @@
     <Compile Include="Models\CGP.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
-    <Compile Include="Models\HorarioAbiertoPorServicio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\MainProbar.cs" />
@@ -213,6 +212,7 @@
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
     <Compile Include="Models\Rubro.cs" />
+    <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTramite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

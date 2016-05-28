@@ -30,7 +30,7 @@ namespace TPDDSGrupo44.Models
 
         public GeoCoordinate coordenada { get; set; }
 
-        public Boolean valida(string posibilidad)
+        public bool valida(string posibilidad)
         {
             foreach (string unaPosibilidad in posibilidades)
             {
@@ -41,11 +41,11 @@ namespace TPDDSGrupo44.Models
 
 
         //Esta cerca POI generico que sea menor a 5 cuadras
-        public Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
+        public bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5; //Cuadras
         }
 
-        public Boolean estaDisponible()
+        public bool estaDisponible()
         {
             DateTime today = DateTime.Today;
 

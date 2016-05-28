@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Device.Location;
+using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
-        public DateTime horario { get; set; } //Como se declara el tipo horario ?
         public string direccion { get; set; }
         public int numero { get; set; }
-        public string tipoServicio { get; set; }
+        public List<Servicio> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         // Creo Constructor
@@ -19,6 +19,7 @@ namespace TPDDSGrupo44.Models
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
             zonaDelimitadaPorLaComuna = zona;
+            servicios = new List<Servicio>();
         }
         /*
         public CGP()
@@ -29,7 +30,7 @@ namespace TPDDSGrupo44.Models
         */
 
         //2.	Los CGP cumplen la condición de cercanía, si su coordenada está dentro de la zona delimitada por la comuna.
-        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
         }

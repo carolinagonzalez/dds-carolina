@@ -16,7 +16,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return base.estaCerca(coordenada); //Cuadras
         }

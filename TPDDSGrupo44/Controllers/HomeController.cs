@@ -256,18 +256,34 @@ namespace TPDDSGrupo44.Controllers
 
             // Agrego CGP Lugano
             Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            Models.Servicio servicio = new Models.Servicio("Rentas");
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
+            CGP.servicios.Add(servicio);
             CGPs.Add(CGP);
 
             // Agrego CGP Floresta
             CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            servicio = new Models.Servicio("Registro Civil");
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            CGP.servicios.Add(servicio);
             CGPs.Add(CGP);
 
             string searchWord = search["palabraClave"];
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
-
-            try
-            {
+            
 
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
                 int linea = 0;
@@ -280,14 +296,14 @@ namespace TPDDSGrupo44.Controllers
                     if (parada != null) { 
                     if (parada.estaDisponible())
                     {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " está disponible";
+                            ViewBag.SearchText = "La línea " + parada.palabraClave + " está disponible en este momento";
                             ViewBag.Search = "ok";
 
                             return View();
 
                         } else
                         {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " no está disponible";
+                            ViewBag.SearchText = "La línea " + parada.palabraClave + " no está disponible en este momento";
                             ViewBag.Search = "error";
                             return View();
                         }
@@ -301,80 +317,39 @@ namespace TPDDSGrupo44.Controllers
 
                     //Si la persona ingresó una palabra, me fijo si es un servicio
                 }
-                else if (rubros.Find(x => x.nombreRubro.Contains(searchWord.ToLower())) != null)
-                {
-
-                    foreach (Models.LocalComercial punto in locales)
-                    {
-                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(searchWord.ToLower()))
-                        {
-                            ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
-                            ViewBag.Search = "ok";
-                            break;
-                        }
-                        else
-                        {
-                            ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                            ViewBag.Search = "error";
-                        }
-                    }
-
-                    // Si la palabra ingresada no era parada ni rubro, la busco como local
-                }
-                else if (locales.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower())) != null)
-                {
-
-                    Models.LocalComercial punto = locales.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                    // Si la palabra ingresada no era parada ni rubro ni local, la busco como CGP
-                }
-                else if (CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower())) != null)
-                {
-
-                    Models.CGP punto = CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(searchWord.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                }
                 else
                 {
-                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                    ViewBag.Search = "error";
-                }
+                    string availableServices = "";
+                    // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
+                    foreach (Models.CGP punto in CGPs)
+                    {
+                        Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible());
 
-                return View();
+                        if (foundService != null)
+                        {
+                            availableServices = "El servicio " + foundService.nombre + " está disponible en este momento en " + punto.nombreDelPOI + ".\n";
+                        }
+
+                    }
+
+                    if (availableServices != "")
+                    {
+                        ViewBag.SearchText = availableServices;
+                        ViewBag.Search = "ok";
+
+                        return View();
+                    } else
+                    {
+                        ViewBag.SearchText = "Ese servicio no se encuentra disponible o no existe."; ;
+                        ViewBag.Search = "error";
+
+                        return View();
+                    }
+                    
+                
 
             }
-            catch
-            {
-                return View();
-            }
-
-            return View();
+            
         }
     }
 }

@@ -32,7 +32,7 @@ namespace TPDDSGrupo44.Models
         this.posibilidades = new List<String>() { "Kiosco", "Libreria Escolar" };
     }*/
 
-        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
         }
