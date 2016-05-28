@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Index(FormCollection search)
         {
 
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
@@ -80,7 +80,7 @@ namespace TPDDSGrupo44.Controllers
             ViewBag.Longitud = dispositivoTactil.Longitude;
             ViewBag.TextoLugar = "¡Estás acá!";
 
-            string palabraBusqueda = collection["palabraClave"];
+            string palabraBusqueda = search["palabraClave"];
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
@@ -188,17 +188,24 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult Punto()
+        public ActionResult Location()
         {
             ViewBag.Message = "Buscá puntos de interés específicos.";
 
             return View();
         }
 
-        public ActionResult Horarios()
+        public ActionResult Availability()
         {
             
             ViewBag.Message = "Buscá horarios de puntos de interés.";
+
+            //Defino ubicación actual (UTN/CAMPUS)
+            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
+            ViewBag.Latitud = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.Longitud = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.TextoLugar = "¡Estás acá!";
+
             return View();
         }
     }
