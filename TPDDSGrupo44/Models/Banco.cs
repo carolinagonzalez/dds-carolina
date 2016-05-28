@@ -11,15 +11,14 @@ namespace TPDDSGrupo44.Models
         public Banco(string nombre, GeoCoordinate unaCoordenada)
         : base(nombre, unaCoordenada)
         {
-            this.nombreDelPOI = nombre;
-            this.coordenada = unaCoordenada;
-            this.consultoCercania = new ConsultoCercania();
+            nombreDelPOI = nombre;
+            coordenada = unaCoordenada;
         }
 
 
         public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
-            return base.estaCerca(this.coordenada); //Cuadras
+            return base.estaCerca(coordenada); //Cuadras
         }
 
     }

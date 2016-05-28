@@ -16,10 +16,9 @@ namespace TPDDSGrupo44.Models
         public CGP(string nombre, GeoCoordinate unaCoordenada, int zona)
         : base(nombre, unaCoordenada)
         {
-            this.nombreDelPOI = nombre;
-            this.coordenada = unaCoordenada;
-            this.consultoCercania = new ConsultoCercania();
-            this.zonaDelimitadaPorLaComuna = zona;
+            nombreDelPOI = nombre;
+            coordenada = unaCoordenada;
+            zonaDelimitadaPorLaComuna = zona;
         }
         /*
         public CGP()
@@ -32,7 +31,7 @@ namespace TPDDSGrupo44.Models
         //2.	Los CGP cumplen la condición de cercanía, si su coordenada está dentro de la zona delimitada por la comuna.
         public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
-            return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.zonaDelimitadaPorLaComuna; //Cuadras
+            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
         }
     }
 }

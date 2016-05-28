@@ -20,10 +20,9 @@ namespace TPDDSGrupo44.Models
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
-            this.nombreDelPOI = nombre;
-            this.coordenada = unaCoordenada;
-            this.consultoCercania = new ConsultoCercania();
-            this.palabrasRelacionadas.Add(rubro.nombreRubro);
+            nombreDelPOI = nombre;
+            coordenada = unaCoordenada;
+            palabrasRelacionadas.Add(rubro.nombreRubro);
         }
 
         /*
@@ -35,7 +34,7 @@ namespace TPDDSGrupo44.Models
 
         public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
-            return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.rubro.radioDeCercania; //Cuadras
+            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
         }
 
 

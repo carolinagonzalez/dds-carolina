@@ -203,8 +203,6 @@
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Banco.cs" />
     <Compile Include="Models\CGP.cs" />
-    <Compile Include="Models\Consulta.cs" />
-    <Compile Include="Models\ConsultoCercania.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\HorarioAbiertoPorServicio.cs" />
