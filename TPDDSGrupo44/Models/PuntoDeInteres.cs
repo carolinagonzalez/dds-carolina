@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
@@ -17,17 +18,17 @@ namespace TPDDSGrupo44.Models
  
 
         //Creo constructor
-        public PuntoDeInteres(string nombre, Coordenada unaCordenada, ConsultoCercania unaConsulta) {
+        public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada) {
             this.nombreDelPOI = nombre;
             this.coordenada = unaCordenada;
-            this.consultoCercania = unaConsulta;
+            this.consultoCercania = new ConsultoCercania();
             this.palabrasRelacionadas.Add(nombre);
         }
 
         //Creo coleccion
         public List<string> posibilidades;
 
-        public Coordenada coordenada { get; set; }
+        public GeoCoordinate coordenada { get; set; }
 
         public Boolean valida(string posibilidad)
         {
@@ -40,7 +41,7 @@ namespace TPDDSGrupo44.Models
 
 
         //Esta cerca POI generico que sea menor a 5 cuadras
-        public Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil) {
+        public Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < 5; //Cuadras
         }
 

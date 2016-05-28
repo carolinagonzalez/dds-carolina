@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TPDDSGrupo44.Models;
+using System.Device.Location;
 
 namespace TPDDSGrupo44
 {
@@ -8,7 +9,7 @@ namespace TPDDSGrupo44
     {
 
         // public int coordenada { get; set; }
-        public Coordenada coordenada { get; set; }
+        public GeoCoordinate coordenada { get; set; }
         public string puntoInteres { get; set; }
         public int comuna { get; set; } //se refiere al numero de comuna?
         public string consultas { get; set; }
@@ -18,7 +19,7 @@ namespace TPDDSGrupo44
 
 
         // Creo Constructor
-        public DispositivoTactil(Coordenada unaCoordenada)
+        public DispositivoTactil(GeoCoordinate unaCoordenada)
         {
             this.coordenada = unaCoordenada;
         }

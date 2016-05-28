@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -12,12 +13,12 @@ namespace TPDDSGrupo44.Models
 
         // Creo Constructor
 
-        public CGP(string nombre, Coordenada unaCoordenada, ConsultoCercania unaConsulta,int zona)
-        : base(nombre, unaCoordenada, unaConsulta)
+        public CGP(string nombre, GeoCoordinate unaCoordenada, int zona)
+        : base(nombre, unaCoordenada)
         {
             this.nombreDelPOI = nombre;
             this.coordenada = unaCoordenada;
-            this.consultoCercania = unaConsulta;
+            this.consultoCercania = new ConsultoCercania();
             this.zonaDelimitadaPorLaComuna = zona;
         }
         /*
@@ -29,7 +30,7 @@ namespace TPDDSGrupo44.Models
         */
 
         //2.	Los CGP cumplen la condición de cercanía, si su coordenada está dentro de la zona delimitada por la comuna.
-        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
+        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.zonaDelimitadaPorLaComuna; //Cuadras
         }

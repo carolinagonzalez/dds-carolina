@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -15,13 +16,13 @@ namespace TPDDSGrupo44.Models
 
         // Creo Constructor
 
-        public LocalComercial(string nombre, Coordenada unaCoordenada, ConsultoCercania unaConsulta,Rubro rubro)
-        : base(nombre, unaCoordenada, unaConsulta)
+        public LocalComercial(string nombre, GeoCoordinate unaCoordenada, Rubro rubro)
+        : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
             this.nombreDelPOI = nombre;
             this.coordenada = unaCoordenada;
-            this.consultoCercania = unaConsulta;
+            this.consultoCercania = new ConsultoCercania();
             this.palabrasRelacionadas.Add(rubro.nombreRubro);
         }
 
@@ -32,7 +33,7 @@ namespace TPDDSGrupo44.Models
         this.posibilidades = new List<String>() { "Kiosco", "Libreria Escolar" };
     }*/
 
-        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
+        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < this.rubro.radioDeCercania; //Cuadras
         }

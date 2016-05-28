@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Device.Location;
 using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Controllers
@@ -24,11 +25,11 @@ namespace TPDDSGrupo44.Controllers
             List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
 
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new Models.Coordenada(-34.659690, -58.468764), new Models.ConsultoCercania());
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
             paradas.Add(parada);
             // Agrego Parada 36 - lejana
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new Models.Coordenada(-34.662325, -58.473300), new Models.ConsultoCercania());
+            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
             parada.palabraClave = "36";
             paradas.Add(parada);
 
@@ -46,11 +47,11 @@ namespace TPDDSGrupo44.Controllers
             List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
 
             // Agrego librería ceit
-            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new Models.Coordenada(-34.659492, -58.467906), new Models.ConsultoCercania(), new Models.Rubro("librería escolar", 5));
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
             locales.Add(local);
 
             // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco Las Flores", new Models.Coordenada(-34.634015, -58.482805), new Models.ConsultoCercania(), new Models.Rubro("kiosco de diarios", 5));
+            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
             locales.Add(local);
 
 
@@ -58,16 +59,16 @@ namespace TPDDSGrupo44.Controllers
             List<Models.CGP> CGPs = new List<Models.CGP>();
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new Models.Coordenada(-34.6862397, -58.4606666), new Models.ConsultoCercania(), 8);
+            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 8);
             CGPs.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new Models.CGP("Sede Comunal 10", new Models.Coordenada(-34.6318411, -58.4857468), new Models.ConsultoCercania(), 10);
+            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
             CGPs.Add(CGP);
 
 
             //Defino ubicación actual (UTN/CAMPUS)
-            Models.Coordenada dispositivoTactil = new Models.Coordenada(-34.6597047, -58.4688947);
+            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
 
             string palabraBusqueda = collection["palabraClave"];
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -7,16 +8,16 @@ namespace TPDDSGrupo44.Models
 
         //Creo Constructor
 
-        public Banco(string nombre, Coordenada unaCoordenada, ConsultoCercania unaConsulta)
-        : base(nombre, unaCoordenada, unaConsulta)
+        public Banco(string nombre, GeoCoordinate unaCoordenada)
+        : base(nombre, unaCoordenada)
         {
             this.nombreDelPOI = nombre;
             this.coordenada = unaCoordenada;
-            this.consultoCercania = unaConsulta;
+            this.consultoCercania = new ConsultoCercania();
         }
 
 
-        public new Boolean estaCerca(Coordenada coordenadaDeDispositivoTactil)
+        public new Boolean estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return base.estaCerca(this.coordenada); //Cuadras
         }

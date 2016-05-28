@@ -185,7 +185,6 @@
     <Compile Include="Models\CGP.cs" />
     <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\ConsultoCercania.cs" />
-    <Compile Include="Models\Coordenada.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\HorarioAbiertoPorServicio.cs" />

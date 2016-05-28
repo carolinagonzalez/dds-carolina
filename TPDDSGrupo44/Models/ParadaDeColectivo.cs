@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -7,12 +8,12 @@ namespace TPDDSGrupo44.Models
     {
         // Creo Constructor
         
-        public ParadaDeColectivo(string nombre, Coordenada unaCoordenada, ConsultoCercania unaConsulta)
-        : base(nombre, unaCoordenada, unaConsulta)
+        public ParadaDeColectivo(string nombre, GeoCoordinate unaCoordenada)
+        : base(nombre, unaCoordenada)
         {
             this.nombreDelPOI = nombre;
             this.coordenada = unaCoordenada;
-            this.consultoCercania = unaConsulta;
+            this.consultoCercania = new ConsultoCercania();
         }
         /*
     public ParadaDeColectivo()
@@ -22,7 +23,7 @@ namespace TPDDSGrupo44.Models
     */
 
         //1.	Un parada de  colectivo se considera cercana si estamos a menos de una cuadra.
-        public new bool estaCerca(Coordenada coordenadaDeDispositivoTactil)
+        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return this.consultoCercania.obtengoDistancia(coordenadaDeDispositivoTactil, this.coordenada) < 1; //Cuadras
         }
