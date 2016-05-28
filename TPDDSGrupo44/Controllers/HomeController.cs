@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -9,6 +10,12 @@ namespace TPDDSGrupo44.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
+
+            //Defino ubicación actual (UTN/CAMPUS)
+            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
+            ViewBag.Latitud = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.Longitud = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
+            ViewBag.TextoLugar = "¡Estás acá!";
 
             return View();
         }
@@ -69,6 +76,9 @@ namespace TPDDSGrupo44.Controllers
 
             //Defino ubicación actual (UTN/CAMPUS)
             GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
+            ViewBag.Latitud = dispositivoTactil.Latitude;
+            ViewBag.Longitud = dispositivoTactil.Longitude;
+            ViewBag.TextoLugar = "¡Estás acá!";
 
             string palabraBusqueda = collection["palabraClave"];
 
@@ -86,6 +96,10 @@ namespace TPDDSGrupo44.Controllers
                     foreach (Models.ParadaDeColectivo punto in paradas) {
                         if (punto.estaCerca(dispositivoTactil) && punto.palabraClave == palabraBusqueda ) {
                             ViewBag.SearchText = "¡Hay una parada del " + punto.palabraClave + " cerca!";
+                            ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture); 
+                            ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                            ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
+
                             ViewBag.Search = "ok";
                            break;
                         }
@@ -106,6 +120,9 @@ namespace TPDDSGrupo44.Controllers
                         if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(palabraBusqueda.ToLower()))
                         {
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
+                            ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                            ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                            ViewBag.TextoLugar = punto.nombreDelPOI;
                             ViewBag.Search = "ok";
                             break;
                         }
@@ -125,6 +142,9 @@ namespace TPDDSGrupo44.Controllers
                     if (punto.estaCerca(dispositivoTactil))
                     {
                         ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
                         ViewBag.Search = "ok";
                     }
                     else
@@ -142,6 +162,9 @@ namespace TPDDSGrupo44.Controllers
                     if (punto.estaCerca(dispositivoTactil))
                     {
                         ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
                         ViewBag.Search = "ok";
                     }
                     else

@@ -4,6 +4,17 @@
 
 @Scripts.Render("~/scripts/index.js")
 
+<script>
+
+    $(document).ready(function () {
+        var location = { 
+            lat: @ViewBag.Latitud , 
+            lng: @ViewBag.Longitud };
+         initMap(location, "@ViewBag.TextoLugar" );
+    });
+
+</script>
+
 <section class="featured">
     <section class="featured">
         <div class="content-wrapper">
@@ -22,3 +33,5 @@
     }
 
     <div class="result @ViewBag.Search">@ViewBag.SearchText</div>
+
+    <div id="map"></div>
