@@ -66,7 +66,7 @@ namespace TPDDSGrupo44.Controllers
             List<Models.CGP> CGPs = new List<Models.CGP>();
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 8);
+            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
             CGPs.Add(CGP);
 
             // Agrego CGP Floresta
