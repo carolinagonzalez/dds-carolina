@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TPDDSGrupo44.Models;
 using System.Device.Location;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace TPDDSGrupo44
 {
@@ -29,6 +32,29 @@ namespace TPDDSGrupo44
 
         }
 
+        public List<PuntoDeInteres> listaDePtos = new List<PuntoDeInteres>();
+
+        public List<PuntoDeInteres> palabraClave(string clave)
+        {
+            List<PuntoDeInteres> filteredList = listaDePtos.Where(x => x.palabraClave == clave).ToList();
+            return filteredList;
+        }
+
+        public bool colleccionConDatos(List<PuntoDeInteres> lista)
+        {
+            if (lista.Count > 0)
+            {
+                foreach (PuntoDeInteres alista in lista)
+                {
+                    Console.WriteLine(alista);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         //2
         /*
