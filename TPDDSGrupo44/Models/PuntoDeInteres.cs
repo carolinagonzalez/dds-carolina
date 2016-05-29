@@ -9,7 +9,7 @@ namespace TPDDSGrupo44.Models
         public string callePrincipal { get; set; }
         public string entreCalles { get; set; }
         public string palabraClave { get; set; }
-       
+        public GeoCoordinate coordenada { get; set; }
         public string nombreDelPOI { get; set; }
 
         public List<String> palabrasRelacionadas = new List<String>();
@@ -18,36 +18,22 @@ namespace TPDDSGrupo44.Models
         public List<HorarioAbierto> horarioFeriados = new List<HorarioAbierto>();
 
 
-        //Creo constructor
+        // Constructor básico
         public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada) {
             nombreDelPOI = nombre;
             coordenada = unaCordenada;
             palabrasRelacionadas.Add(nombre);
         }
 
-        //Creo coleccion
-        public List<string> posibilidades;
 
-        public GeoCoordinate coordenada { get; set; }
-
-        public bool valida(string posibilidad)
-        {
-            foreach (string unaPosibilidad in posibilidades)
-            {
-                if (unaPosibilidad == posibilidad) return true;
-            }
-            return false;
-        }
-
-
-        //Esta cerca POI generico que sea menor a 5 cuadras
+        // Cálculo de Cercanía genérico - distancia menor a 5 cuadras
         public bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
-            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5; //Cuadras
+            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5;
         }
 
+        // Cálculo de Disponibilidad Horaria genérico
         public bool estaDisponible(DateTime searchTime)
         {
-
             //busco entre los feriados a ver si hoy es feriado
             HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
 
@@ -62,6 +48,9 @@ namespace TPDDSGrupo44.Models
                 return todaysHours.horarioValido(searchTime);
             }
         }
+
+
+
 
     }
 }

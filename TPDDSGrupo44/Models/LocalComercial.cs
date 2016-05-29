@@ -13,8 +13,7 @@ namespace TPDDSGrupo44.Models
 
         public Rubro rubro { get; set; }
 
-        // Creo Constructor
-
+        // Constructor
         public LocalComercial(string nombre, GeoCoordinate unaCoordenada, Rubro rubro)
         : base(nombre, unaCoordenada)
         {
@@ -24,14 +23,8 @@ namespace TPDDSGrupo44.Models
             palabraClave = nombre;
             palabrasRelacionadas.Add(rubro.nombreRubro);
         }
-
-        /*
-    public LocalComercial()
-    {
-
-        this.posibilidades = new List<String>() { "Kiosco", "Libreria Escolar" };
-    }*/
-
+        
+        // Cálculo de Cercanía - Depende del radio de cercanía del rubro
         public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras

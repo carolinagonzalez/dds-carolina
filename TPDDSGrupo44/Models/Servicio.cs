@@ -18,6 +18,7 @@ namespace TPDDSGrupo44.Models
             horarioFeriados = new List<HorarioAbierto>();
         }
 
+        // Cálculo de Disponibilidad - Bancos y CGPs tienen servicios que pueden o no estar disponibles
         public bool estaDisponible(DateTime searchTime)
         {
             //busco entre los feriados a ver si hoy es feriado

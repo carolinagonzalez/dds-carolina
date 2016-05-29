@@ -27,9 +27,7 @@ namespace TPDDSGrupo44.Models
             this.numeroDeMes = numeroDeMes;
         }
 
-        
-
-
+        // Validar horario
         public bool horarioValido(DateTime searchTime)
         {
             if ((searchTime.Hour >= horarioInicio) && (searchTime.Hour < horarioFin)) //Contemplo rango en el que horario abre y cierra

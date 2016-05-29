@@ -7,8 +7,7 @@ namespace TPDDSGrupo44.Models
     {
         public List<Servicio> servicios { get; set; }
 
-        //Creo Constructor
-
+        // Constructor
         public Banco(string nombre, GeoCoordinate unaCoordenada)
         : base(nombre, unaCoordenada)
         {
@@ -17,12 +16,7 @@ namespace TPDDSGrupo44.Models
             palabraClave = nombre;
             servicios = new List<Servicio>();
         }
-
-
-        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
-        {
-            return base.estaCerca(coordenada); //Cuadras
-        }
+        
 
     }
 }

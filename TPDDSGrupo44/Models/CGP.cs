@@ -10,8 +10,9 @@ namespace TPDDSGrupo44.Models
         public List<Servicio> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
-        // Creo Constructor
 
+
+        // Constructor
         public CGP(string nombre, GeoCoordinate unaCoordenada, int zona)
         : base(nombre, unaCoordenada)
         {
@@ -20,15 +21,8 @@ namespace TPDDSGrupo44.Models
             zonaDelimitadaPorLaComuna = zona;
             servicios = new List<Servicio>();
         }
-        /*
-        public CGP()
-        {
-            this.posibilidades = new List<String>() { "Atencion al publico", "Rentas", "Registro Civil", "Multas" };
 
-        }
-        */
-
-        //2.	Los CGP cumplen la condición de cercanía, si su coordenada está dentro de la zona delimitada por la comuna.
+        // Cálculo de Cercanía - Dentro de la zona de la Comuna
         public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
