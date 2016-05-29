@@ -16,7 +16,7 @@ namespace TPDDSGrupo44.Models
         
 
         // Cálculo de Cercanía - Debe estar a menos de una cuadra
-        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < 1;
         }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Linq;
 using System.Globalization;
 
 namespace TPDDSGrupo44.Controllers
@@ -29,17 +30,17 @@ namespace TPDDSGrupo44.Controllers
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            // Genero lista de paradas
-            List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
-
+            // Genero lista de POIs
+            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+            
             // Agrego parada 114
             Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
-            paradas.Add(parada);
+            puntos.Add(parada);
             // Agrego Parada 36 - lejana
             parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
             parada.palabraClave = "36";
-            paradas.Add(parada);
+            puntos.Add(parada);
 
 
             // Genero lista de rubros
@@ -50,30 +51,30 @@ namespace TPDDSGrupo44.Controllers
             //Agrego kiosco de diarios
             rubros.Add(new Models.Rubro("kiosco de diarios", 2));
 
-
-            // Genero lista de locales
-            List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
-
+            
             // Agrego librería ceit
             Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
-            locales.Add(local);
+            puntos.Add(local);
 
             // agrego puesto de diarios 
             local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
-            locales.Add(local);
-
-
-            // Genero lista de CGPs
-            List<Models.CGP> CGPs = new List<Models.CGP>();
+            puntos.Add(local);
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
-            CGPs.Add(CGP);
+            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);;
+            puntos.Add(CGP);
 
             // Agrego CGP Floresta
             CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
-            CGPs.Add(CGP);
+            puntos.Add(CGP);
 
+            // Agrego Banco Provincia
+            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            puntos.Add(banco);
+
+            // Agrego Banco Francés
+            banco = new Models.Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            puntos.Add(banco);
 
             //Defino ubicación actual (UTN/CAMPUS)
             GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
@@ -83,6 +84,7 @@ namespace TPDDSGrupo44.Controllers
 
             string palabraBusqueda = search["palabraClave"];
 
+
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
 
@@ -91,8 +93,9 @@ namespace TPDDSGrupo44.Controllers
 
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
                 int linea = 0;
-                if (int.TryParse(palabraBusqueda, out linea) && linea > 0) { 
+                if (int.TryParse(palabraBusqueda, out linea) && linea > 0) {
 
+                    List<Models.ParadaDeColectivo> paradas = puntos.OfType<Models.ParadaDeColectivo>().ToList();
                     //recorro todas las paradas de la DB para buscar alguna cercana con la palabra clave ingresada
                     foreach (Models.ParadaDeColectivo punto in paradas) {
                         if (punto.estaCerca(dispositivoTactil) && punto.palabraClave == palabraBusqueda ) {
@@ -116,6 +119,8 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null) {
 
+                    List<Models.LocalComercial> locales = puntos.OfType<Models.LocalComercial>().ToList();
+
                     foreach (Models.LocalComercial punto in locales)
                     {
                         if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(palabraBusqueda.ToLower()))
@@ -135,49 +140,23 @@ namespace TPDDSGrupo44.Controllers
                     }
 
                     // Si la palabra ingresada no era parada ni rubro, la busco como local
-                } else if (locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
-                {
-
-                    Models.LocalComercial punto = locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                    // Si la palabra ingresada no era parada ni rubro ni local, la busco como CGP
-                }
-                else if (CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
-                {
-
-                    Models.CGP punto = CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                }
+                } 
                 else
                 {
-                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                    ViewBag.Search = "error";
+                    Models.PuntoDeInteres punto = puntos.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
+                    if (punto != null && punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "¡Punto encontrado! Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    } else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                    
                 }
 
                 return View();

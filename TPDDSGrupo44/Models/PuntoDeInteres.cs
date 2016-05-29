@@ -27,12 +27,12 @@ namespace TPDDSGrupo44.Models
 
 
         // Cálculo de Cercanía genérico - distancia menor a 5 cuadras
-        public bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
+        public virtual bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5;
         }
 
         // Cálculo de Disponibilidad Horaria genérico
-        public bool estaDisponible(DateTime searchTime)
+        public virtual bool estaDisponible(DateTime searchTime)
         {
             //busco entre los feriados a ver si hoy es feriado
             HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);

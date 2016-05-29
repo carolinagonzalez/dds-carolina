@@ -25,7 +25,7 @@ namespace TPDDSGrupo44.Models
         }
         
         // Cálculo de Cercanía - Depende del radio de cercanía del rubro
-        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
         }

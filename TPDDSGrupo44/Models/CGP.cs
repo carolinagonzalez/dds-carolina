@@ -14,7 +14,7 @@ namespace TPDDSGrupo44.Models
 
         // Constructor
         public CGP(string nombre, GeoCoordinate unaCoordenada, int zona)
-        : base(nombre, unaCoordenada)
+        : base (nombre, unaCoordenada)
         {
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
@@ -23,7 +23,7 @@ namespace TPDDSGrupo44.Models
         }
 
         // Cálculo de Cercanía - Dentro de la zona de la Comuna
-        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
         }
