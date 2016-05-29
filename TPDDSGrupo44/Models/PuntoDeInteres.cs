@@ -45,22 +45,21 @@ namespace TPDDSGrupo44.Models
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5; //Cuadras
         }
 
-        public bool estaDisponible()
+        public bool estaDisponible(DateTime searchTime)
         {
-            DateTime today = DateTime.Today;
 
             //busco entre los feriados a ver si hoy es feriado
-            HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == today.Day && x.numeroDeMes == today.Month);
+            HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
 
             //si es feriado, verificar si está abierto (pueden hacer horarios diferenciales)
             if (todaysHours != null)
             {
-                return todaysHours.horarioValido();
+                return todaysHours.horarioValido(searchTime);
             } else
             {
                 // si no era feriado, busco si está abierto por día de la semana
-                todaysHours = horarioAbierto.Find(x => x.dia == today.DayOfWeek );
-                return todaysHours.horarioValido();
+                todaysHours = horarioAbierto.Find(x => x.dia == searchTime.DayOfWeek );
+                return todaysHours.horarioValido(searchTime);
             }
         }
 

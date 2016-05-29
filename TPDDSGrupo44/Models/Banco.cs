@@ -14,6 +14,7 @@ namespace TPDDSGrupo44.Models
         {
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
+            palabraClave = nombre;
             servicios = new List<Servicio>();
         }
 

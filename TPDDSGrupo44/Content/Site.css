@@ -39,6 +39,7 @@ textarea, button {
     font-size: 15pt;
     border: 1px solid #eee;
     outline: 0;
+    margin: 5px;
 }
 
 input:focus, select:focus, textarea:focus {

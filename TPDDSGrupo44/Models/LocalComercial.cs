@@ -5,7 +5,6 @@ namespace TPDDSGrupo44.Models
 {
     public class LocalComercial : PuntoDeInteres
     {
-        public DateTime horario { get; set; }
         
         public string direccion { get; set; }
         public int numero { get; set; }
@@ -22,6 +21,7 @@ namespace TPDDSGrupo44.Models
             this.rubro = rubro;
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
+            palabraClave = nombre;
             palabrasRelacionadas.Add(rubro.nombreRubro);
         }
 
