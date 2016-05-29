@@ -215,6 +215,8 @@ namespace TPDDSGrupo44.Controllers
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            local.horarioFeriados.Add(new Models.HorarioAbierto(1, 1, 0, 0));
+            local.horarioFeriados.Add(new Models.HorarioAbierto(9, 7, 10, 16));
             puntos.Add(local);
             
             // Agrego CGP Lugano
