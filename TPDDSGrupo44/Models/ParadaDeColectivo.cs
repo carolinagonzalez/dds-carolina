@@ -1,4 +1,5 @@
-﻿using System.Device.Location;
+﻿using System;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -22,7 +23,7 @@ namespace TPDDSGrupo44.Models
         }
 
         // Cálculo de Disponibilidad Horaria - Siempre está disponible
-        public bool estaDisponible()
+        public override bool estaDisponible(DateTime searchTime)
         {
             return true;
         }

@@ -197,48 +197,26 @@ namespace TPDDSGrupo44.Controllers
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            // Genero lista de paradas
-            List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
+            // Genero lista de puntos
+            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
 
             // Agrego parada 114
             Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
-            paradas.Add(parada);
-            // Agrego Parada 36
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
-            parada.palabraClave = "36";
-            paradas.Add(parada);
-
-
-            // Genero lista de locales
-            List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
+            puntos.Add(parada);
+            
 
             // Agrego librería ceit
             Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
-            locales.Add(local);
-
-            // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            locales.Add(local);
-
-
-            // Genero lista de CGPs
-            List<Models.CGP> CGPs = new List<Models.CGP>();
-
+            puntos.Add(local);
+            
             // Agrego CGP Lugano
             Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
             Models.Servicio servicio = new Models.Servicio("Rentas");
@@ -247,10 +225,10 @@ namespace TPDDSGrupo44.Controllers
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
             CGP.servicios.Add(servicio);
-            CGPs.Add(CGP);
+            puntos.Add(CGP);
 
             // Agrego CGP Floresta
             CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
@@ -260,16 +238,12 @@ namespace TPDDSGrupo44.Controllers
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
             CGP.servicios.Add(servicio);
-            CGPs.Add(CGP);
+            puntos.Add(CGP);
 
-
-
-            // Genero lista de Bancos
-            List<Models.Banco> bancos = new List<Models.Banco>();
-
+            
             // Agrego Banco provincia
             Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.6571851, -58.4776738));
             servicio = new Models.Servicio("Depósitos");
@@ -288,29 +262,7 @@ namespace TPDDSGrupo44.Controllers
             banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
             banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            bancos.Add(banco);
-
-            // Agrego Banco Francés
-            banco = new Models.Banco("Banco Francés", new GeoCoordinate(-34.6579153,-58.4791142));
-            servicio = new Models.Servicio("Extracciones");
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            banco.servicios.Add(servicio);
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            bancos.Add(banco);
-
-
+            puntos.Add(banco);
 
             string searchWord = search["palabraClave"];
             DateTime searchTime = DateTime.ParseExact(search["selectedDate"], "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
@@ -323,20 +275,21 @@ namespace TPDDSGrupo44.Controllers
                 if (int.TryParse(searchWord, out linea) && linea > 0)
                 {
 
-                    //busco la parada en cuestión
-                    parada = paradas.Find(x => x.palabraClave == searchWord);
+                //busco la parada en cuestión
+                    List<Models.ParadaDeColectivo> paradas = puntos.OfType<Models.ParadaDeColectivo>().ToList();
+                    Models.ParadaDeColectivo punto = paradas.Find(x => x.palabraClave == searchWord);
 
-                    if (parada != null) { 
-                    if (parada.estaDisponible())
-                    {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " está disponible en ese horario";
+                    if (punto != null) { 
+                        if (punto.estaDisponible(searchTime))
+                        {
+                            ViewBag.SearchText = "La línea " + punto.palabraClave + " está disponible en ese horario";
                             ViewBag.Search = "ok";
 
                             return View();
 
                         } else
                         {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " no está disponible en ese horario";
+                            ViewBag.SearchText = "La línea " + punto.palabraClave + " no está disponible en ese horario";
                             ViewBag.Search = "error";
                             return View();
                         }
@@ -352,15 +305,17 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    string availableServices = "";
+                List<Models.CGP> CGPs = puntos.OfType<Models.CGP>().ToList();
+                string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
                     foreach (Models.CGP punto in CGPs) {
                         Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
                         if (foundService != null) {
-                            availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
+                            availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
                         }
                     }
 
+                List<Models.Banco> bancos = puntos.OfType<Models.Banco>().ToList();
                 foreach (Models.Banco punto in bancos)
                 {
                     Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
@@ -370,6 +325,7 @@ namespace TPDDSGrupo44.Controllers
                     }
                 }
 
+                List<Models.LocalComercial> locales = puntos.OfType<Models.LocalComercial>().ToList();
                 foreach (Models.LocalComercial punto in locales)
                 {
                     if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
