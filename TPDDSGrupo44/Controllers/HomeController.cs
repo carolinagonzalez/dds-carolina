@@ -280,6 +280,41 @@ namespace TPDDSGrupo44.Controllers
             CGP.servicios.Add(servicio);
             CGPs.Add(CGP);
 
+
+
+            // Genero lista de Bancos
+            List<Models.Banco> bancos = new List<Models.Banco>();
+
+            // Agrego Banco provincia
+            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.6571851, -58.4776738));
+            servicio = new Models.Servicio("Depósitos");
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
+            banco.servicios.Add(servicio);
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
+            bancos.Add(banco);
+
+            // Agrego Banco Francés
+            banco = new Models.Banco("Banco Francés", new GeoCoordinate(-34.6579153,-58.4791142));
+            servicio = new Models.Servicio("Extracciones");
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            banco.servicios.Add(servicio);
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
+            bancos.Add(banco);
+
+
+
             string searchWord = search["palabraClave"];
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
@@ -321,25 +356,28 @@ namespace TPDDSGrupo44.Controllers
                 {
                     string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    foreach (Models.CGP punto in CGPs)
-                    {
+                    foreach (Models.CGP punto in CGPs) {
                         Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible());
-
-                        if (foundService != null)
-                        {
+                        if (foundService != null) {
                             availableServices = "El servicio " + foundService.nombre + " está disponible en este momento en " + punto.nombreDelPOI + ".\n";
                         }
-
                     }
 
-                    if (availableServices != "")
+                foreach (Models.Banco punto in bancos)
+                {
+                    Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible());
+                    if (foundService != null && punto.estaDisponible())
                     {
+                        availableServices = "El servicio " + foundService.nombre + " está disponible en este momento en " + punto.nombreDelPOI + ".\n";
+                    }
+                }
+
+                if (availableServices != "") {
                         ViewBag.SearchText = availableServices;
                         ViewBag.Search = "ok";
 
                         return View();
-                    } else
-                    {
+                    } else {
                         ViewBag.SearchText = "Ese servicio no se encuentra disponible o no existe."; ;
                         ViewBag.Search = "error";
 

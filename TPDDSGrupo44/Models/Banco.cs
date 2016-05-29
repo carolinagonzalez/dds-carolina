@@ -1,10 +1,11 @@
-﻿using System;
-using System.Device.Location;
+﻿using System.Device.Location;
+using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
 {
     public class Banco : PuntoDeInteres
     {
+        public List<Servicio> servicios { get; set; }
 
         //Creo Constructor
 
@@ -13,6 +14,7 @@ namespace TPDDSGrupo44.Models
         {
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
+            servicios = new List<Servicio>();
         }
 
 
