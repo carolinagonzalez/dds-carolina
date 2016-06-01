@@ -13,6 +13,17 @@
     font-size:  17pt;
 }
 
+.foot{
+	margin-top: 50px;
+	color: white;
+	background: #222;
+	border-top: 1px solid #000;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+
+}
+
 .nav {
     text-transform: uppercase;
 }
