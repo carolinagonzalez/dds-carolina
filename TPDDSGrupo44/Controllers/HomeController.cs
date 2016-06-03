@@ -4,6 +4,7 @@ using System.Device.Location;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
+using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -61,11 +62,11 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(local);
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);;
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);;
             puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
             puntos.Add(CGP);
 
             // Agrego Banco Provincia
@@ -73,7 +74,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(banco);
 
             // Agrego Banco Francés
-            banco = new Models.Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
             puntos.Add(banco);
 
             //Defino ubicación actual (UTN/CAMPUS)
@@ -123,7 +124,7 @@ namespace TPDDSGrupo44.Controllers
 
                     foreach (Models.LocalComercial punto in locales)
                     {
-                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(palabraBusqueda.ToLower()))
+                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower()))
                         {
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
                             ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
@@ -263,9 +264,9 @@ namespace TPDDSGrupo44.Controllers
             local.horarioFeriados.Add(new Models.HorarioAbierto(1, 1, 0, 0));
             local.horarioFeriados.Add(new Models.HorarioAbierto(9, 7, 10, 16));
             puntos.Add(local);
-            
+
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
             Models.Servicio servicio = new Models.Servicio("Rentas");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
@@ -278,7 +279,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
             servicio = new Models.Servicio("Registro Civil");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
@@ -352,10 +353,10 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                List<Models.CGP> CGPs = puntos.OfType<Models.CGP>().ToList();
+                List<CGP> CGPs = puntos.OfType<CGP>().ToList();
                 string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    foreach (Models.CGP punto in CGPs) {
+                    foreach (CGP punto in CGPs) {
                         Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
                         if (foundService != null) {
                             availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
