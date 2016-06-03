@@ -168,11 +168,56 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult Location()
+        public ActionResult Location(FormCollection search)
         {
             ViewBag.Message = "Buscá puntos de interés específicos.";
+            //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            return View();
+            // Genero lista de POIs
+            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+
+            // Agrego parada 114
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            parada.palabraClave = "114";
+            puntos.Add(parada);
+            // Agrego Parada 36 - lejana
+            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
+            parada.palabraClave = "144";
+            puntos.Add(parada);
+
+
+            string palabraBusqueda = search["palabraClave"];
+
+
+            //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
+
+
+            try
+            { 
+
+            List<Models.PuntoDeInteres> filteredList = puntos.Where(x => x.palabraClave == palabraBusqueda).ToList();
+
+                if (filteredList.Count > 0) {
+
+                    ViewBag.SearchText = "";
+                    foreach (Models.PuntoDeInteres punto in filteredList)
+                    {
+                        
+                        ViewBag.SearchText = ViewBag.SearchText + punto.palabraClave + " -> " + punto.nombreDelPOI + ", " ;
+                        ViewBag.Search = "ok";
+                    }
+                }
+                else{
+                    ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                    ViewBag.Search = "error";
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+
         }
 
         public ActionResult Availability()

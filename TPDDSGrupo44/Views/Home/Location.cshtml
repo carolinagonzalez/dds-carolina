@@ -9,8 +9,9 @@
 
 
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Location", "Home", FormMethod.Post))
 {
     <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
     <button type="submit">Buscar</button>
 }
+<div class="result @ViewBag.Search">@ViewBag.SearchText</div>
