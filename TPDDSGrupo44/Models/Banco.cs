@@ -9,12 +9,15 @@ namespace TPDDSGrupo44.Models
 
         //Creo Constructor
 
+
         public Banco(string nombre, GeoCoordinate unaCoordenada)
         : base(nombre, unaCoordenada)
         {
+
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
             servicios = new List<Servicio>();
+
         }
 
 
