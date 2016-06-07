@@ -10,6 +10,57 @@ namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
+        public void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (ParadaDeColectivo punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
+        public void mostrarLista(List<PuntoDeInteres> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (PuntoDeInteres punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+        public void mostrarLista(List<LocalComercial> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (LocalComercial punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
+
         public ActionResult Index()
         {
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
@@ -35,7 +86,7 @@ namespace TPDDSGrupo44.Controllers
             List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
             
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
             puntos.Add(parada);
             // Agrego Parada 36 - lejana
@@ -175,42 +226,78 @@ namespace TPDDSGrupo44.Controllers
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
             // Genero lista de POIs
-            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+            List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
 
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new ParadaDeColectivo("Monroe 2979", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
             puntos.Add(parada);
-            // Agrego Parada 36 - lejana
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
-            parada.palabraClave = "144";
+            // Agrego Parada 114 - lejana
+            parada = new ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            parada.palabraClave = "114";
             puntos.Add(parada);
 
+            // Genero lista de rubros
+            List<Models.Rubro> rubros = new List<Models.Rubro>();
+
+            //Agrego Librería escolar
+            rubros.Add(new Models.Rubro("librería escolar", 5));
+            //Agrego kiosco de diarios
+            rubros.Add(new Models.Rubro("kiosco de diarios", 2));
+
+            // Agrego librería ceit
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            puntos.Add(local);
+
+            // agrego puesto de diarios 
+            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
+            puntos.Add(local);
+
+            // agrego puesto de diarios 
+            local = new Models.LocalComercial("Kiosco El enano", new GeoCoordinate(-34.634015, -59.482805), new Models.Rubro("kiosco de diarios", 5));
+            puntos.Add(local);
+
+            // Agrego CGP Lugano
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50); ;
+            puntos.Add(CGP);
+
+            // Agrego CGP Floresta
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            puntos.Add(CGP);
+
+            // Agrego Banco Provincia
+            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            puntos.Add(banco);
+
+            // Agrego Banco Francés
+            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            puntos.Add(banco);
 
             string palabraBusqueda = search["palabraClave"];
-
-
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
 
+
             try
-            { 
+            {
+                int linea = 0;
+                if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
+                {
+                    List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
 
-            List<Models.PuntoDeInteres> filteredList = puntos.Where(x => x.palabraClave == palabraBusqueda).ToList();
-
-                if (filteredList.Count > 0) {
-
-                    ViewBag.SearchText = "";
-                    foreach (Models.PuntoDeInteres punto in filteredList)
-                    {
-                        
-                        ViewBag.SearchText = ViewBag.SearchText + punto.palabraClave + " -> " + punto.nombreDelPOI + ", " ;
-                        ViewBag.Search = "ok";
-                    }
+                    List<ParadaDeColectivo> paradasFiltradas = paradas.Where(x => x.palabraClave == palabraBusqueda).ToList();
+                    mostrarLista(paradasFiltradas, palabraBusqueda);
                 }
-                else{
-                    ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
-                    ViewBag.Search = "error";
+                else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null)
+                {
+                    List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
+                    List<LocalComercial> localesFiltradas = locales.Where(x => x.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    mostrarLista(localesFiltradas, palabraBusqueda);
+                }
+                else
+                {
+                    List<PuntoDeInteres> puntosDeInteresPalabra = puntos.Where(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    mostrarLista(puntosDeInteresPalabra, palabraBusqueda);
                 }
                 return View();
             }
