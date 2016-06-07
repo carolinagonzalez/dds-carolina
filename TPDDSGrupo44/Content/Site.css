@@ -13,6 +13,17 @@
     font-size:  17pt;
 }
 
+.foot{
+	margin-top: 50px;
+	color: white;
+	background: #222;
+	border-top: 1px solid #000;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+
+}
+
 .nav {
     text-transform: uppercase;
 }
@@ -39,6 +50,7 @@ textarea, button {
     font-size: 15pt;
     border: 1px solid #eee;
     outline: 0;
+    margin: 5px;
 }
 
 input:focus, select:focus, textarea:focus {

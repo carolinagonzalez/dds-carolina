@@ -1,12 +1,66 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Linq;
 using System.Globalization;
+using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
+        public void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (ParadaDeColectivo punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
+        public void mostrarLista(List<PuntoDeInteres> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (PuntoDeInteres punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+        public void mostrarLista(List<LocalComercial> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (LocalComercial punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
+
         public ActionResult Index()
         {
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
@@ -28,17 +82,17 @@ namespace TPDDSGrupo44.Controllers
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            // Genero lista de paradas
-            List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
-
+            // Genero lista de POIs
+            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+            
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
-            paradas.Add(parada);
+            puntos.Add(parada);
             // Agrego Parada 36 - lejana
             parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
             parada.palabraClave = "36";
-            paradas.Add(parada);
+            puntos.Add(parada);
 
 
             // Genero lista de rubros
@@ -49,30 +103,30 @@ namespace TPDDSGrupo44.Controllers
             //Agrego kiosco de diarios
             rubros.Add(new Models.Rubro("kiosco de diarios", 2));
 
-
-            // Genero lista de locales
-            List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
-
+            
             // Agrego librería ceit
             Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
-            locales.Add(local);
+            puntos.Add(local);
 
             // agrego puesto de diarios 
             local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
-            locales.Add(local);
-
-
-            // Genero lista de CGPs
-            List<Models.CGP> CGPs = new List<Models.CGP>();
+            puntos.Add(local);
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
-            CGPs.Add(CGP);
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);;
+            puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
-            CGPs.Add(CGP);
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            puntos.Add(CGP);
 
+            // Agrego Banco Provincia
+            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            puntos.Add(banco);
+
+            // Agrego Banco Francés
+            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            puntos.Add(banco);
 
             //Defino ubicación actual (UTN/CAMPUS)
             GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
@@ -82,6 +136,7 @@ namespace TPDDSGrupo44.Controllers
 
             string palabraBusqueda = search["palabraClave"];
 
+
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
 
@@ -90,8 +145,9 @@ namespace TPDDSGrupo44.Controllers
 
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
                 int linea = 0;
-                if (int.TryParse(palabraBusqueda, out linea) && linea > 0) { 
+                if (int.TryParse(palabraBusqueda, out linea) && linea > 0) {
 
+                    List<Models.ParadaDeColectivo> paradas = puntos.OfType<Models.ParadaDeColectivo>().ToList();
                     //recorro todas las paradas de la DB para buscar alguna cercana con la palabra clave ingresada
                     foreach (Models.ParadaDeColectivo punto in paradas) {
                         if (punto.estaCerca(dispositivoTactil) && punto.palabraClave == palabraBusqueda ) {
@@ -115,9 +171,11 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null) {
 
+                    List<Models.LocalComercial> locales = puntos.OfType<Models.LocalComercial>().ToList();
+
                     foreach (Models.LocalComercial punto in locales)
                     {
-                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.Contains(palabraBusqueda.ToLower()))
+                        if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower()))
                         {
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
                             ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
@@ -134,49 +192,23 @@ namespace TPDDSGrupo44.Controllers
                     }
 
                     // Si la palabra ingresada no era parada ni rubro, la busco como local
-                } else if (locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
-                {
-
-                    Models.LocalComercial punto = locales.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "¡Un local cerca tiene ese nombre! Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                    // Si la palabra ingresada no era parada ni rubro ni local, la busco como CGP
-                }
-                else if (CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())) != null)
-                {
-
-                    Models.CGP punto = CGPs.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
-
-                    if (punto.estaCerca(dispositivoTactil))
-                    {
-                        ViewBag.SearchText = "Hay un CGP cercano. Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.TextoLugar = punto.nombreDelPOI;
-                        ViewBag.Search = "ok";
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                        ViewBag.Search = "error";
-                    }
-                }
+                } 
                 else
                 {
-                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                    ViewBag.Search = "error";
+                    Models.PuntoDeInteres punto = puntos.Find(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower()));
+                    if (punto != null && punto.estaCerca(dispositivoTactil))
+                    {
+                        ViewBag.SearchText = "¡Punto encontrado! Visite " + punto.nombreDelPOI;
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.TextoLugar = punto.nombreDelPOI;
+                        ViewBag.Search = "ok";
+                    } else
+                    {
+                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
+                        ViewBag.Search = "error";
+                    }
+                    
                 }
 
                 return View();
@@ -188,11 +220,92 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult Location()
+        public ActionResult Location(FormCollection search)
         {
             ViewBag.Message = "Buscá puntos de interés específicos.";
+            //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            return View();
+            // Genero lista de POIs
+            List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
+
+            // Agrego parada 114
+            ParadaDeColectivo parada = new ParadaDeColectivo("Monroe 2979", new GeoCoordinate(-34.659690, -58.468764));
+            parada.palabraClave = "114";
+            puntos.Add(parada);
+            // Agrego Parada 114 - lejana
+            parada = new ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            parada.palabraClave = "114";
+            puntos.Add(parada);
+
+            // Genero lista de rubros
+            List<Models.Rubro> rubros = new List<Models.Rubro>();
+
+            //Agrego Librería escolar
+            rubros.Add(new Models.Rubro("librería escolar", 5));
+            //Agrego kiosco de diarios
+            rubros.Add(new Models.Rubro("kiosco de diarios", 2));
+
+            // Agrego librería ceit
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            puntos.Add(local);
+
+            // agrego puesto de diarios 
+            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
+            puntos.Add(local);
+
+            // agrego puesto de diarios 
+            local = new Models.LocalComercial("Kiosco El enano", new GeoCoordinate(-34.634015, -59.482805), new Models.Rubro("kiosco de diarios", 5));
+            puntos.Add(local);
+
+            // Agrego CGP Lugano
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50); ;
+            puntos.Add(CGP);
+
+            // Agrego CGP Floresta
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            puntos.Add(CGP);
+
+            // Agrego Banco Provincia
+            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            puntos.Add(banco);
+
+            // Agrego Banco Francés
+            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            puntos.Add(banco);
+
+            string palabraBusqueda = search["palabraClave"];
+            //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
+
+
+
+            try
+            {
+                int linea = 0;
+                if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
+                {
+                    List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
+
+                    List<ParadaDeColectivo> paradasFiltradas = paradas.Where(x => x.palabraClave == palabraBusqueda).ToList();
+                    mostrarLista(paradasFiltradas, palabraBusqueda);
+                }
+                else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null)
+                {
+                    List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
+                    List<LocalComercial> localesFiltradas = locales.Where(x => x.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    mostrarLista(localesFiltradas, palabraBusqueda);
+                }
+                else
+                {
+                    List<PuntoDeInteres> puntosDeInteresPalabra = puntos.Where(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    mostrarLista(puntosDeInteresPalabra, palabraBusqueda);
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+
         }
 
         public ActionResult Availability()
@@ -217,59 +330,31 @@ namespace TPDDSGrupo44.Controllers
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
-            // Genero lista de paradas
-            List<Models.ParadaDeColectivo> paradas = new List<Models.ParadaDeColectivo>();
+            // Genero lista de puntos
+            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
 
             // Agrego parada 114
             Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
             parada.palabraClave = "114";
-            paradas.Add(parada);
-            // Agrego Parada 36
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
-            parada.palabraClave = "36";
-            paradas.Add(parada);
-
-
-            // Genero lista de rubros
-            List<Models.Rubro> rubros = new List<Models.Rubro>();
-
-            //Agrego Librería escolar
-            rubros.Add(new Models.Rubro("librería escolar", 5));
-            //Agrego kiosco de diarios
-            rubros.Add(new Models.Rubro("kiosco de diarios", 2));
-
-
-            // Genero lista de locales
-            List<Models.LocalComercial> locales = new List<Models.LocalComercial>();
+            puntos.Add(parada);
+            
 
             // Agrego librería ceit
             Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
-            locales.Add(local);
-
-            // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
-            locales.Add(local);
-
-
-            // Genero lista de CGPs
-            List<Models.CGP> CGPs = new List<Models.CGP>();
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
+            local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            local.horarioFeriados.Add(new Models.HorarioAbierto(1, 1, 0, 0));
+            local.horarioFeriados.Add(new Models.HorarioAbierto(9, 7, 10, 16));
+            puntos.Add(local);
 
             // Agrego CGP Lugano
-            Models.CGP CGP = new Models.CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
             Models.Servicio servicio = new Models.Servicio("Rentas");
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
-            CGP.servicios.Add(servicio);
-            CGPs.Add(CGP);
-
-            // Agrego CGP Floresta
-            CGP = new Models.CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
-            servicio = new Models.Servicio("Registro Civil");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -278,13 +363,22 @@ namespace TPDDSGrupo44.Controllers
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
             CGP.servicios.Add(servicio);
-            CGPs.Add(CGP);
+            puntos.Add(CGP);
 
+            // Agrego CGP Floresta
+            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            servicio = new Models.Servicio("Registro Civil");
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
+            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            CGP.servicios.Add(servicio);
+            puntos.Add(CGP);
 
-
-            // Genero lista de Bancos
-            List<Models.Banco> bancos = new List<Models.Banco>();
-
+            
             // Agrego Banco provincia
             Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.6571851, -58.4776738));
             servicio = new Models.Servicio("Depósitos");
@@ -293,29 +387,20 @@ namespace TPDDSGrupo44.Controllers
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 23));
-            banco.servicios.Add(servicio);
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            bancos.Add(banco);
-
-            // Agrego Banco Francés
-            banco = new Models.Banco("Banco Francés", new GeoCoordinate(-34.6579153,-58.4791142));
-            servicio = new Models.Servicio("Extracciones");
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
             banco.servicios.Add(servicio);
-            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 23));
-            bancos.Add(banco);
-
-
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            banco.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            puntos.Add(banco);
 
             string searchWord = search["palabraClave"];
+            DateTime searchTime = DateTime.ParseExact(search["selectedDate"], "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
             
@@ -325,20 +410,21 @@ namespace TPDDSGrupo44.Controllers
                 if (int.TryParse(searchWord, out linea) && linea > 0)
                 {
 
-                    //busco la parada en cuestión
-                    parada = paradas.Find(x => x.palabraClave == searchWord);
+                //busco la parada en cuestión
+                    List<Models.ParadaDeColectivo> paradas = puntos.OfType<Models.ParadaDeColectivo>().ToList();
+                    Models.ParadaDeColectivo punto = paradas.Find(x => x.palabraClave == searchWord);
 
-                    if (parada != null) { 
-                    if (parada.estaDisponible())
-                    {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " está disponible en este momento";
+                    if (punto != null) { 
+                        if (punto.estaDisponible(searchTime))
+                        {
+                            ViewBag.SearchText = "La línea " + punto.palabraClave + " está disponible en ese horario";
                             ViewBag.Search = "ok";
 
                             return View();
 
                         } else
                         {
-                            ViewBag.SearchText = "La línea " + parada.palabraClave + " no está disponible en este momento";
+                            ViewBag.SearchText = "La línea " + punto.palabraClave + " no está disponible en ese horario";
                             ViewBag.Search = "error";
                             return View();
                         }
@@ -354,21 +440,32 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                    string availableServices = "";
+                List<CGP> CGPs = puntos.OfType<CGP>().ToList();
+                string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    foreach (Models.CGP punto in CGPs) {
-                        Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible());
+                    foreach (CGP punto in CGPs) {
+                        Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
                         if (foundService != null) {
-                            availableServices = "El servicio " + foundService.nombre + " está disponible en este momento en " + punto.nombreDelPOI + ".\n";
+                            availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
                         }
                     }
 
+                List<Models.Banco> bancos = puntos.OfType<Models.Banco>().ToList();
                 foreach (Models.Banco punto in bancos)
                 {
-                    Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible());
-                    if (foundService != null && punto.estaDisponible())
+                    Models.Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
+                    if (foundService != null && punto.estaDisponible(searchTime))
                     {
-                        availableServices = "El servicio " + foundService.nombre + " está disponible en este momento en " + punto.nombreDelPOI + ".\n";
+                        availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
+                    }
+                }
+
+                List<Models.LocalComercial> locales = puntos.OfType<Models.LocalComercial>().ToList();
+                foreach (Models.LocalComercial punto in locales)
+                {
+                    if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
+                    {
+                        availableServices = "El local " + punto.nombreDelPOI + " está disponible en ese horario.\n";
                     }
                 }
 
@@ -378,7 +475,7 @@ namespace TPDDSGrupo44.Controllers
 
                         return View();
                     } else {
-                        ViewBag.SearchText = "Ese servicio no se encuentra disponible o no existe."; ;
+                        ViewBag.SearchText = "Ese servicio o local no se encuentra disponible o no existe."; ;
                         ViewBag.Search = "error";
 
                         return View();

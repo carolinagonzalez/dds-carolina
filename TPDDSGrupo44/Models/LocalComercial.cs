@@ -5,7 +5,6 @@ namespace TPDDSGrupo44.Models
 {
     public class LocalComercial : PuntoDeInteres
     {
-        public DateTime horario { get; set; }
         
         public string direccion { get; set; }
         public int numero { get; set; }
@@ -14,25 +13,19 @@ namespace TPDDSGrupo44.Models
 
         public Rubro rubro { get; set; }
 
-        // Creo Constructor
-
+        // Constructor
         public LocalComercial(string nombre, GeoCoordinate unaCoordenada, Rubro rubro)
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
+            palabraClave = nombre;
             palabrasRelacionadas.Add(rubro.nombreRubro);
         }
-
-        /*
-    public LocalComercial()
-    {
-
-        this.posibilidades = new List<String>() { "Kiosco", "Libreria Escolar" };
-    }*/
-
-        public new bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        
+        // Cálculo de Cercanía - Depende del radio de cercanía del rubro
+        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
         {
             return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
         }

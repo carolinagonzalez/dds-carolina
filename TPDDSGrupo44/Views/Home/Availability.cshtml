@@ -3,7 +3,11 @@
 }
 
 @Scripts.Render("~/scripts/index.js")
-
+<script>
+    $(document).ready(function (){
+        $("input[type='date']").val(new Date().toJSON().slice(0, 10));
+    });
+</script>
 
 <section class="featured">
     <section class="featured">
@@ -18,7 +22,7 @@
 
 @using (Html.BeginForm("Availability", "Home", FormMethod.Post))
 {
-    <input type="text" placeholder="Buscar horarios de..." name="palabraClave">
+    <input type="text" placeholder="Buscar horarios de..." name="palabraClave"><input type="datetime-local" name="selectedDate"/>
     <button type="submit">Buscar</button>
 }
 
