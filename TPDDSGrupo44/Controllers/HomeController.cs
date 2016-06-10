@@ -95,6 +95,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(parada);
 
 
+
             // Genero lista de rubros
             List<Models.Rubro> rubros = new List<Models.Rubro>();
 
