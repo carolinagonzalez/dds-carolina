@@ -206,6 +206,7 @@
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\jsonparseo.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\MainProbar.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -237,6 +238,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\json.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\index.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
@@ -292,6 +294,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\json\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
