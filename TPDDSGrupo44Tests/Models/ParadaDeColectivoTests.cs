@@ -22,7 +22,8 @@ namespace TPDDSGrupo44.Models.Tests
 
             Assert.IsTrue(parada.estaDisponible(DateTime.Now));
 
-            
+           
+
         }
     }
 }
