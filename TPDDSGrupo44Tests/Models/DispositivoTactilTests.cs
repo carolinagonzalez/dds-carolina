@@ -1,10 +1,5 @@
 ﻿using NUnit.Framework;
-using TPDDSGrupo44;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Device.Location;
 using TPDDSGrupo44.Models;
 
@@ -18,7 +13,7 @@ namespace TPDDSGrupo44.Tests
         public void estaCercaParadaTest()
         {
             
-            DispositivoTactil unDispositivo = new DispositivoTactil(new GeoCoordinate(-34.6597047, -58.4688947));
+            DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", new GeoCoordinate(-34.6597047, -58.4688947));
 
             ParadaDeColectivo parada = new ParadaDeColectivo("114", new GeoCoordinate(-34.659690, -58.468764));
 
@@ -34,7 +29,7 @@ namespace TPDDSGrupo44.Tests
         [Test]
         public void estaCercaLocalTest()
         {
-            DispositivoTactil unDispositivo = new DispositivoTactil(new GeoCoordinate(-34.6597047, -58.4688947));
+            DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", new GeoCoordinate(-34.6597047, -58.4688947));
 
             List<Rubro> rubros = new List<Rubro>();
 
@@ -55,7 +50,7 @@ namespace TPDDSGrupo44.Tests
         [Test]
         public void estaCercaCGPTest()
         {
-            DispositivoTactil unDispositivo = new DispositivoTactil(new GeoCoordinate(-34.6597047, -58.4688947));
+            DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", new GeoCoordinate(-34.6597047, -58.4688947));
 
             // Agrego CGP Lugano
             CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50); ;
@@ -74,7 +69,7 @@ namespace TPDDSGrupo44.Tests
         [Test]
         public void estaCercaBancoTest()
         {
-            DispositivoTactil unDispositivo = new DispositivoTactil(new GeoCoordinate(-34.6597047, -58.4688947));
+            DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", new GeoCoordinate(-34.6597047, -58.4688947));
 
             // Agrego Banco Provincia
             Banco banco = new Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));

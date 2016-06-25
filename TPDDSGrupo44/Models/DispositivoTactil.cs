@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using TPDDSGrupo44.Models;
 using System.Device.Location;
 using System.Linq;
-using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPDDSGrupo44
 {
     public class DispositivoTactil
     {
+        [Key]
+        public int Id { get; set; }
 
-        // public int coordenada { get; set; }
         public GeoCoordinate coordenada { get; set; }
-        public string puntoInteres { get; set; }
+        public string nombre { get; set; }
         public int comuna { get; set; } //se refiere al numero de comuna?
-        public string consultas { get; set; }
 
         //Creo coleccion
         public List<PuntoDeInteres> ListaPuntosDeInteres;
 
 
         // Creo Constructor
-        public DispositivoTactil(GeoCoordinate unaCoordenada)
+        public DispositivoTactil(string nombreDelPunto, GeoCoordinate unaCoordenada)
         {
+            nombre = nombreDelPunto;
             coordenada = unaCoordenada;
         }
 

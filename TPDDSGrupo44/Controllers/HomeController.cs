@@ -10,7 +10,7 @@ namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
-        public void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
+        private void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
         {
             if (listaFiltrada.Count > 0)
             {
@@ -27,7 +27,7 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public void mostrarLista(List<PuntoDeInteres> listaFiltrada, String palabraBusqueda)
+        private void mostrarLista(List<PuntoDeInteres> listaFiltrada, String palabraBusqueda)
         {
             if (listaFiltrada.Count > 0)
             {
@@ -43,7 +43,7 @@ namespace TPDDSGrupo44.Controllers
                 ViewBag.Search = "error";
             }
         }
-        public void mostrarLista(List<LocalComercial> listaFiltrada, String palabraBusqueda)
+        private void mostrarLista(List<LocalComercial> listaFiltrada, String palabraBusqueda)
         {
             if (listaFiltrada.Count > 0)
             {
@@ -275,6 +275,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(banco);
 
             string palabraBusqueda = search["palabraClave"];
+            DispositivoTactil device = new DispositivoTactil("UTN Campus", new GeoCoordinate(-34.6597047, -58.4688947));
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
 
@@ -282,25 +283,43 @@ namespace TPDDSGrupo44.Controllers
             try
             {
                 int linea = 0;
-                if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
-                {
-                    List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
 
-                    List<ParadaDeColectivo> paradasFiltradas = paradas.Where(x => x.palabraClave == palabraBusqueda).ToList();
-                    mostrarLista(paradasFiltradas, palabraBusqueda);
-                }
-                else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null)
+                using (var db = new BuscAR())
                 {
-                    List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
-                    List<LocalComercial> localesFiltradas = locales.Where(x => x.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                    mostrarLista(localesFiltradas, palabraBusqueda);
+                    if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
+                    {
+                        List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
+
+                        List<ParadaDeColectivo> puntosFiltrados = paradas.Where(x => x.palabraClave == palabraBusqueda).ToList();
+                        mostrarLista(puntosFiltrados, palabraBusqueda);
+
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
+                        db.Busquedas.Add(busqueda);
+                    }
+                    else if (rubros.Find(x => x.nombreRubro.Contains(palabraBusqueda.ToLower())) != null)
+                    {
+                        List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
+                        List<LocalComercial> puntosFiltrados = locales.Where(x => x.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        mostrarLista(puntosFiltrados, palabraBusqueda);
+
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
+                        db.Busquedas.Add(busqueda);
+                    }
+                    else
+                    {
+                        List<PuntoDeInteres> puntosFiltrados = puntos.Where(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        mostrarLista(puntosFiltrados, palabraBusqueda);
+
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
+                        db.Busquedas.Add(busqueda);
+                    }
+
+                    db.SaveChanges();
+
                 }
-                else
-                {
-                    List<PuntoDeInteres> puntosDeInteresPalabra = puntos.Where(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                    mostrarLista(puntosDeInteresPalabra, palabraBusqueda);
-                }
-                return View();
+                
+                    return View();
+
             }
             catch
             {
@@ -486,6 +505,21 @@ namespace TPDDSGrupo44.Controllers
 
             }
             
+        }
+
+        public ActionResult SearchReports()
+        {
+            List<Busqueda> busquedas;
+            using (var db = new BuscAR())
+            {
+                busquedas = (from b in db.Busquedas
+                            orderby b.Id
+                            select b).ToList();
+                
+            }
+
+            return View(busquedas);
+
         }
     }
 }
