@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Device.Location;
+using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
 {
@@ -21,7 +22,18 @@ namespace TPDDSGrupo44.Models
 
             LocalComercial localComercial = new LocalComercial("localComercial", new GeoCoordinate(-34.81725, -58.4476116), new Rubro("libreria",34));
 
-            ParadaDeColectivo parada=new ParadaDeColectivo("114", new GeoCoordinate(-34.81725, -58.4476116));
+            //ParadaDeColectivo parada=new ParadaDeColectivo("114", new GeoCoordinate(-34.81725, -58.4476116));
+
+            List<String> paradasDeEstaLinea = new List<String>();
+
+            // Parada unaParada = new Parada(numeroDeLinea, unaCoordenada, paradasAgregadas);
+            paradasDeEstaLinea.Add("Mozart 300");
+            paradasDeEstaLinea.Add("Mozart 100");
+            ParadaDeColectivo unaParada = new ParadaDeColectivo(114, new GeoCoordinate(-34.81725, -58.4476116), paradasDeEstaLinea);
+
+            //  unaParada.agregarPOILinea(7, "maipu 999");
+
+
 
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("-------------------------------------------");
@@ -39,7 +51,7 @@ namespace TPDDSGrupo44.Models
 
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("-------------------------------------------");
-            Console.WriteLine(dispositivoTactil.estaCerca(parada));
+            //Console.WriteLine(dispositivoTactil.estaCerca(parada));
 
 
 

@@ -6,24 +6,124 @@ namespace TPDDSGrupo44.Models
 {
     public class PuntoDeInteres
     {
-        public string callePrincipal { get; set; }
-        public string entreCalles { get; set; }
+       
         public string palabraClave { get; set; }
-        public GeoCoordinate coordenada { get; set; }
-        public string nombreDelPOI { get; set; }
+        public string entreCalles { get; set; }
+
 
         public List<String> palabrasRelacionadas = new List<String>();
 
         public List<HorarioAbierto> horarioAbierto = new List<HorarioAbierto>();
         public List<HorarioAbierto> horarioFeriados = new List<HorarioAbierto>();
+        private int numLinea;
+        private GeoCoordinate unaCoordenada;
+        private List<string> unasParadas;
+        private string nombreRubro;
+        private int radioCercania;
+        private Rubro rubro;
+        private DateTime dateRubro;
+        private string direccion;
+        private int piso;
+        private char dto;
 
+
+
+
+        /* Getters & setters callePrincipal */
+        public string callePrincipal;
+
+        public String getCallePrincipal()
+        {
+            return callePrincipal;
+        }
+
+        public void setCallePrincipal(String callePrincipal)
+        {
+            if (callePrincipal == null || callePrincipal.Length == 0)
+            {
+                throw new System.ArgumentException("La calle principal no puede ser nula");
+            }
+            this.callePrincipal = callePrincipal;
+        }
+
+
+        /* Getters & setters coordenada */
+        public GeoCoordinate coordenada;
+
+
+        public GeoCoordinate getCoordenada()
+        {
+            return coordenada;
+        }
+
+        public void setCoordenada(GeoCoordinate coordenada)
+        {
+            if (coordenada == null || coordenada.ToString() == "")
+            {
+                throw new System.ArgumentException("La coordenada ingresada no puede ser nula");
+            }
+            this.coordenada = coordenada;
+        }
+
+
+
+        /* Getters & setters nombreDelPOI */
+        public string nombreDelPOI;
+
+
+        public String getNombrePOI()
+        {
+            return nombreDelPOI;
+        }
+
+        public void setNombreDelPOI(String nombreDelPOI)
+        {
+            if (nombreDelPOI == null || nombreDelPOI.Length == 0)
+            {
+                throw new System.ArgumentException("La calle principal no puede ser nula");
+            }
+
+            this.nombreDelPOI = nombreDelPOI;
+        }
+
+
+
+        //Constructor vacio
+        public PuntoDeInteres() { }
 
         // Constructor básico
-        public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada) {
-            nombreDelPOI = nombre;
-            coordenada = unaCordenada;
+        public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada)
+        {
+            this.setNombreDelPOI(nombre);
+            this.setCoordenada(unaCordenada);
+
+            // nombreDelPOI = nombre;
+            // coordenada = unaCordenada;
             palabrasRelacionadas.Add(nombre);
         }
+
+        public PuntoDeInteres(int numLinea, GeoCoordinate unaCoordenada, List<string> unasParadas)
+        {
+            this.numLinea = numLinea;
+            this.unaCoordenada = unaCoordenada;
+            this.unasParadas = unasParadas;
+        }
+
+        public PuntoDeInteres(string nombreRubro, int radioCercania, GeoCoordinate unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
+        {
+            this.nombreRubro = nombreRubro;
+            this.radioCercania = radioCercania;
+            this.unaCoordenada = unaCoordenada;
+            this.rubro = rubro;
+            this.dateRubro = dateRubro;
+            this.direccion = direccion;
+            this.piso = piso;
+            this.dto = dto;
+        }
+
+
+
+
 
 
         // Cálculo de Cercanía genérico - distancia menor a 5 cuadras
