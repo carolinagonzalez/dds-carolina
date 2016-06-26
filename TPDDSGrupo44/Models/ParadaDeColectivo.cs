@@ -105,6 +105,9 @@ namespace TPDDSGrupo44.Models
 
         List<string> paradasDeEstaLinea = new List<string> { "Rivadavia 123", "Rio de Janeiro 333" };
 
+
+
+
         /* Alta - Parada POI Linea */
         public void agregarPOILinea(string nuevaLinea, String paradaAgregada)
         {
@@ -227,6 +230,55 @@ namespace TPDDSGrupo44.Models
         }
 
 
+
+
+        /* Modificar - Parada POI Linea - Modifico para una parada de colectivo para una determinada Linea*/
+        public void modificarPOILinea(string numLinea, String paradaExistente, String paradaModificada)//Solo modifico si la linea existe
+        {
+
+            if (!noExistePOI(numLinea))//Verifico que la linea ingresada no sean nula, es decir, que se ingrese
+            {
+                List<string> listaFiltrada = new List<string>(listaDeLineas.Where(x => x == numLinea).ToList());
+
+            
+            if (listaFiltrada.ToString().Length == 0) //La linea no existe
+            {
+                throw new System.ArgumentException("No se puede Modificar este punto de interés");
+
+            }
+            else if (listaFiltrada.ToString().Length > 0)
+            {
+
+               List<string> listaFiltradaParadas = new List<string>(paradasDeEstaLinea.Where(x => x == paradaExistente).ToList());
+
+                
+                if (listaFiltradaParadas.ToString().Length <= 0) //La parada no existe
+                {
+                    throw new System.ArgumentException("No se puede Modificar este punto de interés ya que no existe la parada que desea modificar");
+
+                }
+                else
+                {
+                    //MODIFICACIÓN DE LA NUEVA PARADA:
+
+                    //Elimino la parada anterior
+                    paradasDeEstaLinea.Remove(paradaExistente);
+                    //Agrego la parada nueva
+                    paradasDeEstaLinea.Add(paradaModificada);
+                }
+
+            }
+            else
+            {
+                throw new System.ArgumentException("No se puede Modificar este punto de interés");
+            }
+
+            }
+            else
+            {
+                throw new ArgumentException("No se puede dar de Baja este punto de interés. ¡Vuelva a intentarlo!");
+            }
+        }
 
 
     }
