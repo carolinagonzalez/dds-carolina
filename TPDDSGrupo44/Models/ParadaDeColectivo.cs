@@ -155,5 +155,42 @@ namespace TPDDSGrupo44.Models
 
 
 
+
+        /* Baja - Parada POI de una parada de colectivo de una determinada Linea */
+        public void bajarPOILinea(string numLinea, string paradaBorrar)
+        {
+
+            if (!noExistePOI(numLinea) && !noExistePOI(paradaBorrar))//Verifico que la linea ingresada y la parada no sean nula, es decir, que se ingresen
+            {
+
+                List<string> listaFiltrada = new List<string>(listaDeLineas.Where(x => x == numLinea).ToList());
+
+                //Creo las paradas de esta linea
+                List<String> paradasDeEstaLinea = new List<String>();
+                if (listaFiltrada.ToString().Length == 0) //La linea no existe
+                {
+                    throw new System.ArgumentException("No se puede dar de Baja la parada ya que no existe este punto de interés");
+
+                }
+                else if (listaFiltrada.ToString().Length > 0)//La linea existe
+                {
+                    //Doy de baja la parada que se desea borrar
+                    paradasDeEstaLinea.Remove(paradaBorrar);
+                }
+                else
+                {
+                    throw new System.ArgumentException("No se puede dar de Baja este punto de interés. ");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("No se puede dar de Baja este punto de interés. ¡Vuelva a intentarlo!");
+            }
+
+        }
+
+
+
+
     }
 }
