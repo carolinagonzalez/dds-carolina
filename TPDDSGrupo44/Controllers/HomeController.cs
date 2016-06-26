@@ -221,7 +221,13 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult Location(FormCollection search)
+        public ActionResult Location () {
+            ViewBag.Message = "Buscá puntos de interés específicos.";
+            return View();
+    }
+
+    [HttpPost]
+    public ActionResult Location(FormCollection search)
         {
             ViewBag.Message = "Buscá puntos de interés específicos.";
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
@@ -278,14 +284,14 @@ namespace TPDDSGrupo44.Controllers
             DispositivoTactil device = new DispositivoTactil("UTN Campus", new GeoCoordinate(-34.6597047, -58.4688947));
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
-
-
-            try
+            using (var db = new BuscAR())
             {
-                int linea = 0;
 
-                using (var db = new BuscAR())
+                try
                 {
+                    int linea = 0;
+
+                
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
                         List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
@@ -316,14 +322,14 @@ namespace TPDDSGrupo44.Controllers
 
                     db.SaveChanges();
 
-                }
                 
                     return View();
 
-            }
-            catch
-            {
-                return View();
+                }
+                catch
+                {
+                    return View();
+                }
             }
 
         }
