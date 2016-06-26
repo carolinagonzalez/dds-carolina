@@ -236,7 +236,7 @@ namespace TPDDSGrupo44.Models
         public void modificarPOILinea(string numLinea, String paradaExistente, String paradaModificada)//Solo modifico si la linea existe
         {
 
-            if (!noExistePOI(numLinea))//Verifico que la linea ingresada no sean nula, es decir, que se ingrese
+            if (!noExistePOI(numLinea) && !noExistePOI(paradaExistente) && !noExistePOI(paradaModificada))//Verifico que la linea ingresada no sean nula, es decir, que se ingrese
             {
                 List<string> listaFiltrada = new List<string>(listaDeLineas.Where(x => x == numLinea).ToList());
 
@@ -280,6 +280,55 @@ namespace TPDDSGrupo44.Models
             }
         }
 
+
+
+        /* Modificar - Parada POI Linea - Modifico una Línea de Colectivo*/
+        public void modificarPOILinea(string numLineaExistente, String numLineaModificada)//Solo modifico si la linea existe
+        {
+
+            if (!noExistePOI(numLineaExistente) && !noExistePOI(numLineaModificada))//Verifico que la linea ingresada no sean nula, es decir, que se ingrese
+            {
+                List<string> listaFiltrada = new List<string>(listaDeLineas.Where(x => x == numLineaExistente).ToList());
+
+
+                if (listaFiltrada.ToString().Length == 0) //La linea no existe
+                {
+                    throw new System.ArgumentException("No se puede Modificar este punto de interés");
+
+                }
+                else if (listaFiltrada.ToString().Length > 0)
+                {
+
+                    List<string> listaFiltradaLineas = new List<string>(listaDeLineas.Where(x => x == numLineaModificada).ToList());
+
+
+                    if (listaFiltradaLineas.ToString().Length <= 0) //La línea no existe
+                    {
+                        throw new System.ArgumentException("No se puede Modificar este punto de interés ya que no existe la parada que desea modificar");
+
+                    }
+                    else
+                    {
+                        //MODIFICACIÓN DE LA NUEVA LÍNEA:
+
+                        //Elimino la linea anterior
+                        listaDeLineas.Remove(numLineaExistente);
+                        //Agrego la linea nueva
+                        listaDeLineas.Add(numLineaModificada);
+                    }
+
+                }
+                else
+                {
+                    throw new System.ArgumentException("No se puede Modificar este punto de interés");
+                }
+
+            }
+            else
+            {
+                throw new ArgumentException("No se puede dar de Baja este punto de interés. ¡Vuelva a intentarlo!");
+            }
+        }
 
     }
 }
