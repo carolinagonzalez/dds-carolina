@@ -88,7 +88,7 @@ namespace TPDDSGrupo44.Models
 
 
         /* Validaciones del Alta */
-        public Boolean noExisteLinea(string numLinea)
+        public Boolean noExistePOI(string numLinea)
         {
             if (this.getNumeroDeLinea().Equals(null))
             {
@@ -103,32 +103,44 @@ namespace TPDDSGrupo44.Models
 
         List<string> listaDeLineas = new List<string> { "92", "114", "186" };
 
+        List<string> paradasDeEstaLinea = new List<string> { "Rivadavia 123", "Rio de Janeiro 333" };
 
         /* Alta - Parada POI Linea */
         public void agregarPOILinea(string nuevaLinea, String paradaAgregada)
         {
 
-            if (!noExisteLinea(nuevaLinea))//Verifico que la linea ingresada no sea nula, es decir, que se ingrese una linea
+            if (!noExistePOI(nuevaLinea) && !noExistePOI(paradaAgregada))//Verifico que la linea ingresada y la parada no sean nula, es decir, que se ingresen
             {
 
             List<string> listaFiltrada = new List<string>(listaDeLineas.Where(x => x == nuevaLinea).ToList());
 
-            //Creo las paradas de esta linea
-            List<String> paradasDeEstaLinea = new List<String>();
+            
             if (listaFiltrada.ToString().Length == 0) //La linea no existe
             {
-                //La doy de alta
-                lineas.Add(nuevaLinea);
-                   
+                    //Creo las paradas de esta linea
+                    List<String> paradasDeEstaLinea = new List<String>();
+
+                    //La doy de alta
+                    lineas.Add(nuevaLinea);
                 //Agrego la parada ingresada a la lista de lineas
                 paradasDeEstaLinea.Add(paradaAgregada);
 
             }
             else if (listaFiltrada.ToString().Length > 0)
             {
-                //Si la linea ya existe, agrego la parada
-                paradasDeEstaLinea.Add(paradaAgregada);
-            }
+                    List<string> listaFiltradaParadas = new List<string>(paradasDeEstaLinea.Where(x => x == paradaAgregada).ToList());
+                    //Si la parada que se desea agregar no existe
+                    if (listaFiltradaParadas.ToString().Length == 0)
+                    {
+                        //Agrego la parada
+                        paradasDeEstaLinea.Add(paradaAgregada);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("No se puede dar de alta este punto de interés. ¡Vuelva a intentarlo!");
+                    }
+
+                }
             else
             {
                 throw new System.ArgumentException("No se puede dar de alta este punto de interés");
