@@ -3,6 +3,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.Linq;
 
 
 
@@ -80,6 +81,41 @@ namespace TPDDSGrupo44.Models
         }
 
 
+
+        List<string> listaDeLocales = new List<string> { "Kiosco 123", "Libreria abc" };
+
+
+
+        /* Baja - POI Local Comercial */
+        public void bajarPOILocalComercial(string nombreLocalComercial)
+        {
+
+            if (!noExistePOI(nombreLocalComercial))
+            {
+                List<string> listaFiltrada = new List<string>(listaDeLocales.Where(x => x == nombreLocalComercial).ToList());
+
+
+                if (listaFiltrada.ToString().Length == 0) //El local comercial no existe
+                {
+                    throw new System.ArgumentException("No se puede dar de Baja el local comerecial ya que no existe este punto de interés");
+
+                }
+                else if (listaFiltrada.ToString().Length > 0)//La linea existe
+                {
+                    //Doy de baja la parada que se desea borrar
+                    listaDeLocales.Remove(nombreLocalComercial);
+                }
+                else
+                {
+                    throw new System.ArgumentException("No se puede dar de Baja este punto de interés");
+                }
+
+            }
+            else
+            {
+                throw new ArgumentException("No se puede dar de Baja este punto de interés. ¡Vuelva a intentarlo!");
+            }
+        }
 
 
     }
