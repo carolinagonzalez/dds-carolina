@@ -1,0 +1,22 @@
+﻿{
+
+  "bancos": {
+    "banc": [
+      {
+        "banco": "Banco de la Plaza",
+        "x": -35.9338322,
+        "y": 72.348353,
+        "sucursal": "Avellaneda",
+        "gerente": "Javier Loeschbor",
+        "servicios": [ "cobro cheques", "depositos", "extracciones", "transferencias", "creditos" ]
+      },
+      { "banco": "Banco de la Plaza",
+          "x": -35.9345681,
+          "y": 72.344546,
+          "sucursal": "Caballito",
+          "gerente": "Fabian Fantaguzzi",
+          "servicios": [ "depositos", "extracciones", "transferencias", "seguros" ]
+       }
+    ]
+  }
+ }

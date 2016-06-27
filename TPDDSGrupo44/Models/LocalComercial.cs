@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Device.Location;
 
->>>>>>> origin/master
+
 
 namespace TPDDSGrupo44.Models
 {
@@ -25,7 +25,7 @@ namespace TPDDSGrupo44.Models
 
 
         //Sobrecarga
-        public LocalComercial(string nombreRubro, int radioCercania, GeoCoordinate unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
+        public LocalComercial(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
         : base(nombreRubro, radioCercania, unaCoordenada, rubro, dateRubro, direccion, piso, dto)
         {
             this.rubro = rubro;
