@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Data.Entity.Spatial;
 using System.Device.Location;
 
 namespace TPDDSGrupo44.Models.Tests
@@ -11,7 +12,7 @@ namespace TPDDSGrupo44.Models.Tests
         public void estaDisponibleTest()
         {
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("-34.659690 -58.468764)"));
 
             parada.palabraClave = "114";
 

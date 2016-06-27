@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
@@ -13,23 +14,23 @@ namespace TPDDSGrupo44.Models
 
 
             //Declaro dispositivo tactil
-            DispositivoTactil dispositivoTactil = new DispositivoTactil("UTN FRBA Campus", new GeoCoordinate(-34.812811, -58.4516456));
+            DispositivoTactil dispositivoTactil = new DispositivoTactil("UTN FRBA Campus", DbGeography.FromText("POINT(-34.812811 -58.4516456)"));
 
-            Banco banco = new Banco("HSBC", new GeoCoordinate(-34.81725, -58.4476116));
+            Banco banco = new Banco("HSBC", DbGeography.FromText("POINT(-34.81725 -58.4476116)"));
 
 
-            CGP cgp = new CGP("nombre", new GeoCoordinate(-34.81725, -58.4476116), 34);
+            CGP cgp = new CGP("nombre", DbGeography.FromText("POINT(-34.81725 -58.4476116)"), 34);
 
-            LocalComercial localComercial = new LocalComercial("localComercial", new GeoCoordinate(-34.81725, -58.4476116), new Rubro("libreria",34));
+            LocalComercial localComercial = new LocalComercial("localComercial", DbGeography.FromText("POINT(-34.81725 -58.4476116)"), new Rubro("libreria",34));
 
-            //ParadaDeColectivo parada=new ParadaDeColectivo("114", new GeoCoordinate(-34.81725, -58.4476116));
+            //ParadaDeColectivo parada=new ParadaDeColectivo("114", DbGeography.FromText("POINT(-34.81725 -58.4476116)"));
 
             List<String> paradasDeEstaLinea = new List<String>();
 
             // Parada unaParada = new Parada(numeroDeLinea, unaCoordenada, paradasAgregadas);
             paradasDeEstaLinea.Add("Mozart 300");
             paradasDeEstaLinea.Add("Mozart 100");
-            ParadaDeColectivo unaParada = new ParadaDeColectivo(114, new GeoCoordinate(-34.81725, -58.4476116), paradasDeEstaLinea);
+            ParadaDeColectivo unaParada = new ParadaDeColectivo(114, DbGeography.FromText("POINT(-34.81725 -58.4476116)"), paradasDeEstaLinea);
 
             //  unaParada.agregarPOILinea(7, "maipu 999");
 

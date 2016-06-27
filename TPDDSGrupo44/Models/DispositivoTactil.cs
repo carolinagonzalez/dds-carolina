@@ -4,6 +4,7 @@ using TPDDSGrupo44.Models;
 using System.Device.Location;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44
 {
@@ -12,16 +13,16 @@ namespace TPDDSGrupo44
         [Key]
         public int Id { get; set; }
 
-        public GeoCoordinate coordenada { get; set; }
+        public DbGeography coordenada { get; set; }
         public string nombre { get; set; }
-        public int comuna { get; set; } //se refiere al numero de comuna?
+        public int comuna { get; set; } 
 
         //Creo coleccion
         public List<PuntoDeInteres> ListaPuntosDeInteres;
 
 
         // Creo Constructor
-        public DispositivoTactil(string nombreDelPunto, GeoCoordinate unaCoordenada)
+        public DispositivoTactil(string nombreDelPunto, DbGeography unaCoordenada)
         {
             nombre = nombreDelPunto;
             coordenada = unaCoordenada;

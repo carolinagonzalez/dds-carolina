@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
@@ -16,7 +17,7 @@ namespace TPDDSGrupo44.Models
         public List<HorarioAbierto> horarioAbierto = new List<HorarioAbierto>();
         public List<HorarioAbierto> horarioFeriados = new List<HorarioAbierto>();
         private int numLinea;
-        private GeoCoordinate unaCoordenada;
+        private DbGeography unaCoordenada;
         private List<string> unasParadas;
         private string nombreRubro;
         private int radioCercania;
@@ -48,15 +49,15 @@ namespace TPDDSGrupo44.Models
 
 
         /* Getters & setters coordenada */
-        public GeoCoordinate coordenada;
+        public DbGeography coordenada;
 
 
-        public GeoCoordinate getCoordenada()
+        public DbGeography getCoordenada()
         {
             return coordenada;
         }
 
-        public void setCoordenada(GeoCoordinate coordenada)
+        public void setCoordenada(DbGeography coordenada)
         {
             if (coordenada == null || coordenada.ToString() == "")
             {
@@ -92,7 +93,7 @@ namespace TPDDSGrupo44.Models
         public PuntoDeInteres() { }
 
         // Constructor básico
-        public PuntoDeInteres(string nombre, GeoCoordinate unaCordenada)
+        public PuntoDeInteres(string nombre, DbGeography unaCordenada)
         {
             this.setNombreDelPOI(nombre);
             this.setCoordenada(unaCordenada);
@@ -102,14 +103,14 @@ namespace TPDDSGrupo44.Models
             palabrasRelacionadas.Add(nombre);
         }
 
-        public PuntoDeInteres(int numLinea, GeoCoordinate unaCoordenada, List<string> unasParadas)
+        public PuntoDeInteres(int numLinea, DbGeography unaCoordenada, List<string> unasParadas)
         {
             this.numLinea = numLinea;
             this.unaCoordenada = unaCoordenada;
             this.unasParadas = unasParadas;
         }
 
-        public PuntoDeInteres(string nombreRubro, int radioCercania, GeoCoordinate unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
+        public PuntoDeInteres(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
         {
             this.nombreRubro = nombreRubro;
             this.radioCercania = radioCercania;
@@ -127,8 +128,8 @@ namespace TPDDSGrupo44.Models
 
 
         // Cálculo de Cercanía genérico - distancia menor a 5 cuadras
-        public virtual bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil) {
-            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada)/100) < 5;
+        public virtual bool estaCerca(DbGeography coordenadaDeDispositivoTactil) {
+            return (coordenadaDeDispositivoTactil.Distance(coordenada)/100) < 5;
         }
 
         // Cálculo de Disponibilidad Horaria genérico

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Data.Entity.Spatial;
 using System.Device.Location;
 
 
@@ -12,7 +13,7 @@ namespace TPDDSGrupo44.Models.Tests
         public void estaDisponibleLocalTest()
         {
             // Agrego librería ceit
-            LocalComercial local = new LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("-34.659492 -58.467906)"), new Models.Rubro("librería escolar", 5));
 
             local.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Monday, 8, 21));
 

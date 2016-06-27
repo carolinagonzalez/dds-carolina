@@ -11,10 +11,12 @@ namespace TPDDSGrupo44.Models
         // If you wish to target a different database and/or database provider, modify the 'Busqueda' 
         // connection string in the application configuration file.
         public BuscAR singleton { get; set; }
+        
 
         public BuscAR()
             : base("name=BuscAR")
         {
+            Database.SetInitializer<BuscAR>(new DropCreateDatabaseIfModelChanges<BuscAR>());
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 

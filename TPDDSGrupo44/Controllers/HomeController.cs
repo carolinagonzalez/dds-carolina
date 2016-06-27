@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using TPDDSGrupo44.Models;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -66,9 +67,9 @@ namespace TPDDSGrupo44.Controllers
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
 
             //Defino ubicación actual (UTN/CAMPUS)
-            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
-            ViewBag.Latitud = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
-            ViewBag.Longitud = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
+            DbGeography dispositivoTactil = DbGeography.FromText("POINT(-34.6597047 -58.4688947)");
+            ViewBag.Latitud = dispositivoTactil.Latitude.ToString();
+            ViewBag.Longitud = dispositivoTactil.Longitude.ToString();
             ViewBag.TextoLugar = "¡Estás acá!";
 
             return View();
@@ -86,11 +87,11 @@ namespace TPDDSGrupo44.Controllers
             List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
             
             // Agrego parada 114
-            ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
             parada.palabraClave = "114";
             puntos.Add(parada);
             // Agrego Parada 36 - lejana
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", new GeoCoordinate(-34.662325, -58.473300));
+            parada = new Models.ParadaDeColectivo("Av Escalada 2680", DbGeography.FromText("POINT(-34.662325 -58.473300)"));
             parada.palabraClave = "36";
             puntos.Add(parada);
 
@@ -106,31 +107,31 @@ namespace TPDDSGrupo44.Controllers
 
             
             // Agrego librería ceit
-            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Models.Rubro("librería escolar", 5));
             puntos.Add(local);
 
             // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
+            local = new Models.LocalComercial("Kiosco Las Flores", DbGeography.FromText("POINT(-34.634015 -58.482805)"), new Models.Rubro("kiosco de diarios", 5));
             puntos.Add(local);
 
             // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);;
+            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);;
             puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
             puntos.Add(CGP);
 
             // Agrego Banco Provincia
-            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            Models.Banco banco = new Models.Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
             puntos.Add(banco);
 
             // Agrego Banco Francés
-            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            banco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
             puntos.Add(banco);
 
             //Defino ubicación actual (UTN/CAMPUS)
-            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
+            DbGeography dispositivoTactil = DbGeography.FromText("POINT(-34.6597047 -58.4688947)");
             ViewBag.Latitud = dispositivoTactil.Latitude;
             ViewBag.Longitud = dispositivoTactil.Longitude;
             ViewBag.TextoLugar = "¡Estás acá!";
@@ -153,8 +154,8 @@ namespace TPDDSGrupo44.Controllers
                     foreach (Models.ParadaDeColectivo punto in paradas) {
                         if (punto.estaCerca(dispositivoTactil) && punto.palabraClave == palabraBusqueda ) {
                             ViewBag.SearchText = "¡Hay una parada del " + punto.palabraClave + " cerca!";
-                            ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture); 
-                            ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                            ViewBag.Latitud = punto.coordenada.Latitude.ToString(); 
+                            ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                             ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
 
                             ViewBag.Search = "ok";
@@ -179,8 +180,8 @@ namespace TPDDSGrupo44.Controllers
                         if (punto.estaCerca(dispositivoTactil) && punto.rubro.nombreRubro.ToLower().Contains(palabraBusqueda.ToLower()))
                         {
                             ViewBag.SearchText = "¡Hay una local de ese rubro cerca! Visite " + punto.nombreDelPOI;
-                            ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                            ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                            ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                            ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                             ViewBag.TextoLugar = punto.nombreDelPOI;
                             ViewBag.Search = "ok";
                             break;
@@ -200,8 +201,8 @@ namespace TPDDSGrupo44.Controllers
                     if (punto != null && punto.estaCerca(dispositivoTactil))
                     {
                         ViewBag.SearchText = "¡Punto encontrado! Visite " + punto.nombreDelPOI;
-                        ViewBag.Latitud = punto.coordenada.Latitude.ToString(CultureInfo.InvariantCulture);
-                        ViewBag.Longitud = punto.coordenada.Longitude.ToString(CultureInfo.InvariantCulture);
+                        ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                        ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                         ViewBag.TextoLugar = punto.nombreDelPOI;
                         ViewBag.Search = "ok";
                     } else
@@ -236,11 +237,11 @@ namespace TPDDSGrupo44.Controllers
             List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
 
             // Agrego parada 114
-            ParadaDeColectivo parada = new ParadaDeColectivo("Monroe 2979", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new ParadaDeColectivo("Monroe 2979", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
             parada.palabraClave = "114";
             puntos.Add(parada);
             // Agrego Parada 114 - lejana
-            parada = new ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            parada = new ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
             parada.palabraClave = "114";
             puntos.Add(parada);
 
@@ -253,35 +254,35 @@ namespace TPDDSGrupo44.Controllers
             rubros.Add(new Models.Rubro("kiosco de diarios", 2));
 
             // Agrego librería ceit
-            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Models.Rubro("librería escolar", 5));
             puntos.Add(local);
 
             // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco Las Flores", new GeoCoordinate(-34.634015, -58.482805), new Models.Rubro("kiosco de diarios", 5));
+            local = new Models.LocalComercial("Kiosco Las Flores", DbGeography.FromText("POINT(-34.634015 -58.482805)"), new Models.Rubro("kiosco de diarios", 5));
             puntos.Add(local);
 
             // agrego puesto de diarios 
-            local = new Models.LocalComercial("Kiosco El enano", new GeoCoordinate(-34.634015, -59.482805), new Models.Rubro("kiosco de diarios", 5));
+            local = new Models.LocalComercial("Kiosco El enano", DbGeography.FromText("POINT(-34.634015 -59.482805)"), new Models.Rubro("kiosco de diarios", 5));
             puntos.Add(local);
 
             // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50); ;
+            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50); ;
             puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
             puntos.Add(CGP);
 
             // Agrego Banco Provincia
-            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.660979, -58.469821));
+            Models.Banco banco = new Models.Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
             puntos.Add(banco);
 
             // Agrego Banco Francés
-            banco = new Banco("Banco Francés", new GeoCoordinate(-34.6579153, -58.4791142));
+            banco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
             puntos.Add(banco);
 
             string palabraBusqueda = search["palabraClave"];
-            DispositivoTactil device = new DispositivoTactil("UTN Campus", new GeoCoordinate(-34.6597047, -58.4688947));
+            DispositivoTactil device = new DispositivoTactil("UTN Campus", DbGeography.FromText("POINT(-34.6597047 -58.4688947)"));
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
 
             using (var db = new BuscAR())
@@ -338,12 +339,7 @@ namespace TPDDSGrupo44.Controllers
         {
             
             ViewBag.Message = "Buscá horarios de puntos de interés.";
-
-            //Defino ubicación actual (UTN/CAMPUS)
-            GeoCoordinate dispositivoTactil = new GeoCoordinate(-34.6597047, -58.4688947);
-            ViewBag.Latitude = dispositivoTactil.Latitude.ToString(CultureInfo.InvariantCulture);
-            ViewBag.Longitude = dispositivoTactil.Longitude.ToString(CultureInfo.InvariantCulture);
-            ViewBag.LocationText = "¡Estás acá!";
+            
 
             return View();
         }
@@ -360,13 +356,13 @@ namespace TPDDSGrupo44.Controllers
             List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
 
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
             parada.palabraClave = "114";
             puntos.Add(parada);
             
 
             // Agrego librería ceit
-            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", new GeoCoordinate(-34.659492, -58.467906), new Models.Rubro("librería escolar", 5));
+            Models.LocalComercial local = new Models.LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Models.Rubro("librería escolar", 5));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 21));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 21));
             local.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Wednesday, 8, 21));
@@ -379,7 +375,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(local);
 
             // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);
             Models.Servicio servicio = new Models.Servicio("Rentas");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
@@ -392,7 +388,7 @@ namespace TPDDSGrupo44.Controllers
             puntos.Add(CGP);
 
             // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", new GeoCoordinate(-34.6318411, -58.4857468), 10);
+            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
             servicio = new Models.Servicio("Registro Civil");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
@@ -406,7 +402,7 @@ namespace TPDDSGrupo44.Controllers
 
             
             // Agrego Banco provincia
-            Models.Banco banco = new Models.Banco("Banco Provincia", new GeoCoordinate(-34.6571851, -58.4776738));
+            Models.Banco banco = new Models.Banco("Banco Provincia", DbGeography.FromText("POINT(-34.6571851 -58.4776738)"));
             servicio = new Models.Servicio("Depósitos");
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new Models.HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));

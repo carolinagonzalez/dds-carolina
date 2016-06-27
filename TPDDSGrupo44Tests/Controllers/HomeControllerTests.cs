@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
+using System.Data.Entity.Spatial;
+using TPDDSGrupo44.Models;
 
 namespace TPDDSGrupo44.Controllers.Tests
 {
@@ -15,7 +17,7 @@ namespace TPDDSGrupo44.Controllers.Tests
             List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
 
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", new GeoCoordinate(-34.659690, -58.468764));
+            ParadaDeColectivo parada = new ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
 
             parada.palabraClave = "114";
 

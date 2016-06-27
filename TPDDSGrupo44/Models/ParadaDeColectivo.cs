@@ -4,6 +4,7 @@ using System.Device.Location;
 using System.Collections.Generic;
 using TPDDSGrupo44.Models;
 using System.Linq;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
@@ -12,14 +13,14 @@ namespace TPDDSGrupo44.Models
     {
         
         // Constructor
-        public ParadaDeColectivo(string nombre, GeoCoordinate unaCoordenada)
+        public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)
         {
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
         }
 
-        public ParadaDeColectivo(int numLinea, GeoCoordinate unaCoordenada, List<String> unasParadas)
+        public ParadaDeColectivo(int numLinea, DbGeography unaCoordenada, List<String> unasParadas)
         : base(numLinea, unaCoordenada, unasParadas)
         {
             nombreDelPOI = numLinea.ToString();
@@ -74,9 +75,9 @@ namespace TPDDSGrupo44.Models
 
 
         // Cálculo de Cercanía - Debe estar a menos de una cuadra
-        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < 1;
+            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < 1;
         }
 
         // Cálculo de Disponibilidad Horaria - Siempre está disponible

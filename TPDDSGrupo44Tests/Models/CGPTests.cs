@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Data.Entity.Spatial;
 using System.Device.Location;
 
 namespace TPDDSGrupo44.Models.Tests
@@ -10,7 +11,7 @@ namespace TPDDSGrupo44.Models.Tests
         [Test()]
         public void estaDisponibleCGPTest()
         {
-            CGP CGP = new CGP("Sede Comunal 8", new GeoCoordinate(-34.6862397, -58.4606666), 50);
+            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("-34.6862397 -58.4606666)"), 50);
             Servicio servicio = new Servicio("Rentas");
             servicio.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Tuesday, 8, 18));

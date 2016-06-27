@@ -1,5 +1,6 @@
 ﻿using System.Device.Location;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
@@ -8,7 +9,7 @@ namespace TPDDSGrupo44.Models
         public List<Servicio> servicios { get; set; }
 
         // Constructor
-        public Banco(string nombre, GeoCoordinate unaCoordenada)
+        public Banco(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)
         {
             nombreDelPOI = nombre;

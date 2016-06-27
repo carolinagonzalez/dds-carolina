@@ -1,4 +1,5 @@
-﻿using System.Device.Location;
+﻿using System.Data.Entity.Spatial;
+using System.Device.Location;
 
 namespace TPDDSGrupo44.Models
 {
@@ -13,7 +14,7 @@ namespace TPDDSGrupo44.Models
         public Rubro rubro { get; set; }
 
         // Constructor
-        public LocalComercial(string nombre, GeoCoordinate unaCoordenada, Rubro rubro)
+        public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
@@ -24,9 +25,9 @@ namespace TPDDSGrupo44.Models
         }
         
         // Cálculo de Cercanía - Depende del radio de cercanía del rubro
-        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
+            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
         }
 
 

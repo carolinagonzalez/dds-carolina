@@ -1,5 +1,6 @@
 ﻿using System.Device.Location;
 using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
@@ -13,7 +14,7 @@ namespace TPDDSGrupo44.Models
 
 
         // Constructor
-        public CGP(string nombre, GeoCoordinate unaCoordenada, int zona)
+        public CGP(string nombre, DbGeography unaCoordenada, int zona)
         : base (nombre, unaCoordenada)
         {
             nombreDelPOI = nombre;
@@ -23,9 +24,9 @@ namespace TPDDSGrupo44.Models
         }
 
         // Cálculo de Cercanía - Dentro de la zona de la Comuna
-        public override bool estaCerca(GeoCoordinate coordenadaDeDispositivoTactil)
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            return (coordenadaDeDispositivoTactil.GetDistanceTo(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
+            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
         }
     }
 }
