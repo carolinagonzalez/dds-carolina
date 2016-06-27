@@ -277,7 +277,7 @@ namespace TPDDSGrupo44.Models
             }
             else
             {
-                throw new ArgumentException("No se puede dar de Modificar este punto de interés. ¡Vuelva a intentarlo!");
+                throw new ArgumentException("No se puede Modificar este punto de interés. ¡Vuelva a intentarlo!");
             }
         }
 
@@ -327,7 +327,7 @@ namespace TPDDSGrupo44.Models
             }
             else
             {
-                throw new ArgumentException("No se puede dar de Modificar este punto de interés. ¡Vuelva a intentarlo!");
+                throw new ArgumentException("No se puede Modificar este punto de interés. ¡Vuelva a intentarlo!");
             }
         }
 
