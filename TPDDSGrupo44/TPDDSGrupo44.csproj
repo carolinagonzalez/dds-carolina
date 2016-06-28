@@ -207,6 +207,7 @@
     <Compile Include="Models\BuscAR.cs" />
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
+    <Compile Include="Models\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
