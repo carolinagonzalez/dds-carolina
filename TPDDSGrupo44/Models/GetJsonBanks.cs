@@ -17,7 +17,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        public List<Bank> requestBanks(string banco, string servicio)
+        public static List<Bank> requestBanks(string banco, string servicio)
         {
             string jsonData = getJsonData(banco, servicio);
 
@@ -26,7 +26,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        private string getJsonData(string banco, string servicio)
+        private static string getJsonData(string banco, string servicio)
         {
             string url = "http://trimatek.org/Consultas/banco?banco=" + banco + "&servicio=" + servicio;
             var jsonString = string.Empty;
