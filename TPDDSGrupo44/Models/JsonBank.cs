@@ -9,12 +9,12 @@ namespace TPDDSGrupo44.Models
     {
         public class Bank
         {
-            public string Banco { get; set; }
-            public double X { get; set; }
-            public double Y { get; set; }
-            public string Sucursal { get; set; }
-            public string Gerente { get; set; }
-            public List<string> Servicios { get; set; }
+            public string nombre { get; set; }
+            public double x { get; set; }
+            public double y { get; set; }
+            public string sucursal { get; set; }
+            public string gerente { get; set; }
+            public List<string> servicios { get; set; }
         }
     }
 }
