@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using TPDDSGrupo44.Models;
+using NUnit.Framework;
 using System;
 using System.Data.Entity.Spatial;
 using System.Device.Location;
@@ -20,6 +21,33 @@ namespace TPDDSGrupo44.Models.Tests
 
 
 
+        }
+
+        [Test()]
+        public void agregarPOILineaTest()
+        {
+            Models.ParadaDeColectivo unaParada = new ParadaDeColectivo();
+
+            unaParada.agregarPOILinea("47", "Araujo 1500");
+
+            Assert.Contains("47", unaParada.lineas);
+
+
+        }
+
+        [Test()]
+        public void bajarPOILineaTest()
+        {
+
+            Models.ParadaDeColectivo unaParada = new ParadaDeColectivo();
+            
+
+            unaParada.agregarPOILinea("47", "Araujo 1500");
+
+            unaParada.bajarPOILinea("47");
+
+            Assert.IsEmpty(unaParada.lineas);
+            
         }
     }
 }
