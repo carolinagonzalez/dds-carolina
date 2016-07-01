@@ -30,15 +30,15 @@ namespace TPDDSGrupo44.Models
             {
                 foreach(JsonBank something in jsonData) // esto lo copie del home controller digamos
                 {
-                    ViewBag.SearchText = something.Nombre + " -> " + address; // address seria la direccion del lugar, que se genera con las coord.
+                   // ViewBag.SearchText = something.Nombre + " -> " + address; // address seria la direccion del lugar, que se genera con las coord.
                     //ViewBag.SearchText = something.banco + " -> " + address;
-                    ViewBag.Search = "Ok";
+                   // ViewBag.Search = "Ok";
                 }
             }
             else
             {
-                ViewBag.SearchText = "No se ha encontrado el banco/servicio especificado.";  //me marca los ViewBag en rojo, no se porque
-                ViewBag.Search = "Error";
+                //ViewBag.SearchText = "No se ha encontrado el banco/servicio especificado.";  //me marca los ViewBag en rojo, no se porque
+                //ViewBag.Search = "Error";
             }
 
         }
