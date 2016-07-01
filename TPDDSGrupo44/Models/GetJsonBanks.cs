@@ -30,7 +30,7 @@ namespace TPDDSGrupo44.Models
             {
                 foreach(JsonBank something in jsonData) // esto lo copie del home controller digamos
                 {
-                    ViewBag.SearchText = something.nombre + " -> " + address; // address seria la direccion del lugar, que se genera con las coord.
+                    ViewBag.SearchText = something.Nombre + " -> " + address; // address seria la direccion del lugar, que se genera con las coord.
                     ViewBag.Search = "Ok";
                 }
             }
