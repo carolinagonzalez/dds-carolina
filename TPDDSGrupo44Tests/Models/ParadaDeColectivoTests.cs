@@ -12,7 +12,7 @@ namespace TPDDSGrupo44.Models.Tests
         public void estaDisponibleTest()
         {
             // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("-34.659690 -58.468764)"));
+            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
 
             parada.palabraClave = "114";
 
