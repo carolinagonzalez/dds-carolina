@@ -64,10 +64,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controllers\HomeControllerTests.cs" />
-    <Compile Include="Models\CGPTests.cs" />
-    <Compile Include="Models\DispositivoTactilTests.cs" />
-    <Compile Include="Models\LocalComercialTests.cs" />
-    <Compile Include="Models\ParadaDeColectivoTests.cs" />
+    <Compile Include="Models\Entrega 1era\CGPTests.cs" />
+    <Compile Include="Models\Entrega 1era\DispositivoTactilTests.cs" />
+    <Compile Include="Models\Entrega 1era\LocalComercialTests.cs" />
+    <Compile Include="Models\Entrega 1era\ParadaDeColectivoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
