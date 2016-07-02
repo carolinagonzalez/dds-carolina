@@ -11,6 +11,8 @@ namespace TPDDSGrupo44.Models
 
     public class ParadaDeColectivo : PuntoDeInteres
     {
+        public new string nombreDelPOI { get; set; }
+        public new DbGeography coordenada { get; set; }
 
         public ParadaDeColectivo() { }
 

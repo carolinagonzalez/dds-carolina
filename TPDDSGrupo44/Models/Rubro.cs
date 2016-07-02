@@ -7,15 +7,15 @@ namespace TPDDSGrupo44.Models
         [Key]
         public int Id { get; set; }
 
-        public string nombreRubro { get; set; }
+        public string nombre { get; set; }
         public int radioDeCercania { get; set; }
 
         public Rubro() { }
 
         //Creo Constructor
-        public Rubro(string nombre, int radio)
+        public Rubro(string nombreR, int radio)
         {
-            nombreRubro = nombre;
+            nombre = nombreR;
             radioDeCercania = radio;
         }
     }

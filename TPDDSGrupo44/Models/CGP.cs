@@ -6,6 +6,9 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
+        public new string nombreDelPOI { get; set; }
+        public new DbGeography coordenada { get; set; }
+
         public string direccion { get; set; }
         public int numero { get; set; }
         public List<Servicio> servicios { get; set; }

@@ -13,7 +13,7 @@ namespace TPDDSGrupo44.Models.Tests
         public void estaDisponibleLocalTest()
         {
             // Agrego librería ceit
-            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Models.Rubro("librería escolar", 5));
+            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Rubro("librería escolar", 5));
 
             local.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Monday, 8, 21));
 

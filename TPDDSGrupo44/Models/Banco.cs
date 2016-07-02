@@ -10,6 +10,9 @@ namespace TPDDSGrupo44.Models
 
         public Banco() { }
 
+        public new string nombreDelPOI { get; set; }
+        public new DbGeography coordenada { get; set; }
+
         // Constructor
         public Banco(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)

@@ -12,6 +12,8 @@ namespace TPDDSGrupo44.Models
     public class LocalComercial : PuntoDeInteres
     {
         public Rubro rubro { get; set; }
+        public new string nombreDelPOI { get; set; }
+        public new DbGeography coordenada { get; set; }
 
         // Constructor
         public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
@@ -21,7 +23,7 @@ namespace TPDDSGrupo44.Models
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
             palabraClave = nombre;
-            palabrasRelacionadas.Add(rubro.nombreRubro);
+            palabrasRelacionadas.Add(rubro.nombre);
         }
 
 
