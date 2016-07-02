@@ -21,6 +21,8 @@ namespace TPDDSGrupo44
         public List<PuntoDeInteres> ListaPuntosDeInteres;
 
 
+        public DispositivoTactil() { }
+
         // Creo Constructor
         public DispositivoTactil(string nombreDelPunto, DbGeography unaCoordenada)
         {

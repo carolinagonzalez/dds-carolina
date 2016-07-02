@@ -16,13 +16,22 @@ namespace TPDDSGrupo44.Models
         public BuscAR()
             : base("name=BuscAR")
         {
-            Database.SetInitializer<BuscAR>(new DropCreateDatabaseIfModelChanges<BuscAR>());
+            
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<Busqueda> Busquedas { get; set; }
+
+        //tablas de POIs
+        public virtual DbSet<Banco> Bancos { get; set; }
+        public virtual DbSet<CGP> CGPs { get; set; }
+        public virtual DbSet<LocalComercial> Locales { get; set; }
+        public virtual DbSet<ParadaDeColectivo> Paradas { get; set; }
+
+        // tablas accesorias
+        public virtual DbSet<Rubro> Rubros { get; set; }
     }
 
 }

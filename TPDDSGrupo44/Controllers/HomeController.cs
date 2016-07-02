@@ -84,7 +84,7 @@ namespace TPDDSGrupo44.Controllers
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
             // Genero lista de POIs
-            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+            List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
             
             // Agrego parada 114
             ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));

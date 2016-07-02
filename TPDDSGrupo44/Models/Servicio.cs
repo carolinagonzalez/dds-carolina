@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPDDSGrupo44.Models
 {
     public class Servicio
     {
+        [Key]
+        public int Id { get; set;  }
 
         public string nombre { get; set; }
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriados { get; set; }
+
+
+        public Servicio() { }
+
 
         // Constructor
         public Servicio(string nombreDelServicio)

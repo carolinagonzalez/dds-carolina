@@ -25,6 +25,8 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        public LocalComercial() { }
+
         //Sobrecarga
         public LocalComercial(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
         : base(nombreRubro, radioCercania, unaCoordenada, rubro, dateRubro, direccion, piso, dto)

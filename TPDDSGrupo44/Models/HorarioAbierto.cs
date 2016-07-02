@@ -1,16 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPDDSGrupo44.Models
 {
     public class HorarioAbierto
     {
-      
+        [Key]
+        public int Id { get; set; }
+
         public DayOfWeek dia { get; set; }
         public int numeroDeDia { get; set; }
         public int numeroDeMes { get; set; }  
         public int horarioInicio { get; set; }
         public int horarioFin { get; set; }
 
+        public HorarioAbierto() { }
 
         //Creo Constructor del HorarioAbierto para días normales
         public HorarioAbierto(DayOfWeek dia, int horarioInicio, int horarioFin)

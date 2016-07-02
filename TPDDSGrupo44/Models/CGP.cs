@@ -11,7 +11,7 @@ namespace TPDDSGrupo44.Models
         public List<Servicio> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
-
+        public CGP() { }
 
         // Constructor
         public CGP(string nombre, DbGeography unaCoordenada, int zona)

@@ -2,12 +2,16 @@
 using System.Device.Location;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPDDSGrupo44.Models
 {
     public class PuntoDeInteres
     {
        
+        [Key]
+        public int Id { get; set; }
+
         public string palabraClave { get; set; }
         public string entreCalles { get; set; }
 

@@ -11,7 +11,9 @@ namespace TPDDSGrupo44.Models
 
     public class ParadaDeColectivo : PuntoDeInteres
     {
-        
+
+        public ParadaDeColectivo() { }
+
         // Constructor
         public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)
@@ -28,10 +30,7 @@ namespace TPDDSGrupo44.Models
             unasParadas = new List<string>();
 
         }
-
-        public ParadaDeColectivo() : base()
-        {
-        }
+        
 
         public string numeroDeLinea;
         public List<String> paradas { get; set; }
