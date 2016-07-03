@@ -35,11 +35,10 @@ namespace TPDDSGrupo44
 
         }
 
-        public List<PuntoDeInteres> listaDePtos = new List<PuntoDeInteres>();
 
         public List<PuntoDeInteres> palabraClave(string clave)
         {
-            List<PuntoDeInteres> filteredList = listaDePtos.Where(x => x.palabraClave == clave).ToList();
+            List<PuntoDeInteres> filteredList = ListaPuntosDeInteres.Where(x => x.palabraClave == clave).ToList();
             return filteredList;
         }
 
@@ -67,5 +66,24 @@ namespace TPDDSGrupo44
 
         }
         */
+
+
+        public void agregarPoid(PuntoDeInteres poid)
+        {
+            ListaPuntosDeInteres.Add(poid);
+        }
+
+        public void eliminarPoid(PuntoDeInteres poid)
+        {
+            ListaPuntosDeInteres.Remove(poid);
+
+        }
+
+
+
+
+
+
+
     }
 }

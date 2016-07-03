@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Data.Entity.Spatial;
+using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models.Tests
 {
@@ -16,36 +17,37 @@ namespace TPDDSGrupo44.Models.Tests
             parada.palabraClave = "114";
 
             Assert.IsTrue(parada.estaDisponible(DateTime.Now));
+        }
 
 
+        [Test()]
+        public void agregarPoidParadaTest()
+        {
+            DispositivoTactil dispositivo = new DispositivoTactil();
+            List<PuntoDeInteres> lista=new List<PuntoDeInteres> ();
+            dispositivo.ListaPuntosDeInteres = lista;
+            PuntoDeInteres poid = new ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
+            poid.palabraClave = "114";
+            dispositivo.agregarPoid(poid);
+
+            Assert.IsNotEmpty(lista);
 
         }
 
         [Test()]
-        public void agregarPOILineaTest()
+        public void eliminarPoidParadaTest()
         {
-            Models.ParadaDeColectivo unaParada = new ParadaDeColectivo();
+            DispositivoTactil dispositivo = new DispositivoTactil();
+            List<PuntoDeInteres> lista = new List<PuntoDeInteres>();
+            dispositivo.ListaPuntosDeInteres = lista;
+            PuntoDeInteres poid = new ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
+            poid.palabraClave = "114";
+            dispositivo.agregarPoid(poid);
+            dispositivo.eliminarPoid(poid);
 
-            unaParada.agregarPOILinea("47", "Araujo 1500");
-
-            Assert.Contains("47", unaParada.lineas);
-
-
+            Assert.IsEmpty(lista);
         }
 
-        [Test()]
-        public void bajarPOILineaTest()
-        {
 
-            Models.ParadaDeColectivo unaParada = new ParadaDeColectivo();
-            
-
-            unaParada.agregarPOILinea("47", "Araujo 1500");
-
-            unaParada.bajarPOILinea("47");
-
-            Assert.IsEmpty(unaParada.lineas);
-            
-        }
     }
 }
