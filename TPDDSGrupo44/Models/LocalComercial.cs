@@ -1,8 +1,7 @@
 ﻿
-﻿using System.Data.Entity.Spatial;
-﻿using System;
+using System.Data.Entity.Spatial;
+using System;
 using System.Collections.Generic;
-using System.Device.Location;
 using System.Linq;
 
 

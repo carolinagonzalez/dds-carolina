@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using System.Device.Location;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;

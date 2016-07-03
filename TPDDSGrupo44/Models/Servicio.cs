@@ -13,8 +13,8 @@ namespace TPDDSGrupo44.Models
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriados { get; set; }
 
-        public int CGPRefId { get; set; }
-        public int BancoRefId { get; set; }
+        public int? CGPRefId { get; set; }
+        public int? BancoRefId { get; set; }
 
         public Servicio() { }
 

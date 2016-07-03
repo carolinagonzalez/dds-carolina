@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Data.Entity.Spatial;
-using System.Device.Location;
 namespace TPDDSGrupo44.Models.Tests
 {
     [TestFixture()]

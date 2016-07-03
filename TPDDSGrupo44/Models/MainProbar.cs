@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Device.Location;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 

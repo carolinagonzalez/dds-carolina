@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TPDDSGrupo44.Models;
-using System.Device.Location;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;

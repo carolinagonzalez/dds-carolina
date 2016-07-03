@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Device.Location;
 using System.Data.Entity.Spatial;
 using TPDDSGrupo44.Models;
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Net;
-using System.Globalization;
 using System.Web.Mvc;
 
 namespace TPDDSGrupo44.Models
