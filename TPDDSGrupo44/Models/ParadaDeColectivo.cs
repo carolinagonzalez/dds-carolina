@@ -22,6 +22,8 @@ namespace TPDDSGrupo44.Models
         {
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
+            paradas = new List<string>();  // si no ponia esto, el test me tiraba error por intentar hacer algo con una variable no instanciada
+            lineas = new List<string>();    // idem anterior
         }
 
         public ParadaDeColectivo(int numLinea, DbGeography unaCoordenada, List<String> unasParadas)
@@ -90,8 +92,8 @@ namespace TPDDSGrupo44.Models
 
 
         /* Validaciones del Alta */
-        public Boolean noExistePOI(string numLinea)
-        {
+        public Boolean noExistePOI(string numLinea)  // ese argumento nunca se usa, y el "getNumeroDeLinea" siempre esta nulo, tengo que setearlo manual
+        {                                                  
             if (this.getNumeroDeLinea().Equals(null))
             {
                 return true;
@@ -103,9 +105,9 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        List<string> listaDeLineas = new List<string> { "92", "114", "186" };
+       public List<string> listaDeLineas = new List<string> { "92", "114", "186" };  // esta publico porque lo usa el test, ameo
 
-        List<string> paradasDeEstaLinea = new List<string> { "Rivadavia 123", "Rio de Janeiro 333" };
+        List<string> paradasDeEstaLinea = new List<string> { "Rivadavia 123", "Rio de Janeiro 333", "Mozart 2389" };
 
 
 
@@ -267,6 +269,8 @@ namespace TPDDSGrupo44.Models
                     paradasDeEstaLinea.Remove(paradaExistente);
                     //Agrego la parada nueva
                     paradasDeEstaLinea.Add(paradaModificada);
+                        //hola, soy un comentario
+                        paradas.Add(paradaModificada);
                 }
 
             }
@@ -317,6 +321,8 @@ namespace TPDDSGrupo44.Models
                         listaDeLineas.Remove(numLineaExistente);
                         //Agrego la linea nueva
                         listaDeLineas.Add(numLineaModificada);
+                        //hola, soy un comentario
+                        lineas.Add(numLineaModificada);
                     }
 
                 }
