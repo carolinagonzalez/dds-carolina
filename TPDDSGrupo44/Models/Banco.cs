@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
 {
     public class Banco : PuntoDeInteres
     {
-        public List<Servicio> servicios { get; set; }
+        public List<ServicioBanco> servicios { get; set; }
 
         public Banco() { }
 
+        [Key]
+        public new int Id { get; set; }
         public new string nombreDelPOI { get; set; }
         public new DbGeography coordenada { get; set; }
 
@@ -19,7 +22,7 @@ namespace TPDDSGrupo44.Models
             nombreDelPOI = nombre;
             coordenada = unaCoordenada;
             palabraClave = nombre;
-            servicios = new List<Servicio>();
+            servicios = new List<ServicioBanco>();
         }
         
 

@@ -15,7 +15,7 @@ namespace TPDDSGrupo44.Models.Tests
          public void estaDisponibleCGPTest()
         {
              CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);
-             Servicio servicio = new Servicio("Rentas");
+             ServicioCGP servicio = new ServicioCGP("Rentas");
              CGP.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Monday, 8, 18));
              CGP.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Tuesday, 8, 18));
              CGP.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Wednesday, 8, 18));

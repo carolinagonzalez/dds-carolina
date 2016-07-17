@@ -13,9 +13,6 @@ namespace TPDDSGrupo44.Models
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriados { get; set; }
 
-        public int? CGPRefId { get; set; }
-        public int? BancoRefId { get; set; }
-
         public Servicio() { }
 
 
@@ -46,6 +43,35 @@ namespace TPDDSGrupo44.Models
             }
         }
 
+    }
+
+
+    public class ServicioBanco : Servicio
+    {
+        [Key]
+        public new int Id { get; set; }
+        public ServicioBanco() { }
+
+        public ServicioBanco(string nombreDelServicio)
+        {
+            nombre = nombreDelServicio;
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriados = new List<HorarioAbierto>();
+        }
+    }
+
+    public class ServicioCGP : Servicio
+    {
+        [Key]
+        public new int Id { get; set; }
+        public ServicioCGP() { }
+
+        public ServicioCGP(string nombreDelServicio)
+        {
+            nombre = nombreDelServicio;
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriados = new List<HorarioAbierto>();
+        }
     }
 
 

@@ -375,7 +375,7 @@ namespace TPDDSGrupo44.Controllers
 
             // Agrego CGP Lugano
             CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);
-            Servicio servicio = new Servicio("Rentas");
+            ServicioCGP servicio = new ServicioCGP("Rentas");
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -388,7 +388,7 @@ namespace TPDDSGrupo44.Controllers
 
             // Agrego CGP Floresta
             CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
-            servicio = new Servicio("Registro Civil");
+            servicio = new ServicioCGP("Registro Civil");
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -402,15 +402,15 @@ namespace TPDDSGrupo44.Controllers
 
             // Agrego Banco provincia
             Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.6571851 -58.4776738)"));
-            servicio = new Servicio("Depósitos");
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            banco.servicios.Add(servicio);
+            ServicioBanco servicioBanco = new ServicioBanco("Depósitos");
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            banco.servicios.Add(servicioBanco);
             banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
             banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
             banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));

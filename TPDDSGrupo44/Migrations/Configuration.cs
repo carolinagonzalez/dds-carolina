@@ -82,7 +82,7 @@ namespace TPDDSGrupo44.Migrations
             
 
             // servicios CGP Lugano
-            Servicio servicio1 = new Servicio("Rentas");
+            ServicioCGP servicio1 = new ServicioCGP("Rentas");
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -90,11 +90,11 @@ namespace TPDDSGrupo44.Migrations
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<Servicio> servicios1 = new List<Servicio>();
+            List<ServicioCGP> servicios1 = new List<ServicioCGP>();
             servicios1.Add(servicio1);
 
             //servicios CGP Floresta
-            Servicio servicio2 = new Servicio("Registro Civil");
+            ServicioCGP servicio2 = new ServicioCGP("Registro Civil");
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -102,7 +102,7 @@ namespace TPDDSGrupo44.Migrations
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<Servicio> servicios2 = new List<Servicio>();
+            List<ServicioCGP> servicios2 = new List<ServicioCGP>();
             servicios2.Add(servicio2);
 
             //CGPs
@@ -128,14 +128,15 @@ namespace TPDDSGrupo44.Migrations
 
 
             // Horarios Banco Provincia
-            servicio1 = new Servicio("Depósitos");
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            ServicioBanco servicio3 = new ServicioBanco("Depósitos");
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            List<ServicioBanco> servicios3 = new List<ServicioBanco>();
 
             horarios = new List<HorarioAbierto>();
             horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
@@ -156,7 +157,7 @@ namespace TPDDSGrupo44.Migrations
                 palabraClave = "banco",
                 nombreDelPOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT(-34.660979 -58.469821)"),
-                servicios = servicios1,
+                servicios = servicios3,
                 horarioAbierto = horarios
             },
             new Banco
@@ -164,7 +165,7 @@ namespace TPDDSGrupo44.Migrations
                 palabraClave = "banco",
                 nombreDelPOI = "Banco Francés",
                 coordenada = DbGeography.FromText("POINT(-34.6579153 -58.4791142)"),
-                servicios = servicios1,
+                servicios = servicios3,
                 horarioAbierto = horarios
             });
 
