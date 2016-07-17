@@ -50,6 +50,11 @@ namespace TPDDSGrupo44.Models
     {
         [Key]
         public new int Id { get; set; }
+
+        public new string nombre { get; set; }
+        public new List<HorarioAbierto> horarioAbierto { get; set; }
+        public new List<HorarioAbierto> horarioFeriados { get; set; }
+
         public ServicioBanco() { }
 
         public ServicioBanco(string nombreDelServicio)
@@ -64,6 +69,11 @@ namespace TPDDSGrupo44.Models
     {
         [Key]
         public new int Id { get; set; }
+
+        public new string nombre { get; set; }
+        public new List<HorarioAbierto> horarioAbierto { get; set; }
+        public new List<HorarioAbierto> horarioFeriados { get; set; }
+
         public ServicioCGP() { }
 
         public ServicioCGP(string nombreDelServicio)

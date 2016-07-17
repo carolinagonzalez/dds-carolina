@@ -8,12 +8,15 @@ namespace TPDDSGrupo44.Models
     {
         public List<ServicioBanco> servicios { get; set; }
 
-        public Banco() { }
 
         [Key]
+
         public new int Id { get; set; }
         public new string nombreDelPOI { get; set; }
         public new DbGeography coordenada { get; set; }
+
+
+        public Banco() { }
 
         // Constructor
         public Banco(string nombre, DbGeography unaCoordenada)

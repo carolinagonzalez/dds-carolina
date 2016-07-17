@@ -137,6 +137,7 @@ namespace TPDDSGrupo44.Migrations
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
             List<ServicioBanco> servicios3 = new List<ServicioBanco>();
+            servicios3.Add(servicio3);
 
             horarios = new List<HorarioAbierto>();
             horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
@@ -154,7 +155,7 @@ namespace TPDDSGrupo44.Migrations
             b => b.nombreDelPOI,
             new Banco
             {
-                palabraClave = "banco",
+                palabraClave = "Banco Provincia",
                 nombreDelPOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT(-34.660979 -58.469821)"),
                 servicios = servicios3,
@@ -162,7 +163,7 @@ namespace TPDDSGrupo44.Migrations
             },
             new Banco
             {
-                palabraClave = "banco",
+                palabraClave = "Banco Francés",
                 nombreDelPOI = "Banco Francés",
                 coordenada = DbGeography.FromText("POINT(-34.6579153 -58.4791142)"),
                 servicios = servicios3,
