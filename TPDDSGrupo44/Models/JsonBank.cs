@@ -15,3 +15,5 @@ namespace TPDDSGrupo44.Models
         }
     }
 }
+
+// DbGeography unaCoordenada = x,y

@@ -44,3 +44,49 @@ namespace TPDDSGrupo44.Models
 
     }
 }
+
+  
+ /* Otra url, y del json Parseado  obtener el banco , sus coordenadas.. (con respecto a JsonBanks) 
+  * consultar sobre cómo se maneja el jsonParseado... habria que utilizar el httpRequest?
+  * cambio la url 
+{
+    public class GetJsonBanks : Controller
+{
+    private static List<JsonBank> getJsonData()
+    {
+        string url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=banco&servicio=servicio";
+        var jsonString = string.Empty;
+
+        var client = new WebClient(); 
+        jsonString = client.DownloadString(url);
+
+        List<JsonBank> jsonParseado = JsonConvert.DeserializeObject<List<JsonBank>>(jsonString);
+        return jsonParseado;
+    }
+
+   
+
+    public static void showBanks(string bank, string service)
+    {
+            List<JsonBank> jsonData = getJsonData();
+            //jsonData = JsonBank.Bank.banco.get()
+
+        if (jsonData.Count > 0)
+        {
+            foreach (JsonBank something in jsonData)
+            {
+                //ViewBag.SearchText = something.banco + " -> " + address; // address seria la direccion del lugar, que se genera con las coord.
+                //ViewBag.SearchText = something.banco + " -> " + address;
+                // ViewBag.Search = "Ok";
+            }
+        }
+        else
+        {
+            //ViewBag.SearchText = "No se ha encontrado el banco/servicio especificado.";  //me marca los ViewBag en rojo, no se porque
+            //ViewBag.Search = "Error";
+        }
+
+    }
+
+}
+}*/
