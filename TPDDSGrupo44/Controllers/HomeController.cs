@@ -575,7 +575,6 @@ namespace TPDDSGrupo44.Controllers
                 busquedas = (from b in db.Busquedas
                             orderby b.Id
                             select b).ToList();
-                
             }
 
             return View(busquedas);
