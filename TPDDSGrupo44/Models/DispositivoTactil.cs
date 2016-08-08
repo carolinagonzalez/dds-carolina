@@ -10,6 +10,7 @@ namespace TPDDSGrupo44
     public class DispositivoTactil
     {
         [Key]
+        ////////////////Atributos////////////////
         public int Id { get; set; }
 
         public DbGeography coordenada { get; set; }
@@ -19,10 +20,10 @@ namespace TPDDSGrupo44
         //Creo coleccion
         public List<PuntoDeInteres> ListaPuntosDeInteres;
 
-
+        ////////////////Constructor vacio////////////////
         public DispositivoTactil() { }
 
-        // Creo Constructor
+        ////////////////Creo Constructor////////////////
         public DispositivoTactil(string nombreDelPunto, DbGeography unaCoordenada)
         {
             nombre = nombreDelPunto;

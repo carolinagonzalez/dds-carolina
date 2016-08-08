@@ -20,7 +20,7 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string palabraClave { get; set; }
-        public new string tipoDePOID { get; set; }
+        public new string tipoDePOI { get; set; }
         public new List<HorarioAbierto> horarioAbierto { get; set; }
         public new List<HorarioAbierto> horarioFeriado { get; set; }
         public int numeroDeComuna { get; set; }

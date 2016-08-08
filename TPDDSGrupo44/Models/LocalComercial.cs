@@ -9,8 +9,8 @@ namespace TPDDSGrupo44.Models
 {
     public class LocalComercial : PuntoDeInteres
     {
-
         [Key]
+        ////////////////Atributos////////////////
         public new int id { get; set; }
         public new DbGeography coordenada { get; set; }
         public new string calle { get; set; }
@@ -27,32 +27,44 @@ namespace TPDDSGrupo44.Models
         public new string tipoDePOI { get; set; }
         public new List<HorarioAbierto> horarioAbierto { get; set; }
         public new List<HorarioAbierto> horarioFeriado { get; set; }
-
         public Rubro rubro { get; set; }
-        public string nombreDelPOI { get; set; }
 
-        // Constructor
+        ////////////////Constructor vacio////////////////
+        public LocalComercial() { }
+
+
+        ////////////////Constructor Viejo(Usado en controlador////////////////
         public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
         : base(nombre, unaCoordenada)
         {
             this.rubro = rubro;
-            nombreDelPOI = nombre;
             coordenada = unaCoordenada;
             palabraClave = nombre;
         }
 
-
-        public LocalComercial() { }
-
-        //Sobrecarga
         public LocalComercial(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
         {
             this.rubro = rubro;
-            nombreDelPOI = nombreRubro;
+            palabraClave = nombreRubro;
             coordenada = unaCoordenada;
-
-
         }
+
+        ////////////////Cálculo de Cercanía - Depende del radio de cercanía del rubro////////////////
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+        {
+            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         public List<String> localesComerciales { get; set; }
 
@@ -91,15 +103,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
-
-        // Cálculo de Cercanía - Depende del radio de cercanía del rubro
-        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
-        {
-            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < rubro.radioDeCercania; //Cuadras
-        }
-
-
-
+        
 
         List<string> listaDeLocales = new List<string> { "Kiosco 123", "Libreria abc" };
 
@@ -125,8 +129,7 @@ namespace TPDDSGrupo44.Models
         }
 
 
-
-      //  List<string> listaDeLocales = new List<string> { "Bufette Campus", "Libreria Mario", "Coto" };
+        //  List<string> listaDeLocales = new List<string> { "Bufette Campus", "Libreria Mario", "Coto" };
 
         List<string> listaDeRubros = new List<string> { "Escolar", "Textil", "Automotor" };
 

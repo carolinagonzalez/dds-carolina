@@ -7,22 +7,25 @@ namespace TPDDSGrupo44.Models
     public class Servicio
     {
         [Key]
+        ////////////////Atributos////////////////
         public int Id { get; set;  }
 
         public string nombre { get; set; }
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriados { get; set; }
 
+        ////////////////Constructor vacio////////////////
         public Servicio() { }
 
 
-        // Constructor
+        ////////////////Creo Constructor////////////////
         public Servicio(string nombreDelServicio)
         {
             nombre = nombreDelServicio;
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriados = new List<HorarioAbierto>();
         }
+
 
         // Cálculo de Disponibilidad - Bancos y CGPs tienen servicios que pueden o no estar disponibles
         public bool estaDisponible(DateTime searchTime)
