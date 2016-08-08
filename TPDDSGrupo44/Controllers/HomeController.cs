@@ -60,6 +60,40 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
+        private void mostrarLista(List<Banco> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (Banco punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
+        private void mostrarLista(List<CGP> listaFiltrada, String palabraBusqueda)
+        {
+            if (listaFiltrada.Count > 0)
+            {
+                foreach (CGP punto in listaFiltrada)
+                {
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
+                    ViewBag.Search = "ok";
+                }
+            }
+            else
+            {
+                ViewBag.SearchText = "No hay ningun punto de interes con esa palabra clave.";
+                ViewBag.Search = "error";
+            }
+        }
+
 
         public ActionResult Index()
         {
@@ -81,9 +115,6 @@ namespace TPDDSGrupo44.Controllers
             ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
-
-            // Genero lista de POIs
-            List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
             
             //Defino ubicación actual (UTN/CAMPUS)
             DbGeography dispositivoTactil = DbGeography.FromText("POINT(-34.6597047 -58.4688947)");
@@ -245,55 +276,16 @@ namespace TPDDSGrupo44.Controllers
     public ActionResult Location(FormCollection search)
         {
             ViewBag.Message = "Buscá puntos de interés específicos.";
+
+
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
 
             // Genero lista de POIs
             List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
-
-            // Agrego parada 114
-            ParadaDeColectivo parada = new ParadaDeColectivo("Monroe 2979", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
-            parada.palabraClave = "114";
-            puntos.Add(parada);
-            // Agrego Parada 114 - lejana
-            parada = new ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
-            parada.palabraClave = "114";
-            puntos.Add(parada);
-
+            
             // Genero lista de rubros
             List<Rubro> rubros = new List<Rubro>();
-
-            //Agrego Librería escolar
-            rubros.Add(new Rubro("librería escolar", 5));
-            //Agrego kiosco de diarios
-            rubros.Add(new Rubro("kiosco de diarios", 2));
-
-            // Agrego librería ceit
-            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Rubro("librería escolar", 5));
-            puntos.Add(local);
-
-            // agrego puesto de diarios 
-            local = new LocalComercial("Kiosco Las Flores", DbGeography.FromText("POINT(-34.634015 -58.482805)"), new Rubro("kiosco de diarios", 5));
-            puntos.Add(local);
-
-            // agrego puesto de diarios 
-            local = new LocalComercial("Kiosco El enano", DbGeography.FromText("POINT(-34.634015 -59.482805)"), new Rubro("kiosco de diarios", 5));
-            puntos.Add(local);
-
-            // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50); ;
-            puntos.Add(CGP);
-
-            // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
-            puntos.Add(CGP);
-
-            // Agrego Banco Provincia
-            Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
-            puntos.Add(banco);
-
-            // Agrego Banco Francés
-            banco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
-            puntos.Add(banco);
+            
 
             string palabraBusqueda = search["palabraClave"];
             DispositivoTactil device = new DispositivoTactil("UTN Campus", DbGeography.FromText("POINT(-34.6597047 -58.4688947)"));
@@ -309,30 +301,55 @@ namespace TPDDSGrupo44.Controllers
                 
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
-                        List<ParadaDeColectivo> paradas = puntos.OfType<ParadaDeColectivo>().ToList();
 
-                        List<ParadaDeColectivo> puntosFiltrados = paradas.Where(x => x.palabraClave == palabraBusqueda).ToList();
-                        mostrarLista(puntosFiltrados, palabraBusqueda);
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.palabraClave == palabraBusqueda).ToList();
+                        mostrarLista(resultadosBusqueda, palabraBusqueda);
 
-                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultadosBusqueda.Count(), DateTime.Today, device);
                         db.Busquedas.Add(busqueda);
                     }
-                    else if (rubros.Find(x => x.nombre.Contains(palabraBusqueda.ToLower())) != null)
+                    else if ( db.Rubros.Where(b => b.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
                     {
                         List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
-                        List<LocalComercial> puntosFiltrados = locales.Where(x => x.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                        mostrarLista(puntosFiltrados, palabraBusqueda);
+                        List<LocalComercial> resultadosBusqueda = db.Locales.Where(x => x.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        mostrarLista(resultadosBusqueda, palabraBusqueda);
 
-                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultadosBusqueda.Count(), DateTime.Today, device);
                         db.Busquedas.Add(busqueda);
                     }
                     else
                     {
-                        List<PuntoDeInteres> puntosFiltrados = puntos.Where(x => x.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                        mostrarLista(puntosFiltrados, palabraBusqueda);
+                        List<LocalComercial> resultadosBusquedaLocales = db.Locales.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        if (resultadosBusquedaLocales.Count() > 0)
+                        {
+                            mostrarLista(resultadosBusquedaLocales, palabraBusqueda);
 
-                        Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
-                        db.Busquedas.Add(busqueda);
+                            Busqueda busqueda = new Busqueda(palabraBusqueda, resultadosBusquedaLocales.Count(), DateTime.Today, device);
+                            db.Busquedas.Add(busqueda);
+                        }
+                        else
+                        {
+                            List<Banco> resultadosBusquedaBancos = db.Bancos.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                            if (resultadosBusquedaBancos.Count() > 0)
+                            {
+                                mostrarLista(resultadosBusquedaBancos, palabraBusqueda);
+
+                                Busqueda busqueda = new Busqueda(palabraBusqueda, resultadosBusquedaBancos.Count(), DateTime.Today, device);
+                                db.Busquedas.Add(busqueda);
+                            }
+                            else
+                            {
+                                List<CGP> resultadosBusquedaCGP = db.CGPs.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                                if (resultadosBusquedaCGP.Count() > 0)
+                                {
+                                    mostrarLista(resultadosBusquedaCGP, palabraBusqueda);
+
+                                    Busqueda busqueda = new Busqueda(palabraBusqueda, resultadosBusquedaCGP.Count(), DateTime.Today, device);
+                                    db.Busquedas.Add(busqueda);
+                                }
+                            }
+                        }
+                        
                     }
 
                     db.SaveChanges();
