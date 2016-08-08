@@ -7,130 +7,59 @@ namespace TPDDSGrupo44.Models
 {
     public class PuntoDeInteres
     {
-       
-        [Key]
-        public int Id { get; set; }
 
-        public string palabraClave { get; set; }
+        ////////////////Atributos////////////////
+        public int id { get; set; }
+        public DbGeography coordenada { get; set; }
+        public string calle { get; set; }
+        public int numeroAltura { get; set; }
+        public int piso { get; set; }
+        public int unidad { get; set; }
+        public int codigoPostal { get; set; }
+        public string localidad { get; set; }
+        public string barrio { get; set; }
+        public string provincia { get; set; }
+        public string pais { get; set; }
         public string entreCalles { get; set; }
+        public string palabraClave { get; set; }
+        public string tipoDePOID { get; set; }
+        public List<HorarioAbierto> horarioAbierto { get; set; }
+        public List<HorarioAbierto> horarioFeriado { get; set; }
 
-
-        public List<String> palabrasRelacionadas = new List<String>();
-
-        public List<HorarioAbierto> horarioAbierto = new List<HorarioAbierto>();
-        public List<HorarioAbierto> horarioFeriados = new List<HorarioAbierto>();
-        private int numLinea;
-        private DbGeography unaCoordenada;
-        private List<string> unasParadas;
-        private string nombreRubro;
-        private int radioCercania;
-        private Rubro rubro;
-        private DateTime dateRubro;
-        private string direccion;
-        private int piso;
-        private char dto;
-
-
-
-
-        /* Getters & setters callePrincipal */
-        public string callePrincipal;
-
-        public String getCallePrincipal()
-        {
-            return callePrincipal;
-        }
-
-        public void setCallePrincipal(String callePrincipal)
-        {
-            if (callePrincipal == null || callePrincipal.Length == 0)
-            {
-                throw new System.ArgumentException("La calle principal no puede ser nula");
-            }
-            this.callePrincipal = callePrincipal;
-        }
-
-
-        /* Getters & setters coordenada */
-        public DbGeography coordenada;
-
-
-        public DbGeography getCoordenada()
-        {
-            return coordenada;
-        }
-
-        public void setCoordenada(DbGeography coordenada)
-        {
-            if (coordenada == null || coordenada.ToString() == "")
-            {
-                throw new System.ArgumentException("La coordenada ingresada no puede ser nula");
-            }
-            this.coordenada = coordenada;
-        }
-
-
-
-        /* Getters & setters nombreDelPOI */
-        public string nombreDelPOI;
-
-
-        public String getNombrePOI()
-        {
-            return nombreDelPOI;
-        }
-
-        public void setNombreDelPOI(String nombreDelPOI)
-        {
-            if (nombreDelPOI == null || nombreDelPOI.Length == 0)
-            {
-                throw new System.ArgumentException("La calle principal no puede ser nula");
-            }
-
-            this.nombreDelPOI = nombreDelPOI;
-        }
-
-
-
-        //Constructor vacio
+        ////////////////Constructor vacio////////////////
         public PuntoDeInteres() { }
 
-        // Constructor básico
+        ////////////////Constructor generico////////////////
+        public PuntoDeInteres(int identificacion, DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
+           string tipoDePOID, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
+        {
+            this.id = identificacion;
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabraClave = palabraClave;
+            this.tipoDePOID = tipoDePOID;
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriados;
+        }
+        
+        ////////////////Constructor Viejo(Usado en controlador////////////////
         public PuntoDeInteres(string nombre, DbGeography unaCordenada)
         {
-            this.setNombreDelPOI(nombre);
-            this.setCoordenada(unaCordenada);
-
-            // nombreDelPOI = nombre;
-            // coordenada = unaCordenada;
-            palabrasRelacionadas.Add(nombre);
+            this.palabraClave = nombre;
+            this.coordenada = unaCordenada;
         }
 
-        public PuntoDeInteres(int numLinea, DbGeography unaCoordenada, List<string> unasParadas)
-        {
-            this.numLinea = numLinea;
-            this.unaCoordenada = unaCoordenada;
-            this.unasParadas = unasParadas;
-        }
-
-        public PuntoDeInteres(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
-        {
-            this.nombreRubro = nombreRubro;
-            this.radioCercania = radioCercania;
-            this.unaCoordenada = unaCoordenada;
-            this.rubro = rubro;
-            this.dateRubro = dateRubro;
-            this.direccion = direccion;
-            this.piso = piso;
-            this.dto = dto;
-        }
-
-
-
-
-
-
-//Funcion manhattan
+        ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
@@ -150,18 +79,17 @@ namespace TPDDSGrupo44.Models
                         
         }
 
-        // Cálculo de Cercanía genérico - distancia menor a 5 cuadras
+        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
         public virtual bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 5;
         }
 
-        // Cálculo de Disponibilidad Horaria genérico
+        ////////////////Cálculo de Disponibilidad Horaria genérico////////////////
         public virtual bool estaDisponible(DateTime searchTime)
         {
             //busco entre los feriados a ver si hoy es feriado
-            HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
+            HorarioAbierto todaysHours = horarioFeriado.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
 
             //si es feriado, verificar si está abierto (pueden hacer horarios diferenciales)
             if (todaysHours != null)

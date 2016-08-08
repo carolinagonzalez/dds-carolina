@@ -16,7 +16,7 @@ namespace TPDDSGrupo44.Controllers
             {
                 foreach (ParadaDeColectivo punto in listaFiltrada)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
                     ViewBag.Search = "ok";
                 }
             }
@@ -33,7 +33,7 @@ namespace TPDDSGrupo44.Controllers
             {
                 foreach (PuntoDeInteres punto in listaFiltrada)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
                     ViewBag.Search = "ok";
                 }
             }
@@ -49,7 +49,7 @@ namespace TPDDSGrupo44.Controllers
             {
                 foreach (LocalComercial punto in listaFiltrada)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.nombreDelPOI + ",";
+                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
                     ViewBag.Search = "ok";
                 }
             }
@@ -181,10 +181,10 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil))
                             {
-                                ViewBag.SearchText = "¡Hay un local de ese rubro cerca! Visite " + punto.nombreDelPOI;
+                                ViewBag.SearchText = "¡Hay un local de ese rubro cerca! Visite " + punto.palabraClave;
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                ViewBag.TextoLugar = punto.nombreDelPOI;
+                                ViewBag.TextoLugar = punto.palabraClave;
                                 ViewBag.Search = "ok";
                                 break;
                             }
@@ -206,10 +206,10 @@ namespace TPDDSGrupo44.Controllers
                             {
                                 if (punto.estaCerca(dispositivoTactil))
                                 {
-                                    ViewBag.SearchText = "¡Hay un local con ese nombre cerca! Visite " + punto.nombreDelPOI;
+                                    ViewBag.SearchText = "¡Hay un local con ese nombre cerca! Visite " + punto.palabraClave;
                                     ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                     ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                    ViewBag.TextoLugar = punto.nombreDelPOI;
+                                    ViewBag.TextoLugar = punto.palabraClave;
                                     ViewBag.Search = "ok";
                                     break;
                                 }
@@ -229,10 +229,10 @@ namespace TPDDSGrupo44.Controllers
                                 {
                                     if (punto.estaCerca(dispositivoTactil))
                                     {
-                                        ViewBag.SearchText = "¡Hay un banco con ese nombre cerca! Visite " + punto.nombreDelPOI;
+                                        ViewBag.SearchText = "¡Hay un banco con ese nombre cerca! Visite " + punto.palabraClave;
                                         ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                         ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                        ViewBag.TextoLugar = punto.nombreDelPOI;
+                                        ViewBag.TextoLugar = punto.palabraClave;
                                         ViewBag.Search = "ok";
                                         break;
                                     }
@@ -251,10 +251,10 @@ namespace TPDDSGrupo44.Controllers
                                     {
                                         if (punto.estaCerca(dispositivoTactil))
                                         {
-                                            ViewBag.SearchText = "¡Hay un CGP con ese nombre cerca! Visite " + punto.nombreDelPOI;
+                                            ViewBag.SearchText = "¡Hay un CGP con ese nombre cerca! Visite " + punto.palabraClave;
                                             ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                             ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                            ViewBag.TextoLugar = punto.nombreDelPOI;
+                                            ViewBag.TextoLugar = punto.palabraClave;
                                             ViewBag.Search = "ok";
                                             break;
                                         }
@@ -372,7 +372,7 @@ namespace TPDDSGrupo44.Controllers
                     }
                     else
                     {
-                        List<PuntoDeInteres> puntosFiltrados = puntos.Where(x => x.nombreDelPOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        List<PuntoDeInteres> puntosFiltrados = puntos.Where(x => x.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                         mostrarLista(puntosFiltrados, palabraBusqueda);
 
                         Busqueda busqueda = new Busqueda(palabraBusqueda, puntosFiltrados.Count(), DateTime.Today, device);
@@ -428,8 +428,8 @@ namespace TPDDSGrupo44.Controllers
             local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
             local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
             local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            local.horarioFeriados.Add(new HorarioAbierto(1, 1, 0, 0));
-            local.horarioFeriados.Add(new HorarioAbierto(9, 7, 10, 16));
+            local.horarioFeriado.Add(new HorarioAbierto(1, 1, 0, 0));
+            local.horarioFeriado.Add(new HorarioAbierto(9, 7, 10, 16));
             puntos.Add(local);
 
             // Agrego CGP Lugano
@@ -526,7 +526,7 @@ namespace TPDDSGrupo44.Controllers
                     foreach (CGP punto in CGPs) {
                     Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
                         if (foundService != null) {
-                            availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
+                            availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
                         }
                     }
 
@@ -536,7 +536,7 @@ namespace TPDDSGrupo44.Controllers
                     Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
                     if (foundService != null && punto.estaDisponible(searchTime))
                     {
-                        availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.nombreDelPOI + ".\n";
+                        availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
                     }
                 }
 
@@ -545,7 +545,7 @@ namespace TPDDSGrupo44.Controllers
                 {
                     if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
                     {
-                        availableServices = "El local " + punto.nombreDelPOI + " está disponible en ese horario.\n";
+                        availableServices = "El local " + punto.palabraClave + " está disponible en ese horario.\n";
                     }
                 }
 
