@@ -14,11 +14,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (listaFiltrada.Count > 0)
             {
-                foreach (ParadaDeColectivo punto in listaFiltrada)
+                ViewBag.SearchText = new string[listaFiltrada.Count()];
+                for (var i = 0; i < listaFiltrada.Count(); i++)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
-                    ViewBag.Search = "ok";
+                    ViewBag.SearchText[i] = listaFiltrada[i].palabraClave + " (" + listaFiltrada[i].calle + " " + listaFiltrada[i].numeroAltura + ")";
                 }
+                ViewBag.Search = "ok";
             }
             else
             {
@@ -31,11 +32,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (listaFiltrada.Count > 0)
             {
-                foreach (PuntoDeInteres punto in listaFiltrada)
+                ViewBag.SearchText = new string[listaFiltrada.Count()];
+                for (var i = 0; i < listaFiltrada.Count(); i++)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
-                    ViewBag.Search = "ok";
+                    ViewBag.SearchText[i] = listaFiltrada[i].palabraClave + " (" + listaFiltrada[i].calle + " " + listaFiltrada[i].numeroAltura + ")";
                 }
+                ViewBag.Search = "ok";
             }
             else
             {
@@ -47,11 +49,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (listaFiltrada.Count > 0)
             {
-                foreach (LocalComercial punto in listaFiltrada)
+                ViewBag.SearchText = new string[listaFiltrada.Count()];
+                for (var i = 0; i < listaFiltrada.Count(); i++)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
-                    ViewBag.Search = "ok";
+                    ViewBag.SearchText[i] = listaFiltrada[i].palabraClave + " (" + listaFiltrada[i].calle + " " + listaFiltrada[i].numeroAltura + ")";
                 }
+                ViewBag.Search = "ok";
             }
             else
             {
@@ -64,11 +67,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (listaFiltrada.Count > 0)
             {
-                foreach (Banco punto in listaFiltrada)
+                ViewBag.SearchText = new string[listaFiltrada.Count()];
+                for (var i = 0; i < listaFiltrada.Count(); i++)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
-                    ViewBag.Search = "ok";
+                    ViewBag.SearchText[i] = listaFiltrada[i].palabraClave + " (" + listaFiltrada[i].calle + " " + listaFiltrada[i].numeroAltura + ")";
                 }
+                ViewBag.Search = "ok";
             }
             else
             {
@@ -81,11 +85,12 @@ namespace TPDDSGrupo44.Controllers
         {
             if (listaFiltrada.Count > 0)
             {
-                foreach (CGP punto in listaFiltrada)
+                ViewBag.SearchText = new string[listaFiltrada.Count()];
+                for (var i = 0; i < listaFiltrada.Count(); i++)
                 {
-                    ViewBag.SearchText = ViewBag.SearchText + palabraBusqueda + "->" + punto.palabraClave + ",";
-                    ViewBag.Search = "ok";
+                    ViewBag.SearchText[i] = listaFiltrada[i].palabraClave + " (" + listaFiltrada[i].calle + " " + listaFiltrada[i].numeroAltura + ")";
                 }
+                ViewBag.Search = "ok";
             }
             else
             {
@@ -269,6 +274,7 @@ namespace TPDDSGrupo44.Controllers
 
         public ActionResult Location () {
             ViewBag.Message = "Buscá puntos de interés específicos.";
+            ViewBag.SearchText = new string[0];
             return View();
     }
 
@@ -386,71 +392,6 @@ namespace TPDDSGrupo44.Controllers
             // Genero lista de puntos
             List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
 
-            // Agrego parada 114
-            Models.ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
-            parada.palabraClave = "114";
-            puntos.Add(parada);
-
-
-            // Agrego librería ceit
-            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Rubro("librería escolar", 5));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 8, 21));
-            local.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            local.horarioFeriado.Add(new HorarioAbierto(1, 1, 0, 0));
-            local.horarioFeriado.Add(new HorarioAbierto(9, 7, 10, 16));
-            puntos.Add(local);
-
-            // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);
-            ServicioCGP servicio = new ServicioCGP("Rentas");
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            CGP.servicios.Add(servicio);
-            puntos.Add(CGP);
-
-            // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
-            servicio = new ServicioCGP("Registro Civil");
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
-            servicio.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            CGP.servicios.Add(servicio);
-            puntos.Add(CGP);
-
-
-            // Agrego Banco provincia
-            Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.6571851 -58.4776738)"));
-            ServicioBanco servicioBanco = new ServicioBanco("Depósitos");
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            servicioBanco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            banco.servicios.Add(servicioBanco);
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            banco.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            puntos.Add(banco);
 
             string searchWord = search["palabraClave"];
             DateTime searchTime = DateTime.ParseExact(search["selectedDate"], "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
@@ -538,20 +479,6 @@ namespace TPDDSGrupo44.Controllers
 
             }
             
-        }
-
-        public ActionResult SearchReports()
-        {
-            List<Busqueda> busquedas;
-            using (var db = new BuscAR())
-            {
-                busquedas = (from b in db.Busquedas
-                            orderby b.Id
-                            select b).ToList();
-            }
-
-            return View(busquedas);
-
         }
     }
 }

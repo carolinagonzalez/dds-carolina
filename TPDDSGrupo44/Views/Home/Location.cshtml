@@ -14,4 +14,11 @@
     <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
     <button type="submit">Buscar</button>
 }
-<div class="result @ViewBag.Search">@ViewBag.SearchText</div>
+<div class="result @ViewBag.Search">
+    @foreach (string text in ViewBag.SearchText)
+    {
+        @Html.Label(text)
+        <br />
+    }
+
+</div>
