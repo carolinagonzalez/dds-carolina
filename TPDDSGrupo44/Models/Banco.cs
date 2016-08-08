@@ -6,13 +6,11 @@ namespace TPDDSGrupo44.Models
 {
     public class Banco : PuntoDeInteres
     {
+       
+        public new int id { get; set; }
+
         public List<ServicioBanco> servicios { get; set; }
-
-
-        [Key]
-
-        public new int Id { get; set; }
-        public new string nombreDelPOI { get; set; }
+        public string nombreDelPOI { get; set; }
         public new DbGeography coordenada { get; set; }
 
 

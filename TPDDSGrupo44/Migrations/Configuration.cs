@@ -30,12 +30,26 @@ namespace TPDDSGrupo44.Migrations
             p => p.palabraClave,   
             new ParadaDeColectivo
             {
-                palabraClave = "114 - Mozart 2389",
+                palabraClave = "114",
+                calle = "Mozart",
+                numeroAltura = 2389,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Lugano",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Saraza y Dellepiane Sur",
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
             },
             new ParadaDeColectivo
             {
-                palabraClave = "36 - Av Escalada 2680",
+                palabraClave = "36",
+                calle = "Av Escalada",
+                numeroAltura = 2680,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Lugano",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Av Derqui y Dellepiane Norte",
                 coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
             });
 
@@ -65,7 +79,7 @@ namespace TPDDSGrupo44.Migrations
                 coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
                 rubro = new Rubro("librería escolar", 5),
                 horarioAbierto = horarios,
-                horarioFeriados = feriados
+                //horarioFeriados = feriados
             },
             new LocalComercial
             {
@@ -107,7 +121,14 @@ namespace TPDDSGrupo44.Migrations
             new CGP
             {
                 palabraClave = "Sede Comunal 8",
-                nombreDelPOI = "Sede Comunal 8",
+                calle = "Av Coronel Roca",
+                numeroAltura = 5252,
+                codigoPostal = 1439,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Lugano",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Av Escalda y Av General Paz",
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
                 zonaDelimitadaPorLaComuna = 50,
                 servicios = servicios1
@@ -115,7 +136,14 @@ namespace TPDDSGrupo44.Migrations
             new CGP
             {
                 palabraClave = "Sede Comunal 10",
-                nombreDelPOI = "Sede Comunal 10",
+                calle = "Bacacay",
+                numeroAltura = 3968,
+                codigoPostal = 1407,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Vélez Sarsfield",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Mercedes y Av Chivilcoy",
                 coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
                 zonaDelimitadaPorLaComuna = 10,
                 servicios = servicios2

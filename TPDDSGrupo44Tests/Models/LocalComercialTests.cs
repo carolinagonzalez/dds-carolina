@@ -29,9 +29,9 @@ namespace TPDDSGrupo44.Models.Tests
 
             local.horarioAbierto.Add(new HorarioAbierto(DayOfWeek.Sunday, 0, 0));
 
-            local.horarioFeriados.Add(new HorarioAbierto(1, 1, 0, 0));
+            local.horarioFeriado.Add(new HorarioAbierto(1, 1, 0, 0));
 
-            local.horarioFeriados.Add(new HorarioAbierto(9, 7, 10, 16));
+            local.horarioFeriado.Add(new HorarioAbierto(9, 7, 10, 16));
 
             Assert.IsTrue(local.estaDisponible(new DateTime(2016, 4, 18, 17, 00, 00)));
 

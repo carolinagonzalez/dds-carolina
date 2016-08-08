@@ -29,7 +29,6 @@ namespace TPDDSGrupo44.Models
             // Parada unaParada = new Parada(numeroDeLinea, unaCoordenada, paradasAgregadas);
             paradasDeEstaLinea.Add("Mozart 300");
             paradasDeEstaLinea.Add("Mozart 100");
-            ParadaDeColectivo unaParada = new ParadaDeColectivo(114, DbGeography.FromText("POINT(-34.81725 -58.4476116)"), paradasDeEstaLinea);
 
             //  unaParada.agregarPOILinea(7, "maipu 999");
 

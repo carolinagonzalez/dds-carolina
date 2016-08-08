@@ -9,6 +9,7 @@ namespace TPDDSGrupo44.Models
     {
 
         ////////////////Atributos////////////////
+        [Key]
         public int id { get; set; }
         public DbGeography coordenada { get; set; }
         public string calle { get; set; }
@@ -22,7 +23,7 @@ namespace TPDDSGrupo44.Models
         public string pais { get; set; }
         public string entreCalles { get; set; }
         public string palabraClave { get; set; }
-        public string tipoDePOID { get; set; }
+        public string tipoDePOI { get; set; }
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriado { get; set; }
 
@@ -30,11 +31,10 @@ namespace TPDDSGrupo44.Models
         public PuntoDeInteres() { }
 
         ////////////////Constructor generico////////////////
-        public PuntoDeInteres(int identificacion, DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+        public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
-           string tipoDePOID, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
+           string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
         {
-            this.id = identificacion;
             this.coordenada = unaCoordenada;
             this.calle = calle;
             this.numeroAltura = numeroAltura;
@@ -47,7 +47,7 @@ namespace TPDDSGrupo44.Models
             this.pais = pais;
             this.entreCalles = entreCalles;
             this.palabraClave = palabraClave;
-            this.tipoDePOID = tipoDePOID;
+            this.tipoDePOI = tipoDePOI;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriados;
         }

@@ -85,50 +85,6 @@ namespace TPDDSGrupo44.Controllers
             // Genero lista de POIs
             List<PuntoDeInteres> puntos = new List<PuntoDeInteres>();
             
-            // Agrego parada 114
-            ParadaDeColectivo parada = new Models.ParadaDeColectivo("Mozart 2389", DbGeography.FromText("POINT(-34.659690 -58.468764)"));
-            parada.palabraClave = "114";
-            puntos.Add(parada);
-            // Agrego Parada 36 - lejana
-            parada = new Models.ParadaDeColectivo("Av Escalada 2680", DbGeography.FromText("POINT(-34.662325 -58.473300)"));
-            parada.palabraClave = "36";
-            puntos.Add(parada);
-
-
-
-            // Genero lista de rubros
-            List<Rubro> rubros = new List<Rubro>();
-
-            //Agrego Librería escolar
-            rubros.Add(new Rubro("librería escolar", 5));
-            //Agrego kiosco de diarios
-            rubros.Add(new Rubro("kiosco de diarios", 2));
-
-
-            // Agrego librería ceit
-            LocalComercial local = new LocalComercial("Librería CEIT", DbGeography.FromText("POINT(-34.659492 -58.467906)"), new Rubro("librería escolar", 5));
-            puntos.Add(local);
-
-            // agrego puesto de diarios 
-            local = new LocalComercial("Kiosco Las Flores", DbGeography.FromText("POINT(-34.634015 -58.482805)"), new Rubro("kiosco de diarios", 5));
-            puntos.Add(local);
-
-            // Agrego CGP Lugano
-            CGP CGP = new CGP("Sede Comunal 8", DbGeography.FromText("POINT(-34.6862397 -58.4606666)"), 50);;
-            puntos.Add(CGP);
-
-            // Agrego CGP Floresta
-            CGP = new CGP("Sede Comunal 10", DbGeography.FromText("POINT(-34.6318411 -58.4857468)"), 10);
-            puntos.Add(CGP);
-
-            // Agrego Banco Provincia
-            Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
-            puntos.Add(banco);
-
-            // Agrego Banco Francés
-            banco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
-            puntos.Add(banco);
-
             //Defino ubicación actual (UTN/CAMPUS)
             DbGeography dispositivoTactil = DbGeography.FromText("POINT(-34.6597047 -58.4688947)");
             ViewBag.Latitud = dispositivoTactil.Latitude;
