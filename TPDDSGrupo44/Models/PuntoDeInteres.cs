@@ -88,8 +88,12 @@ namespace TPDDSGrupo44.Models
         ////////////////Cálculo de Disponibilidad Horaria genérico////////////////
         public virtual bool estaDisponible(DateTime searchTime)
         {
+            HorarioAbierto todaysHours = new HorarioAbierto();
             //busco entre los feriados a ver si hoy es feriado
-            HorarioAbierto todaysHours = horarioFeriado.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
+            if (horarioFeriado != null)
+            {
+                todaysHours = horarioFeriado.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
+            }
 
             //si es feriado, verificar si está abierto (pueden hacer horarios diferenciales)
             if (todaysHours != null)

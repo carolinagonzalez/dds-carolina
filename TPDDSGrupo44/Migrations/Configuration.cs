@@ -131,7 +131,60 @@ namespace TPDDSGrupo44.Migrations
                 entreCalles = "Av Escalda y Av General Paz",
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
                 zonaDelimitadaPorLaComuna = 50,
-                servicios = servicios1
+                servicios = new List<ServicioCGP>()
+                {
+                    new ServicioCGP() {
+                        horarioAbierto = new List<HorarioAbierto>()
+                    {
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Monday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Tuesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Wednesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Thursday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Friday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Saturday, horarioInicio = 0, horarioFin = 0
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Sunday, horarioInicio = 0, horarioFin = 0
+                        }
+                    }
+                         }
+
+                },
+                horarioAbierto = new List<HorarioAbierto>()
+                    {
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Monday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Tuesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Wednesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Thursday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Friday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Saturday, horarioInicio = 0, horarioFin = 0
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Sunday, horarioInicio = 0, horarioFin = 0
+                        }
+                    }
             },
             new CGP
             {
@@ -146,7 +199,36 @@ namespace TPDDSGrupo44.Migrations
                 entreCalles = "Mercedes y Av Chivilcoy",
                 coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
                 zonaDelimitadaPorLaComuna = 10,
-                servicios = servicios2
+                servicios = new List<ServicioCGP>()
+                {
+                    new ServicioCGP() {
+                        horarioAbierto = new List<HorarioAbierto>()
+                    {
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Monday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Tuesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Wednesday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Thursday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Friday, horarioInicio = 8, horarioFin = 18
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Saturday, horarioInicio = 10, horarioFin = 16
+                        },
+                        new HorarioAbierto() {
+                            dia = System.DayOfWeek.Sunday, horarioInicio = 0, horarioFin = 0
+                        }
+                    }
+                         }
+
+                }
             });
             context.SaveChanges();
 

@@ -28,7 +28,9 @@ namespace TPDDSGrupo44.Models
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         ////////////////Constructor Vacio////////////////
-        public CGP() { }
+        public CGP() {
+            servicios = new List<ServicioCGP>();
+        }
 
         ////////////////Constructor Viejo(Usado en controlador////////////////
         public CGP(string nombre, DbGeography unaCoordenada, int zona)

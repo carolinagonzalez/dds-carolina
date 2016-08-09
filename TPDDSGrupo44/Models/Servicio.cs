@@ -11,11 +11,15 @@ namespace TPDDSGrupo44.Models
         public int Id { get; set;  }
 
         public string nombre { get; set; }
-        public List<HorarioAbierto> horarioAbierto { get; set; }
-        public List<HorarioAbierto> horarioFeriados { get; set; }
+        public virtual List<HorarioAbierto> horarioAbierto { get; set; }
+        public virtual List<HorarioAbierto> horarioFeriados { get; set; }
 
         ////////////////Constructor vacio////////////////
-        public Servicio() { }
+        public Servicio()
+        {
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriados = new List<HorarioAbierto>();
+        }
 
 
         ////////////////Creo Constructor////////////////
@@ -30,8 +34,11 @@ namespace TPDDSGrupo44.Models
         // Cálculo de Disponibilidad - Bancos y CGPs tienen servicios que pueden o no estar disponibles
         public bool estaDisponible(DateTime searchTime)
         {
+            HorarioAbierto todaysHours = new HorarioAbierto();
             //busco entre los feriados a ver si hoy es feriado
-            HorarioAbierto todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
+            if (horarioFeriados != null) { 
+                todaysHours = horarioFeriados.Find(x => x.numeroDeDia == searchTime.Day && x.numeroDeMes == searchTime.Month);
+            }
 
             //si es feriado, verificar si está abierto (pueden hacer horarios diferenciales)
             if (todaysHours != null)
@@ -58,7 +65,10 @@ namespace TPDDSGrupo44.Models
         public new List<HorarioAbierto> horarioAbierto { get; set; }
         public new List<HorarioAbierto> horarioFeriados { get; set; }
 
-        public ServicioBanco() { }
+        public ServicioBanco() {
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriados = new List<HorarioAbierto>();
+        }
 
         public ServicioBanco(string nombreDelServicio)
         {
@@ -77,7 +87,12 @@ namespace TPDDSGrupo44.Models
         public new List<HorarioAbierto> horarioAbierto { get; set; }
         public new List<HorarioAbierto> horarioFeriados { get; set; }
 
-        public ServicioCGP() { }
+        public ServicioCGP()
+        {
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriados = new List<HorarioAbierto>();
+
+        }
 
         public ServicioCGP(string nombreDelServicio)
         {

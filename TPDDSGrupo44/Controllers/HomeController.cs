@@ -397,18 +397,19 @@ namespace TPDDSGrupo44.Controllers
             DateTime searchTime = DateTime.ParseExact(search["selectedDate"], "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
-            
 
+            using (var db = new BuscAR())
+            {
                 //Si la persona ingresó un número, asumo que busca una parada de bondi
                 int linea = 0;
                 if (int.TryParse(searchWord, out linea) && linea > 0)
                 {
 
-                //busco la parada en cuestión
-                    List<Models.ParadaDeColectivo> paradas = puntos.OfType<Models.ParadaDeColectivo>().ToList();
-                    Models.ParadaDeColectivo punto = paradas.Find(x => x.palabraClave == searchWord);
+                    //busco la parada en cuestión
+                    ParadaDeColectivo punto = db.Paradas.Where(b => b.palabraClave == searchWord).FirstOrDefault();
 
-                    if (punto != null) { 
+                    if (punto != null)
+                    {
                         if (punto.estaDisponible(searchTime))
                         {
                             ViewBag.SearchText = "La línea " + punto.palabraClave + " está disponible en ese horario";
@@ -416,13 +417,15 @@ namespace TPDDSGrupo44.Controllers
 
                             return View();
 
-                        } else
+                        }
+                        else
                         {
                             ViewBag.SearchText = "La línea " + punto.palabraClave + " no está disponible en ese horario";
                             ViewBag.Search = "error";
                             return View();
                         }
-                    } else
+                    }
+                    else
                     {
                         ViewBag.SearchText = "No tenemos información sobre una línea de colectivos con número " + searchWord;
                         ViewBag.Search = "error";
@@ -434,49 +437,54 @@ namespace TPDDSGrupo44.Controllers
                 }
                 else
                 {
-                List<CGP> CGPs = puntos.OfType<CGP>().ToList();
-                string availableServices = "";
+                    string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    foreach (CGP punto in CGPs) {
-                    Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
-                        if (foundService != null) {
+                    List<CGP> foundCGP = db.CGPs.Include("servicios").Where(x => x.servicios.ToList().Count() > 0).ToList();
+
+                    foreach (CGP punto in foundCGP)
+                    {
+                        ServicioCGP foundService = punto.servicios.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
+                        if (foundService != null)
+                        {
                             availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
                         }
                     }
 
-                List<Banco> bancos = puntos.OfType<Banco>().ToList();
-                foreach (Banco punto in bancos)
-                {
-                    Servicio foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
-                    if (foundService != null && punto.estaDisponible(searchTime))
-                    {
-                        availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
-                    }
-                }
 
-                List<LocalComercial> locales = puntos.OfType<LocalComercial>().ToList();
-                foreach (LocalComercial punto in locales)
-                {
-                    if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
+                    foreach (Banco punto in db.Bancos.ToList())
                     {
-                        availableServices = "El local " + punto.palabraClave + " está disponible en ese horario.\n";
+                        ServicioBanco foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
+                        if (foundService != null && punto.estaDisponible(searchTime))
+                        {
+                            availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
+                        }
                     }
-                }
+                    
+                    foreach (LocalComercial punto in db.Locales.ToList())
+                    {
+                        if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
+                        {
+                            availableServices = "El local " + punto.palabraClave + " está disponible en ese horario.\n";
+                        }
+                    }
 
-                if (availableServices != "") {
+                    if (availableServices != "")
+                    {
                         ViewBag.SearchText = availableServices;
                         ViewBag.Search = "ok";
 
                         return View();
-                    } else {
+                    }
+                    else
+                    {
                         ViewBag.SearchText = "Ese servicio o local no se encuentra disponible o no existe."; ;
                         ViewBag.Search = "error";
 
                         return View();
                     }
-                    
-                
 
+
+                }
             }
             
         }
