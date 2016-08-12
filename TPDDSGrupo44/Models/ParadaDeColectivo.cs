@@ -36,12 +36,41 @@ namespace TPDDSGrupo44.Models
             palabraClave = nombre;
             coordenada = unaCoordenada;
         }
-
-        ////////////////Cálculo de Cercanía - Debe estar a menos de una cuadra////////////////
-        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+     /* TODO
+        ////////////////Funcion manhattan////////////////
+        private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
-            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < 1;
+            double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
+            double long1InDegrees = (double)coordenadaDeDispositivoTactil.Longitude;
+
+            double lat2InDegrees = (double)coordenada.Latitude;
+            double long2InDegrees = (double)coordenada.Longitude;
+
+            double lats = (double)Math.Abs(lat1InDegrees - lat2InDegrees);
+            double lngs = (double)Math.Abs(long1InDegrees - long2InDegrees);
+
+            //grados a metros
+            double latm = lats * 60 * 1852;
+            double lngm = (lngs * Math.Cos((double)lat1InDegrees * Math.PI / 180)) * 60 * 1852;
+            double distInMeters = Math.Sqrt(Math.Pow(latm, 2) + Math.Pow(lngm, 2));
+            return distInMeters;
+
         }
+
+        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
+        public virtual bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+        {
+            return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 1;
+        }
+
+            Reemplazaria el de abajo
+        */
+        
+                ////////////////Cálculo de Cercanía - Debe estar a menos de una cuadra////////////////
+                public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+                {
+                    return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < 1;
+                }
 
         ////////////////Cálculo de Disponibilidad Horaria - Siempre está disponible////////////////
         public override bool estaDisponible(DateTime searchTime)

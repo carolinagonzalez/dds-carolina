@@ -85,6 +85,13 @@ namespace TPDDSGrupo44.Models
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 5;
         }
 
+
+   /*     ////////////////Cálculo de Cercanía - Debe estar a menos de una cuadra////////////////
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+        {
+            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < 1;
+        }*/
+
         ////////////////Cálculo de Disponibilidad Horaria genérico////////////////
         public virtual bool estaDisponible(DateTime searchTime)
         {
