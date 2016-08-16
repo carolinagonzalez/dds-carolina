@@ -1,13 +1,7 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System;
-
-
 
 namespace TPDDSGrupo44.Models
 
@@ -17,32 +11,48 @@ namespace TPDDSGrupo44.Models
  * consultar sobre cómo se maneja el jsonParseado... habria que utilizar el httpRequest?
  * cambio la url */
 {
-    public class GetJsonBanks : Controller
+   public class GetJsonBanks : Controller
+   //public class GetJsonBanks
     {
-        private static List<JsonBank> getJsonData()
+        private static List<JsonBank> getJsonData(string bank, string service)
+        //protected void Page_Load(object sender, EventArgs e)
         {
-            string url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=banco&servicio=servicio";
+
+            string url = "http://trimatek.org/Consultas/banco?banco=" + bank + "&servicio=" + service;
+
+            //string url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=banco&servicio=servicio"; 
+            // Por si no funciona la url..(caida) string jsonString = "[{'banco':'Galicia','x':9999.0,'y':9999.0,'sucursal':'Flores','gerente':'Roberto Gomez','servicios':['Plazo Fijo','Acciones','Cobros','Pagos']},{'banco':'Santander Rio','x':1234.0,'y':1234.0,'sucursal':'Almagro','gerente':'Lorenzo','servicios':['Moneda extranjera','Cobros','Pagos']}]";
+            //string url = "http://trimatek.org/Consultas/banco";
+
             var jsonString = string.Empty;
 
             var client = new WebClient();
             jsonString = client.DownloadString(url);
 
 
+
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             List<JsonBank> listBanks = (List<JsonBank>)javaScriptSerializer.Deserialize(jsonString, typeof(List<JsonBank>));
-            foreach (JsonBank jsonBank in listBanks) {
-                // Response.Write
+
+            foreach (JsonBank banco in listBanks)
+            {
+                
+                //Response.Write("banco" + banco.banco + "<br>");
+                //Response.Write("x" + banco.x + "<br>");
+                //Response.Write("y" + banco.y + "<br>");
+                //Response.Write("sucursal" + banco.sucursal + "<br>");
+                //Response.Write("gerente" + banco.gerente + "<br>");
+                //Response.Write("servicios" + banco.servicios + "<br>");
+
+
             }
 
-            List<JsonBank> jsonParseado = JsonConvert.DeserializeObject<List<JsonBank>>(jsonString);
-            return jsonParseado;
+            return listBanks;
         }
-
-
 
         public static void showBanks(string bank, string service)
         {
-            List<JsonBank> jsonData = getJsonData();
+            List<JsonBank> jsonData = getJsonData(bank,service);
             //jsonData = JsonBank.Bank.banco.get()
 
             if (jsonData.Count > 0)
