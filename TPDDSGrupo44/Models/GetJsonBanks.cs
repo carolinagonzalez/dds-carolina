@@ -5,11 +5,6 @@ using System.Web.Script.Serialization;
 
 namespace TPDDSGrupo44.Models
 
-
-
-/* Otra url, y del json Parseado  obtener el banco , sus coordenadas.. (con respecto a JsonBanks) 
- * consultar sobre cómo se maneja el jsonParseado... habria que utilizar el httpRequest?
- * cambio la url */
 {
    public class GetJsonBanks : Controller
    //public class GetJsonBanks
@@ -17,7 +12,7 @@ namespace TPDDSGrupo44.Models
         private static List<JsonBank> getJsonData(string bank, string service)
         //protected void Page_Load(object sender, EventArgs e)
         {
-
+            //depende de la búsqueda
             string url = "http://trimatek.org/Consultas/banco?banco=" + bank + "&servicio=" + service;
 
             //string url = "http://private-96b476-ddsutn.apiary-mock.com/banks?banco=banco&servicio=servicio"; 
@@ -28,9 +23,7 @@ namespace TPDDSGrupo44.Models
 
             var client = new WebClient();
             jsonString = client.DownloadString(url);
-
-
-
+            
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             List<JsonBank> listBanks = (List<JsonBank>)javaScriptSerializer.Deserialize(jsonString, typeof(List<JsonBank>));
 
