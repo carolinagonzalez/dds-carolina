@@ -62,8 +62,8 @@ namespace TPDDSGrupo44.Models
         public new int Id { get; set; }
 
         public new string nombre { get; set; }
-        public new List<HorarioAbierto> horarioAbierto { get; set; }
-        public new List<HorarioAbierto> horarioFeriados { get; set; }
+        public new virtual List<HorarioAbierto> horarioAbierto { get; set; }
+        public new virtual List<HorarioAbierto> horarioFeriados { get; set; }
 
         public ServicioBanco() {
             horarioAbierto = new List<HorarioAbierto>();
@@ -84,8 +84,8 @@ namespace TPDDSGrupo44.Models
         public new int Id { get; set; }
 
         public new string nombre { get; set; }
-        public new List<HorarioAbierto> horarioAbierto { get; set; }
-        public new List<HorarioAbierto> horarioFeriados { get; set; }
+        public new virtual List<HorarioAbierto> horarioAbierto { get; set; }
+        public new virtual List<HorarioAbierto> horarioFeriados { get; set; }
 
         public ServicioCGP()
         {

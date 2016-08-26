@@ -131,8 +131,7 @@ namespace TPDDSGrupo44.Controllers
 
 
             //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
-
-
+            
             try
             {
                 using (var db = new BuscAR())
@@ -281,6 +280,10 @@ namespace TPDDSGrupo44.Controllers
     [HttpPost]
     public ActionResult Location(FormCollection search)
         {
+
+            // Inicia el contador:
+            DateTime tiempo1 = DateTime.Now;
+
             ViewBag.Message = "Buscá puntos de interés específicos.";
 
 
@@ -291,7 +294,12 @@ namespace TPDDSGrupo44.Controllers
             
             // Genero lista de rubros
             List<Rubro> rubros = new List<Rubro>();
-            
+
+            // Agrego Administrador
+            Administrador admin = new Administrador(1234574, "abc1234", new TimeSpan(16, 26, 18));
+
+            // Agrego Administrador
+            EnvioDeMails mail = new EnvioDeMails();
 
             string palabraBusqueda = search["palabraClave"];
             DispositivoTactil device = new DispositivoTactil("UTN Campus", DbGeography.FromText("POINT(-34.6597047 -58.4688947)"));
@@ -360,7 +368,19 @@ namespace TPDDSGrupo44.Controllers
 
                     db.SaveChanges();
 
-                
+
+                    // Para el contador e imprime el resultado:
+                    DateTime tiempo2 = DateTime.Now;
+                    TimeSpan total = new TimeSpan(tiempo2.Ticks - tiempo1.Ticks);
+                    Console.Write("TIEMPO: " + total.ToString());
+
+                    //Asi deberia ser
+                    if (admin.cantSegDemoraA > total)
+                    {
+                        mail.enviarMail(admin.cantSegDemoraA, 0);
+
+                    }
+
                     return View();
 
                 }
@@ -439,11 +459,12 @@ namespace TPDDSGrupo44.Controllers
                 {
                     string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    List<CGP> foundCGP = db.CGPs.Include("servicios").Where(x => x.servicios.ToList().Count() > 0).ToList();
+                    List<CGP> foundCGP = db.CGPs.Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(x => x.servicios.ToList().Count() > 0).ToList();
 
                     foreach (CGP punto in foundCGP)
                     {
-                        ServicioCGP foundService = punto.servicios.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
+                        List<ServicioCGP> serviciosDelPunto = punto.servicios.ToList();
+                        ServicioCGP foundService = serviciosDelPunto.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
                         if (foundService != null)
                         {
                             availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
