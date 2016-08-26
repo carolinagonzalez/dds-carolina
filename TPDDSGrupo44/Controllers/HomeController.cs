@@ -439,11 +439,12 @@ namespace TPDDSGrupo44.Controllers
                 {
                     string availableServices = "";
                     // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    List<CGP> foundCGP = db.CGPs.Include("servicios").Where(x => x.servicios.ToList().Count() > 0).ToList();
+                    List<CGP> foundCGP = db.CGPs.Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(x => x.servicios.ToList().Count() > 0).ToList();
 
                     foreach (CGP punto in foundCGP)
                     {
-                        ServicioCGP foundService = punto.servicios.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
+                        List<ServicioCGP> serviciosDelPunto = punto.servicios.ToList();
+                        ServicioCGP foundService = serviciosDelPunto.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
                         if (foundService != null)
                         {
                             availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
