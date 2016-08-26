@@ -121,11 +121,6 @@ namespace TPDDSGrupo44.Controllers
 
             //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
             
-            //Defino ubicación actual (UTN/CAMPUS)
-            DbGeography dispositivoTactil = DbGeography.FromText("POINT(-34.6597047 -58.4688947)");
-            ViewBag.Latitud = dispositivoTactil.Latitude;
-            ViewBag.Longitud = dispositivoTactil.Longitude;
-            ViewBag.TextoLugar = "¡Estás acá!";
 
             string palabraBusqueda = search["palabraClave"];
 
@@ -136,6 +131,10 @@ namespace TPDDSGrupo44.Controllers
             {
                 using (var db = new BuscAR())
                 {
+
+                    //Defino ubicación actual (UTN/CAMPUS)
+                    DispositivoTactil dispositivoTactil = db.Terminales.Where(i => i.nombre == "UTN FRBA Lugano").Single();
+
                     //Si la persona ingresó un número, asumo que busca una parada de bondi
                     int linea = 0;
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
@@ -144,7 +143,7 @@ namespace TPDDSGrupo44.Controllers
                         List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.palabraClave == palabraBusqueda).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
-                            if (punto.estaCerca(dispositivoTactil))
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
                                 ViewBag.SearchText = "¡Hay una parada del " + punto.palabraClave + " cerca!";
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
@@ -170,7 +169,7 @@ namespace TPDDSGrupo44.Controllers
                         List<LocalComercial> resultadosBusqueda = db.Locales.Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                         foreach (LocalComercial punto in resultadosBusqueda)
                         {
-                            if (punto.estaCerca(dispositivoTactil))
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
                                 ViewBag.SearchText = "¡Hay un local de ese rubro cerca! Visite " + punto.palabraClave;
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
@@ -195,7 +194,7 @@ namespace TPDDSGrupo44.Controllers
                         {
                             foreach (LocalComercial punto in resultadosBusquedaLocales)
                             {
-                                if (punto.estaCerca(dispositivoTactil))
+                                if (punto.estaCerca(dispositivoTactil.coordenada))
                                 {
                                     ViewBag.SearchText = "¡Hay un local con ese nombre cerca! Visite " + punto.palabraClave;
                                     ViewBag.Latitud = punto.coordenada.Latitude.ToString();
@@ -218,7 +217,7 @@ namespace TPDDSGrupo44.Controllers
                             {
                                 foreach (Banco punto in resultadosBusquedaBancos)
                                 {
-                                    if (punto.estaCerca(dispositivoTactil))
+                                    if (punto.estaCerca(dispositivoTactil.coordenada))
                                     {
                                         ViewBag.SearchText = "¡Hay un banco con ese nombre cerca! Visite " + punto.palabraClave;
                                         ViewBag.Latitud = punto.coordenada.Latitude.ToString();
@@ -240,7 +239,7 @@ namespace TPDDSGrupo44.Controllers
                                 {
                                     foreach (CGP punto in resultadosBusquedaCGP)
                                     {
-                                        if (punto.estaCerca(dispositivoTactil))
+                                        if (punto.estaCerca(dispositivoTactil.coordenada))
                                         {
                                             ViewBag.SearchText = "¡Hay un CGP con ese nombre cerca! Visite " + punto.palabraClave;
                                             ViewBag.Latitud = punto.coordenada.Latitude.ToString();

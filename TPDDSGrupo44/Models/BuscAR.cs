@@ -29,6 +29,9 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<CGP> CGPs { get; set; }
         public virtual DbSet<LocalComercial> Locales { get; set; }
         public virtual DbSet<ParadaDeColectivo> Paradas { get; set; }
+
+        //tablas de sistema
+        public virtual DbSet<DispositivoTactil> Terminales { get; set; }
         //public virtual DbSet<ActualizacionAsincronica> LogProcesosAsincronicos { get; set; }
 
         // tablas accesorias
