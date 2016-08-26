@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models

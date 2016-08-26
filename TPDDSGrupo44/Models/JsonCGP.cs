@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
 {
-	public class JsonCGP
+    public class JsonCGP
 	{
         public int comuna { get; set; }
         public string zonas { get; set; }

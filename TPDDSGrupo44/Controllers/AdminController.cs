@@ -10,6 +10,24 @@ namespace TPDDSGrupo44.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            return View(recuperarBusquedas());
+        }
+
+        public ActionResult SearchPerDay()
+        {
+
+            return View(recuperarBusquedas());
+        }
+
+
+        public ActionResult ResultsPerSearch()
+        {
+            return View(recuperarBusquedas());
+        }
+
+
+        private List<Busqueda> recuperarBusquedas()
+        {
             List<Busqueda> busquedas;
             using (var db = new BuscAR())
             {
@@ -18,7 +36,7 @@ namespace TPDDSGrupo44.Controllers
                              select b).ToList();
             }
 
-            return View(busquedas);
+            return busquedas;
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace TPDDSGrupo44.Models
 {
@@ -13,8 +10,9 @@ namespace TPDDSGrupo44.Models
 
         public override void actualizar() {
 
+
             //abrir archivo. tendría que recibirlo por parámetro... corregir!
-            StreamReader reader = File.OpenText("filename.txt");
+            System.IO.StreamReader reader = System.IO.File.OpenText("filename.txt");
             string line;
             //traigo linea por linea, leyendo y parseando
             while ((line = reader.ReadLine()) != null)
