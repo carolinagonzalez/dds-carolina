@@ -7,6 +7,8 @@ namespace TPDDSGrupo44.Models
 {
     public class BajaPOI : ActualizacionAsincronica
     {
-        public void actualizar() { }
+        public BajaPOI () { }
+
+        public override void actualizar() { }
     }
 }

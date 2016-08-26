@@ -5,9 +5,12 @@ using System.Web;
 
 namespace TPDDSGrupo44.Models
 {
-    public class ProcesoMultiple
+    public class ProcesoMultiple : ActualizacionAsincronica
     {
         public List<ActualizacionAsincronica> actualizaciones { get; set; }
-        public void actualizar() { }
+
+        public ProcesoMultiple () { }
+
+        public override void actualizar() { }
     }
 }

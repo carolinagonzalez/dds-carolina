@@ -232,11 +232,8 @@
     <Compile Include="Models\BuscAR.cs" />
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
-
     <Compile Include="Models\FuncionalidadUsuario.cs" />
-
     <Compile Include="Models\EnvioDeMails.cs" />
-
     <Compile Include="Models\GetJsonCGP.cs" />
     <Compile Include="Models\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
@@ -245,14 +242,10 @@
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
-    <Compile Include="Models\MainProbar.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
-
     <Compile Include="Models\ProcesoMultiple.cs" />
-
     <Compile Include="Models\POI.cs" />
-
     <Compile Include="Models\PuntoDeInteres.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />

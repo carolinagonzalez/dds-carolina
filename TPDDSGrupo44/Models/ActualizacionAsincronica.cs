@@ -8,6 +8,9 @@ namespace TPDDSGrupo44.Models
     public class ActualizacionAsincronica : FuncionalidadUsuario
     {
 
-        public void actualizar() { }
+
+        public ActualizacionAsincronica() { }
+
+        public virtual void actualizar() { }
     }
 }

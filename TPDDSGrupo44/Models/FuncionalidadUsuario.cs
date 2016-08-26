@@ -9,10 +9,14 @@ namespace TPDDSGrupo44.Models
     {
         string nombre { get; set; }
 
-        public void cargarPOI() { }
+        public FuncionalidadUsuario ()
+        {
+        }
 
-        public void realizarTramite() { }
+        public virtual void cargarPOI() { }
 
-        public void loguearse() { }
+        public virtual void realizarTramite() { }
+
+        public virtual void loguearse() { }
     }
 }
