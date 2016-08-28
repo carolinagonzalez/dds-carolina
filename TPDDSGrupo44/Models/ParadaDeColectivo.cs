@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Spatial;
+using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
@@ -110,16 +111,19 @@ namespace TPDDSGrupo44.Models
             }
         }
 
-        public void eliminarParada(ParadaDeColectivo parada)
+        public void eliminarParada(int id)
         {
             using (var db = new BuscAR())
             {
+                
+                ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
+
                 db.Paradas.Remove(parada);
                 db.SaveChanges();
             }
 
 
-
+        }
 
 
 
@@ -374,4 +378,3 @@ namespace TPDDSGrupo44.Models
 
         }
     }
-}

@@ -212,6 +212,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CosaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\POIsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -312,6 +313,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
+    <Folder Include="Views\Cosa\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />

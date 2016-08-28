@@ -1,4 +1,4 @@
-﻿@model TPDDSGrupo44.Models.ParadaDeColectivo
+﻿@model IEnumerable<TPDDSGrupo44.Models.ParadaDeColectivo>
 
 @{
     ViewBag.Title = "ABMParada";
@@ -7,117 +7,93 @@
 
 <h2>ABMParada</h2>
 
-<div>
-    <h4>ParadaDeColectivo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.coordenada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.coordenada)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.calle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.calle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.numeroAltura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numeroAltura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.piso)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.piso)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.unidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.unidad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.codigoPostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.codigoPostal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.localidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.localidad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.barrio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.barrio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.provincia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.pais)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.pais)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.entreCalles)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.entreCalles)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.palabraClave)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.palabraClave)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tipoDePOI)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tipoDePOI)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Agregar Parada", "CreateParada")
 </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.calle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numeroAltura)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.piso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.codigoPostal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.barrio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.provincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entreCalles)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.palabraClave)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoDePOI)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.calle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numeroAltura)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.piso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.codigoPostal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.localidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.barrio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.provincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.entreCalles)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.palabraClave)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipoDePOI)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "EditParada", new { id=item.id }) |
+            @Html.ActionLink("Borrar", "DeleteParada", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

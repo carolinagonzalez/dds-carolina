@@ -44,7 +44,15 @@ namespace TPDDSGrupo44.Controllers
 
         public ActionResult ABMParada()
         {
-            return View();
+            List<ParadaDeColectivo> paradas;
+            using (var db = new BuscAR())
+            {
+                paradas = (from p in db.Paradas
+                             orderby p.palabraClave
+                             select p).ToList();
+            }
+
+            return View(paradas);
         }
 
 
@@ -69,7 +77,7 @@ namespace TPDDSGrupo44.Controllers
 
                 parada.agregarParada(parada);
 
-                return RedirectToAction("CreateParada");
+                return RedirectToAction("ABMParada");
             }
             catch
             {
@@ -77,23 +85,35 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-        public ActionResult DeleteParada()
+
+        
+
+        
+        public ActionResult DeleteParada(int id)
         {
-            return View();
+            ParadaDeColectivo parada;
+            using (var db = new BuscAR())
+            {
+                parada = db.Paradas.Where(p => p.id == id).Single();
+            }
+                return View(parada);
         }
 
         // POST: Default/Create
         [HttpPost]
-        public ActionResult DeleteParada(FormCollection collection)
+        public ActionResult DeleteParada(int id, FormCollection collection)
         {
             try
             {
+                ParadaDeColectivo parada;
+                using (var db = new BuscAR())
+                {
+                    parada = db.Paradas.Where(p => p.id == id).Single();
+                }
 
-                
+                parada.eliminarParada(id);
 
-                //parada.eliminarParada(parada);
-
-                return RedirectToAction("DeleteParada");
+                return RedirectToAction("ABMParada");
             }
             catch
             {
