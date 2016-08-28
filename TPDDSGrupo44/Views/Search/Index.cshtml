@@ -36,7 +36,7 @@
 <div class="result @ViewBag.Search">
     @if (Model != null)
     {
-        if (Model.paradasEncontradas != null || Model.paradasEncontradasCerca != null)
+        if (Model.paradasEncontradas.Count() != 0 || Model.paradasEncontradasCerca.Count() != 0)
         {
             <h2>Paradas de Colectivo</h2>
         }
@@ -56,7 +56,19 @@
             </div>
         }
 
-        foreach (var punto in Model.puntosEncontradosCerca)
+        if (Model.bancosEncontrados.Count() != 0 || Model.bancosEncontradosCerca.Count() != 0)
+        {
+            <h2>Banco</h2>
+        }
+        foreach (var punto in Model.bancosEncontradosCerca)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave <span>(cercano)</span></h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.bancosEncontrados)
         {
             <div class="poi">
                 <h3>@punto.palabraClave</h3>
@@ -64,7 +76,39 @@
             </div>
         }
 
-        foreach (var punto in Model.puntosEncontrados)
+        if (Model.localesEncontrados.Count() != 0 || Model.localesEncontradosCerca.Count() != 0)
+        {
+            <h2>Locales Comerciales</h2>
+        }
+        foreach (var punto in Model.localesEncontradosCerca)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave <span>(cercano)</span></h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.localesEncontrados)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave</h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        if (Model.cgpsEncontrados.Count() != 0 || Model.cgpsEncontradosCerca.Count() != 0)
+        {
+            <h2>CGPs</h2>
+        }
+        foreach (var punto in Model.cgpsEncontradosCerca)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave <span>(cercano)</span></h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.cgpsEncontrados)
         {
             <div class="poi">
                 <h3>@punto.palabraClave</h3>

@@ -12,6 +12,7 @@ namespace TPDDSGrupo44.ViewModels
         public List<CGP> cgpsEncontrados { get; set; }
         public List<CGP> cgpsEncontradosCerca { get; set; }
         public List<LocalComercial> localesEncontrados { get; set; }
+        public List<LocalComercial> localesEncontradosCerca { get; set; }
 
         public SearchViewModel()
         {
@@ -21,7 +22,8 @@ namespace TPDDSGrupo44.ViewModels
             bancosEncontradosCerca = new List<Banco>();
             cgpsEncontrados = new List<CGP>();
             cgpsEncontradosCerca = new List<CGP>();
-            
+            localesEncontrados = new List<LocalComercial>();
+            localesEncontradosCerca = new List<LocalComercial>();
         }
 
     }

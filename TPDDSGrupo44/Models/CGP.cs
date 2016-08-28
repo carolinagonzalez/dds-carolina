@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Models
@@ -42,11 +43,31 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        ////////////////Funcion manhattan////////////////
+        private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
+        {
+            double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
+            double long1InDegrees = (double)coordenadaDeDispositivoTactil.Longitude;
 
-        ////////////////Cálculo de Cercanía - Dentro de la zona de la Comuna////////////////
+            double lat2InDegrees = (double)coordenada.Latitude;
+            double long2InDegrees = (double)coordenada.Longitude;
+
+            double lats = (double)Math.Abs(lat1InDegrees - lat2InDegrees);
+            double lngs = (double)Math.Abs(long1InDegrees - long2InDegrees);
+
+            //grados a metros
+            double latm = lats * 60 * 1852;
+            double lngm = (lngs * Math.Cos((double)lat1InDegrees * Math.PI / 180)) * 60 * 1852;
+            double distInMeters = Math.Sqrt(Math.Pow(latm, 2) + Math.Pow(lngm, 2));
+            return distInMeters;
+
+        }
+
+        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
+            return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < zonaDelimitadaPorLaComuna;
         }
+
     }
 }

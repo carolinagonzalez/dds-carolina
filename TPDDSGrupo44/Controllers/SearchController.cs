@@ -44,17 +44,16 @@ namespace TPDDSGrupo44.Controllers
 
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                modeloVista.paradasEncontradas.Add(punto);
+                                modeloVista.paradasEncontradasCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
 
                                 ViewBag.Search = "ok";
-                                break;
                             }
                             else
                             {
-                                modeloVista.puntosEncontrados.Add(punto);
+                                modeloVista.paradasEncontradas.Add(punto);
                                 ViewBag.Search = "ok";
                             }
 
@@ -71,15 +70,14 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                modeloVista.localesEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.Search = "ok";
-                                break;
                             }
                             else
                             {
-                                modeloVista.puntosEncontrados.Add(punto);
+                                modeloVista.localesEncontrados.Add(punto);
                                 ViewBag.Search = "ok";
                             }
                         }
@@ -94,16 +92,15 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                modeloVista.localesEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = punto.palabraClave;
                                 ViewBag.Search = "ok";
-                                break;
                             }
                             else
                             {
-                                modeloVista.puntosEncontrados.Add(punto);
+                                modeloVista.localesEncontrados.Add(punto);
                                 ViewBag.Search = "ok";
                             }
                         }
@@ -116,16 +113,15 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                modeloVista.bancosEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = punto.palabraClave;
                                 ViewBag.Search = "ok";
-                                break;
                             }
                             else
                             {
-                                modeloVista.puntosEncontrados.Add(punto);
+                                modeloVista.bancosEncontrados.Add(punto);
                                 ViewBag.Search = "ok";
                             }
                         }
@@ -137,16 +133,15 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                modeloVista.cgpsEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = punto.palabraClave;
                                 ViewBag.Search = "ok";
-                                break;
                             }
                             else
                             {
-                                modeloVista.puntosEncontrados.Add(punto);
+                                modeloVista.cgpsEncontrados.Add(punto);
                                 ViewBag.Search = "ok";
                             }
                         }
