@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Globalization;
 using TPDDSGrupo44.Models;
+using System.Data.Entity.Spatial;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -37,6 +40,37 @@ namespace TPDDSGrupo44.Controllers
             }
 
             return busquedas;
+        }
+
+
+        public ActionResult CreateParada()
+        {
+            return View();
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult CreateParada(FormCollection collection)
+        {
+            try
+            {
+
+                Console.Write(collection["coordenada.Latitude"]);
+                DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+
+                ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                    Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                    collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                    collection["palabraClave"], collection["tipoDePOI"]);
+
+                parada.agregarParada(parada);
+
+                return RedirectToAction("CreateParada");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

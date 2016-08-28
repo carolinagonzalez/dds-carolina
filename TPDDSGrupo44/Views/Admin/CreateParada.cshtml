@@ -1,7 +1,7 @@
 ﻿@model TPDDSGrupo44.Models.ParadaDeColectivo
 
 @{
-    ViewBag.Title = "ABMPOI";
+    ViewBag.Title = "CreateParada";
 }
 
 <h2>ABMPOI</h2>
@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         <h4>ParadaDeColectivo</h4>  
         <hr />
-    @using (Html.BeginForm("ABMPOI", "Home", FormMethod.Post))
+    @using (Html.BeginForm("CreateParada", "Admin", FormMethod.Post))
     {
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
