@@ -35,11 +35,6 @@ namespace TPDDSGrupo44.Models
             coordenada = unaCoordenada;
             servicios = new List<ServicioBanco>();
         }
-        
-
-
-
-
 
     }
 }
