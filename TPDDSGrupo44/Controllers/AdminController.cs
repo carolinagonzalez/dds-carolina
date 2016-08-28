@@ -42,6 +42,11 @@ namespace TPDDSGrupo44.Controllers
             return busquedas;
         }
 
+        public ActionResult ABMParada()
+        {
+            return View();
+        }
+
 
         public ActionResult CreateParada()
         {
@@ -55,7 +60,6 @@ namespace TPDDSGrupo44.Controllers
             try
             {
 
-                Console.Write(collection["coordenada.Latitude"]);
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
 
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
@@ -66,6 +70,30 @@ namespace TPDDSGrupo44.Controllers
                 parada.agregarParada(parada);
 
                 return RedirectToAction("CreateParada");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult DeleteParada()
+        {
+            return View();
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult DeleteParada(FormCollection collection)
+        {
+            try
+            {
+
+                
+
+                //parada.eliminarParada(parada);
+
+                return RedirectToAction("DeleteParada");
             }
             catch
             {

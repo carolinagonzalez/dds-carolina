@@ -306,6 +306,8 @@
     <Content Include="Views\Admin\ResultsPerSearch.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\CreateParada.cshtml" />
+    <Content Include="Views\Admin\DeleteParada.cshtml" />
+    <Content Include="Views\Admin\ABMParada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
