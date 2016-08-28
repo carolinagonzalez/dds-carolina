@@ -5,128 +5,173 @@ using System.Linq;
 using System.Globalization;
 using TPDDSGrupo44.Models;
 using System.Data.Entity.Spatial;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
-        
-        public ActionResult Availability()
-        {
-            
-            ViewBag.Message = "Buscá horarios de puntos de interés.";
-            
 
+        public ActionResult Index()
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Availability(FormCollection search)
+        public ActionResult Index(FormCollection search)
         {
 
-            ViewBag.Message = "Buscá horarios de puntos de interés.";
-
-            //%%%%%%%%%%%%%%   DATOS HARDCODEADOS PARA SIMUAR DB
-
-            // Genero lista de puntos
-            List<Models.PuntoDeInteres> puntos = new List<Models.PuntoDeInteres>();
+            ViewBag.Message = "Buscá puntos de interés, descubrí cuáles están cerca.";
 
 
-            string searchWord = search["palabraClave"];
-            DateTime searchTime = DateTime.ParseExact(search["selectedDate"], "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            string palabraBusqueda = search["palabraClave"];
 
-            //%%%%%%%%%%%%%%   FIN DE SIMULACION DE DATOS DE DB
-
-            using (var db = new BuscAR())
+            try
             {
-                //Si la persona ingresó un número, asumo que busca una parada de bondi
-                int linea = 0;
-                if (int.TryParse(searchWord, out linea) && linea > 0)
+                using (var db = new BuscAR())
                 {
 
-                    //busco la parada en cuestión
-                    ParadaDeColectivo punto = db.Paradas.Where(b => b.palabraClave == searchWord).FirstOrDefault();
+                    SearchViewModel modeloVista = new SearchViewModel();
 
-                    if (punto != null)
+                    //Defino ubicación actual (UTN/CAMPUS)
+                    DispositivoTactil dispositivoTactil = db.Terminales.Where(i => i.nombre == "UTN FRBA Lugano").Single();
+
+                    //Si la persona ingresó un número, asumo que busca una parada de bondi
+                    int linea = 0;
+                    if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
-                        if (punto.estaDisponible(searchTime))
-                        {
-                            ViewBag.SearchText = "La línea " + punto.palabraClave + " está disponible en ese horario";
-                            ViewBag.Search = "ok";
 
-                            return View();
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.palabraClave == palabraBusqueda).ToList();
+                        foreach (ParadaDeColectivo punto in resultadosBusqueda)
+                        {
+
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.paradasEncontradasCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
+
+                                ViewBag.Search = "ok";
+                            }
+                            else
+                            {
+                                modeloVista.paradasEncontradas.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
 
                         }
-                        else
+
+                    }
+
+                    //Si la persona ingresó una palabra, me fijo si es un rubro
+                    if (db.Rubros.Where(b => b.nombre.Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
+                    {
+
+                        List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        foreach (LocalComercial punto in resultadosBusqueda)
                         {
-                            ViewBag.SearchText = "La línea " + punto.palabraClave + " no está disponible en ese horario";
-                            ViewBag.Search = "error";
-                            return View();
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.localesEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.Search = "ok";
+                            }
+                            else
+                            {
+                                modeloVista.localesEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
                         }
+
+                        // Si la palabra ingresada no era parada ni rubro, la busco como local
+                    }
+
+                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaLocales.Count() > 0)
+                    {
+                        foreach (LocalComercial punto in resultadosBusquedaLocales)
+                        {
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.localesEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.Search = "ok";
+                            }
+                            else
+                            {
+                                modeloVista.localesEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
+                        }
+                    }
+
+                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaBancos.Count() > 0)
+                    {
+                        foreach (Banco punto in resultadosBusquedaBancos)
+                        {
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.bancosEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.Search = "ok";
+                            }
+                            else
+                            {
+                                modeloVista.bancosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
+                        }
+                    }
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaCGP.Count() > 0)
+                    {
+                        foreach (CGP punto in resultadosBusquedaCGP)
+                        {
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.cgpsEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.Search = "ok";
+                            }
+                            else
+                            {
+                                modeloVista.cgpsEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
+                        }
+                    }
+
+                    int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
+                    if (resultados == 0)
+                    {
+                        ViewBag.Search = "error";
+                        ViewBag.SearchText = "Disculpa, pero no encontramos ningún punto con esa palabra clave.";
+
                     }
                     else
                     {
-                        ViewBag.SearchText = "No tenemos información sobre una línea de colectivos con número " + searchWord;
-                        ViewBag.Search = "error";
-                        return View();
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil);
+                        db.Busquedas.Add(busqueda);
+                        db.SaveChanges();
                     }
 
-
-                    //Si la persona ingresó una palabra, me fijo si es un servicio
+                    return View(modeloVista);
                 }
-                else
-                {
-                    string availableServices = "";
-                    // en cada CGP reviso si tienen un servicio que tenga la misma clave y esté disponible
-                    List<CGP> foundCGP = db.CGPs.Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(x => x.servicios.ToList().Count() > 0).ToList();
 
-                    foreach (CGP punto in foundCGP)
-                    {
-                        List<ServicioCGP> serviciosDelPunto = punto.servicios.ToList();
-                        ServicioCGP foundService = serviciosDelPunto.Where(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime)).FirstOrDefault();
-                        if (foundService != null)
-                        {
-                            availableServices = availableServices + "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
-                        }
-                    }
-
-
-                    foreach (Banco punto in db.Bancos.ToList())
-                    {
-                        ServicioBanco foundService = punto.servicios.Find(x => x.nombre.ToLower().Contains(searchWord.ToLower()) && x.estaDisponible(searchTime));
-                        if (foundService != null && punto.estaDisponible(searchTime))
-                        {
-                            availableServices = "El servicio " + foundService.nombre + " está disponible en ese horario en " + punto.palabraClave + ".\n";
-                        }
-                    }
-                    
-                    foreach (LocalComercial punto in db.Locales.ToList())
-                    {
-                        if (punto.estaDisponible(searchTime) && punto.palabraClave.ToLower().Contains(searchWord.ToLower()))
-                        {
-                            availableServices = "El local " + punto.palabraClave + " está disponible en ese horario.\n";
-                        }
-                    }
-
-                    if (availableServices != "")
-                    {
-                        ViewBag.SearchText = availableServices;
-                        ViewBag.Search = "ok";
-
-                        return View();
-                    }
-                    else
-                    {
-                        ViewBag.SearchText = "Ese servicio o local no se encuentra disponible o no existe."; ;
-                        ViewBag.Search = "error";
-
-                        return View();
-                    }
-
-
-                }
             }
-            
+            catch
+            {
+                return View();
+            }
         }
     }
 }
