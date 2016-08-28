@@ -27,6 +27,30 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor vacio////////////////
         public ParadaDeColectivo() { }
 
+        ////////////////Constructor generico////////////////
+        public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
+           string tipoDePOI)
+        {
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabraClave = palabraClave;
+            this.tipoDePOI = tipoDePOI;
+        }
+
+
+
+
+
         ////////////////Constructor Viejo(Usado en controlador////////////////
         public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)
@@ -77,6 +101,15 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        public void agregarParada(ParadaDeColectivo parada)
+        {
+            using (var db = new BuscAR())
+            {
+
+                db.Paradas.Add(parada);
+                db.SaveChanges();
+            }
+        }
 
 
 

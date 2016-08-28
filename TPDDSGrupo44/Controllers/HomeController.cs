@@ -10,6 +10,50 @@ namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
+
+        public ActionResult ABMPOI()
+        {
+            return View();
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitud"] + ")");
+
+                ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                    Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]), 
+                    collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"], 
+                    collection["palabraClave"], collection["tipoDePOI"]);
+
+                //agregarParada(parada);
+
+                return RedirectToAction("ABMPOI");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
         {
             if (listaFiltrada.Count > 0)
