@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TPDDSGrupo44.Models;
 using TPDDSGrupo44.ViewModels;
+using System;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -65,7 +66,7 @@ namespace TPDDSGrupo44.Controllers
                     if (db.Rubros.Where(b => b.nombre.Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
                     {
 
-                        List<LocalComercial> resultadosBusqueda = db.Locales.Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                         foreach (LocalComercial punto in resultadosBusqueda)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
@@ -85,7 +86,7 @@ namespace TPDDSGrupo44.Controllers
                         // Si la palabra ingresada no era parada ni rubro, la busco como local
                     }
 
-                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaLocales.Count() > 0)
                     {
                         foreach (LocalComercial punto in resultadosBusquedaLocales)
@@ -106,7 +107,7 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
 
-                    List<Banco> resultadosBusquedaBancos = db.Bancos.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaBancos.Count() > 0)
                     {
                         foreach (Banco punto in resultadosBusquedaBancos)
@@ -126,7 +127,7 @@ namespace TPDDSGrupo44.Controllers
                             }
                         }
                     }
-                    List<CGP> resultadosBusquedaCGP = db.CGPs.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaCGP.Count() > 0)
                     {
                         foreach (CGP punto in resultadosBusquedaCGP)
@@ -145,6 +146,19 @@ namespace TPDDSGrupo44.Controllers
                                 ViewBag.Search = "ok";
                             }
                         }
+                    }
+
+                    int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
+                    if (resultados == 0)
+                    {
+                        ViewBag.Search = "error";
+                        ViewBag.SearchText = "Disculpa, pero no encontramos ningún punto con esa palabra clave.";
+
+                    } else
+                    {
+                        Busqueda busqueda = new Busqueda(palabraBusqueda, resultados, DateTime.Today, dispositivoTactil);
+                        db.Busquedas.Add(busqueda);
+                        db.SaveChanges();
                     }
 
                     return View(modeloVista);

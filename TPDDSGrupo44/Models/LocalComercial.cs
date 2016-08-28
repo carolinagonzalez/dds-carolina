@@ -24,10 +24,10 @@ namespace TPDDSGrupo44.Models
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
         public new string palabraClave { get; set; }
-        public new List<string> palabrasClave { get; set; }
+        public virtual new List<string> palabrasClave { get; set; }
         public new string tipoDePOI { get; set; }
-        public new List<HorarioAbierto> horarioAbierto { get; set; }
-        public new List<HorarioAbierto> horarioFeriado { get; set; }
+        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
+        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
         public string nombreFantasia { get; set; }
         //public new List<String> tags { get; set; }
         public Rubro rubro { get; set; }

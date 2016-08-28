@@ -29,8 +29,7 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Cercanía", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Buscar Punto", "Location", "Home")</li>
+                        <li>@Html.ActionLink("Encuentra puntos", "Index", "Search")</li>
                         <li>@Html.ActionLink("Horarios", "Availability", "Home")</li>
                         <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
                         <li>@Html.ActionLink("Agregar parada", "CreateParada", "Admin")</li>
@@ -40,10 +39,13 @@
             </div>
         </div>
     </header>
+    <main>
+        @RenderBody()
+    </main>
     <footer >
         <div >
             @* <main class="container body-content">*@
-            @RenderBody()
+            
             @*<hr />*@
             <p class="foot">&copy; @DateTime.Now.Year - Grupo 44 DDS - UTN FRBA</p>
             @*</main>*@
