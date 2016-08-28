@@ -18,10 +18,12 @@ namespace TPDDSGrupo44.Controllers
 
         // POST: Default/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult ABMPOI(FormCollection collection)
         {
             try
             {
+
+                Console.Write(collection["coordenada.Latitude"]);
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitud"] + ")");
 
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
@@ -29,7 +31,7 @@ namespace TPDDSGrupo44.Controllers
                     collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"], 
                     collection["palabraClave"], collection["tipoDePOI"]);
 
-                //agregarParada(parada);
+                parada.agregarParada(parada);
 
                 return RedirectToAction("ABMPOI");
             }
