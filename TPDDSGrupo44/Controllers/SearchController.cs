@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Globalization;
 using TPDDSGrupo44.Models;
-using System.Data.Entity.Spatial;
+using TPDDSGrupo44.ViewModels;
 
 namespace TPDDSGrupo44.Controllers
 {
@@ -30,6 +28,8 @@ namespace TPDDSGrupo44.Controllers
                 using (var db = new BuscAR())
                 {
 
+                    SearchViewModel modeloVista = new SearchViewModel();
+
                     //Defino ubicación actual (UTN/CAMPUS)
                     DispositivoTactil dispositivoTactil = db.Terminales.Where(i => i.nombre == "UTN FRBA Lugano").Single();
 
@@ -41,9 +41,10 @@ namespace TPDDSGrupo44.Controllers
                         List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.palabraClave == palabraBusqueda).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
+
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                ViewBag.SearchText = "¡Hay una parada del " + punto.palabraClave + " cerca!";
+                                modeloVista.paradasEncontradas.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
@@ -53,15 +54,16 @@ namespace TPDDSGrupo44.Controllers
                             }
                             else
                             {
-                                ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                                ViewBag.Search = "error";
+                                modeloVista.puntosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
                             }
+
                         }
 
-
-                        //Si la persona ingresó una palabra, me fijo si es un rubro
                     }
-                    else if (db.Rubros.Where(b => b.nombre.Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
+
+                    //Si la persona ingresó una palabra, me fijo si es un rubro
+                    if (db.Rubros.Where(b => b.nombre.Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
                     {
 
                         List<LocalComercial> resultadosBusqueda = db.Locales.Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
@@ -69,7 +71,30 @@ namespace TPDDSGrupo44.Controllers
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                ViewBag.SearchText = "¡Hay un local de ese rubro cerca! Visite " + punto.palabraClave;
+                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.Search = "ok";
+                                break;
+                            }
+                            else
+                            {
+                                modeloVista.puntosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
+                        }
+
+                        // Si la palabra ingresada no era parada ni rubro, la busco como local
+                    }
+
+                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaLocales.Count() > 0)
+                    {
+                        foreach (LocalComercial punto in resultadosBusquedaLocales)
+                        {
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.puntosEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
                                 ViewBag.TextoLugar = punto.palabraClave;
@@ -78,88 +103,56 @@ namespace TPDDSGrupo44.Controllers
                             }
                             else
                             {
-                                ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                                ViewBag.Search = "error";
+                                modeloVista.puntosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
                             }
                         }
-
-                        // Si la palabra ingresada no era parada ni rubro, la busco como local
                     }
-                    else
+
+                    List<Banco> resultadosBusquedaBancos = db.Bancos.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaBancos.Count() > 0)
                     {
-                        List<LocalComercial> resultadosBusquedaLocales = db.Locales.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                        if (resultadosBusquedaLocales.Count() > 0)
+                        foreach (Banco punto in resultadosBusquedaBancos)
                         {
-                            foreach (LocalComercial punto in resultadosBusquedaLocales)
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
                             {
-                                if (punto.estaCerca(dispositivoTactil.coordenada))
-                                {
-                                    ViewBag.SearchText = "¡Hay un local con ese nombre cerca! Visite " + punto.palabraClave;
-                                    ViewBag.Latitud = punto.coordenada.Latitude.ToString();
-                                    ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                    ViewBag.TextoLugar = punto.palabraClave;
-                                    ViewBag.Search = "ok";
-                                    break;
-                                }
-                                else
-                                {
-                                    ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                                    ViewBag.Search = "error";
-                                }
-                            }
-                        }
-                        else
-                        {
-                            List<Banco> resultadosBusquedaBancos = db.Bancos.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                            if (resultadosBusquedaBancos.Count() > 0)
-                            {
-                                foreach (Banco punto in resultadosBusquedaBancos)
-                                {
-                                    if (punto.estaCerca(dispositivoTactil.coordenada))
-                                    {
-                                        ViewBag.SearchText = "¡Hay un banco con ese nombre cerca! Visite " + punto.palabraClave;
-                                        ViewBag.Latitud = punto.coordenada.Latitude.ToString();
-                                        ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                        ViewBag.TextoLugar = punto.palabraClave;
-                                        ViewBag.Search = "ok";
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                                        ViewBag.Search = "error";
-                                    }
-                                }
+                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.Search = "ok";
+                                break;
                             }
                             else
                             {
-                                List<CGP> resultadosBusquedaCGP = db.CGPs.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
-                                if (resultadosBusquedaCGP.Count() > 0)
-                                {
-                                    foreach (CGP punto in resultadosBusquedaCGP)
-                                    {
-                                        if (punto.estaCerca(dispositivoTactil.coordenada))
-                                        {
-                                            ViewBag.SearchText = "¡Hay un CGP con ese nombre cerca! Visite " + punto.palabraClave;
-                                            ViewBag.Latitud = punto.coordenada.Latitude.ToString();
-                                            ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                            ViewBag.TextoLugar = punto.palabraClave;
-                                            ViewBag.Search = "ok";
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            ViewBag.SearchText = "No encontramos ningún punto de interés con esa clave en las cercanías.";
-                                            ViewBag.Search = "error";
-                                        }
-                                    }
-                                }
+                                modeloVista.puntosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
                             }
                         }
-
+                    }
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    if (resultadosBusquedaCGP.Count() > 0)
+                    {
+                        foreach (CGP punto in resultadosBusquedaCGP)
+                        {
+                            if (punto.estaCerca(dispositivoTactil.coordenada))
+                            {
+                                modeloVista.puntosEncontradosCerca.Add(punto);
+                                ViewBag.Latitud = punto.coordenada.Latitude.ToString();
+                                ViewBag.Longitud = punto.coordenada.Longitude.ToString();
+                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.Search = "ok";
+                                break;
+                            }
+                            else
+                            {
+                                modeloVista.puntosEncontrados.Add(punto);
+                                ViewBag.Search = "ok";
+                            }
+                        }
                     }
 
-                    return View();
+                    return View(modeloVista);
                 }
 
             }

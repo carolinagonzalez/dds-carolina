@@ -2,35 +2,77 @@
     ViewBag.Title = "¡Buscá puntos!";
 }
 
+@model TPDDSGrupo44.ViewModels.SearchViewModel
+
 @Scripts.Render("~/scripts/index.js")
 
 <script>
 
     $(document).ready(function () {
-        var location = { 
-            lat: @ViewBag.Latitud , 
+        var location = {
+            lat: @ViewBag.Latitud ,
             lng: @ViewBag.Longitud };
-         initMap(location, "@ViewBag.TextoLugar" );
+        initMap(location, "@ViewBag.TextoLugar" );
     });
 
 </script>
 
 
 <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <p>@ViewBag.Message</p>
-            </hgroup>
-        </div>
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h1>@ViewBag.Title</h1>
+            <p>@ViewBag.Message</p>
+        </hgroup>
+    </div>
 </section>
 
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Search", FormMethod.Post))
+{
+    <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
+    <button type="submit">Buscar</button>
+}
+
+<div class="result @ViewBag.Search">
+    @if (Model != null)
     {
-        <input type="text" placeholder="¿Qué buscás?" name="palabraClave">
-        <button type="submit">Buscar</button>
+        if (Model.paradasEncontradas != null || Model.paradasEncontradasCerca != null)
+        {
+            <h2>Paradas de Colectivo</h2>
+        }
+        foreach (var punto in Model.paradasEncontradasCerca)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave <span>(cercano)</span></h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.paradasEncontradas)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave</h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.puntosEncontradosCerca)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave</h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
+        foreach (var punto in Model.puntosEncontrados)
+        {
+            <div class="poi">
+                <h3>@punto.palabraClave</h3>
+                @punto.calle @punto.numeroAltura
+            </div>
+        }
+
     }
+</div>
 
-    <div class="result @ViewBag.Search">@ViewBag.SearchText</div>
-
-    <div id="map"></div>
+<div id="map"></div>

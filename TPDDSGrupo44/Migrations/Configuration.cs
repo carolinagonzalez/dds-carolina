@@ -1,12 +1,9 @@
 namespace TPDDSGrupo44.Migrations
 {
     using Models;
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Spatial;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<TPDDSGrupo44.Models.BuscAR>
     {
@@ -51,7 +48,7 @@ new DispositivoTactil
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Saraza y Dellepiane Sur",
-                coordenada = DbGeography.FromText("POINT( 34.659690  58.468764)")
+                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
             },
 new ParadaDeColectivo
 {
@@ -63,7 +60,7 @@ new ParadaDeColectivo
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Av Derqui y Dellepiane Norte",
-    coordenada = DbGeography.FromText("POINT( 34.662325  58.473300)")
+    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
 });
 
             context.SaveChanges();
@@ -89,7 +86,7 @@ new ParadaDeColectivo
             new LocalComercial
             {
                 palabraClave = "Librería CEIT",
-                coordenada = DbGeography.FromText("POINT( 34.659492  58.467906)"),
+                coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
                 rubro = new Rubro("librería escolar", 5),
                 horarioAbierto = horarios,
                 //horarioFeriados = feriados
@@ -97,7 +94,7 @@ new ParadaDeColectivo
 new LocalComercial
 {
     palabraClave = "Kiosco Las Flores",
-    coordenada = DbGeography.FromText("POINT( 34.634015  58.482805)"),
+    coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
     rubro = new Rubro("kiosco de diarios", 5)
 });
 
@@ -142,7 +139,7 @@ new LocalComercial
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Av Escalda y Av General Paz",
-                coordenada = DbGeography.FromText("POINT( 34.6862397  58.4606666)"),
+                coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
                 zonaDelimitadaPorLaComuna = 50,
                 servicios = new List<ServicioCGP>()
                 {
@@ -253,7 +250,7 @@ new CGP
     provincia = "Ciudad Autónoma de Buenos Aires",
     pais = "Argentina",
     entreCalles = "Mercedes y Av Chivilcoy",
-    coordenada = DbGeography.FromText("POINT( 34.6318411  58.4857468)"),
+    coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
     zonaDelimitadaPorLaComuna = 10,
     servicios = new List<ServicioCGP>()
                 {
