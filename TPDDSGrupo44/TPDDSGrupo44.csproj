@@ -217,6 +217,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608310330345_InitialCreate.cs" />
+    <Compile Include="Migrations\201608310330345_InitialCreate.Designer.cs">
+      <DependentUpon>201608310330345_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608310331236_InitialCreate1.cs" />
+    <Compile Include="Migrations\201608310331236_InitialCreate1.Designer.cs">
+      <DependentUpon>201608310331236_InitialCreate1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -308,6 +316,11 @@
     <Content Include="Views\Admin\CreateParada.cshtml" />
     <Content Include="Views\Admin\DeleteParada.cshtml" />
     <Content Include="Views\Admin\ABMParada.cshtml" />
+    <Content Include="Views\Admin\ABMBanco.cshtml" />
+    <Content Include="Views\Admin\CreateBanco.cshtml" />
+    <Content Include="Views\Admin\ABMCGP.cshtml" />
+    <Content Include="Views\Admin\CreateCGP.cshtml" />
+    <Content Include="Views\Admin\DeleteBanco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +332,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201608310330345_InitialCreate.resx">
+      <DependentUpon>201608310330345_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608310331236_InitialCreate1.resx">
+      <DependentUpon>201608310331236_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

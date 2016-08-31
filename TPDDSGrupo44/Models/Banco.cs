@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
@@ -34,6 +35,59 @@ namespace TPDDSGrupo44.Models
             palabraClave = nombre;
             coordenada = unaCoordenada;
             servicios = new List<ServicioBanco>();
+        }
+        ////////////////Constructor generico////////////////
+        public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
+           string tipoDePOI)
+
+        /* agregar mas adelante 
+         *  List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios
+         * */
+
+        {
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabraClave = palabraClave;
+            this.tipoDePOI = tipoDePOI;
+            // TODO 
+           /* this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;*/
+        
+        }
+         
+        //--------------- ABM BANCO --------------------
+        public void agregarBanco(Banco banco)
+        {
+            using (var db = new BuscAR())
+            {
+                db.Bancos.Add(banco);
+                db.SaveChanges();
+            }
+        }
+
+        public void eliminarBanco(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+
+                db.Bancos.Remove(banco);
+                db.SaveChanges();
+            }
+
+
         }
 
     }
