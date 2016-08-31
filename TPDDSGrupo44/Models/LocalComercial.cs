@@ -27,8 +27,13 @@ namespace TPDDSGrupo44.Models
         public new string tipoDePOI { get; set; }
         public new List<HorarioAbierto> horarioAbierto { get; set; }
         public new List<HorarioAbierto> horarioFeriado { get; set; }
-       // public new string nombreFantasia { get; set; }
+
+
+       public new string nombreFantasia { get; set; }
+        public string[] tags { get; set; }
         //public new List<String> tags { get; set; }
+
+
         public Rubro rubro { get; set; }
 
         ////////////////Constructor vacio////////////////

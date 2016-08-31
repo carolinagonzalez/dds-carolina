@@ -10,6 +10,139 @@ namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
+        
+
+        
+        public void actualizarLocalesComerciales()
+        {
+
+            List<LocalComercial> locales = new List<LocalComercial>();
+            string localComercialArchivo = "Carrousel;colegio escolar uniformes modas";
+            string[] dataArchivo = localComercialArchivo.Split(';');
+            string nombreLocalArchivo = dataArchivo[0].Trim();
+            string[] tagsArchivo = dataArchivo[1].Split(' ');
+
+
+            bool existe = false;
+
+            foreach (var local in locales)
+            {
+
+                if (local.nombreFantasia == nombreLocalArchivo)
+                {
+                    existe = true;
+                    local.tags = tagsArchivo;
+                }
+            }
+
+
+            if (!existe)
+            {
+                locales.Add(new LocalComercial() { nombreFantasia = nombreLocalArchivo, tags = tagsArchivo });
+            }
+        }
+
+        /*Proceso 3: Agregar acciones para todos los usuarios
+
+Este proceso tiene como objetivo agregar una lista acciones que puede realizar cada Usuario en el Sistema.
+Este proceso está vinculado a la Entrega 3.  Dada una lista de Acciones por Usuario
+el proceso debe asignar/actualizar las acciones que puede realizar cada Usuario.
+Se debe considerar la posibilidad de deshacer esta acción (undo) y que vuelva todo al estado original.*/
+
+        // Entrega 3: 	Activar/desactivar las acciones por Terminal en forma dinámica.
+
+           List<string> listaDeAcciones = new List<string> { "1-Accion", "2-Accion" };
+          
+
+        /* Desacticar las acciones por Terminal en forma dinámica. */
+        public void cambiarEstadoAccionTerminal(int idAccion, int idTerminal, Boolean estado)
+        {
+
+            //Llamada la base de datos en busca de la terminar con el IdTerminal  
+
+            UsuarioTramite terminalBuscada = new UsuarioTramite();
+            
+              
+            if (terminalBuscada.existeAcciones(idAccion))
+            {
+
+                Boolean accionEliminada = false;
+                for (int i = 0; i < terminalBuscada.acciones.Count; i++)
+                {
+
+                    if (terminalBuscada.acciones[i].id == idAccion)
+                    {
+                        terminalBuscada.acciones[i].activo = estado;
+                        accionEliminada = true;
+                    }
+                    
+                }
+
+                if (!accionEliminada)
+                {
+                    throw new System.ArgumentException("No se puede desactivar la acción ya que no existe.");
+                }
+                else
+                {
+                    // Update de la terminar en la base de datos.
+                }
+
+            }
+            else
+            {
+                throw new ArgumentException("No se puede  desativar la acción. ¡Vuelva a intentarlo!");
+            }
+        }
+
+        //Entrega 4 - 3.Agregar las acciones por Terminal en forma dinámica.
+        public void agregarAccionTerminal(int idTerminal, string nombreUsuario)
+        {
+
+            // Buscar Terminal en la base de datos por id 
+
+            //Buscar accion 
+
+            //Agregar Accion a la lista de acciones 
+
+
+            UsuarioTramite terminal = new UsuarioTramite(); //query base de datos
+
+            Accion accionAgregar = new Accion(); //query base de datos
+
+
+            if (terminal != null)
+            {
+                if (accionAgregar != null)
+                {
+
+                    if (!terminal.existeAcciones(accionAgregar.id))
+                    {
+                        terminal.acciones.Add(accionAgregar);
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("No se puede agregar la acción. ¡Vuelva a intentarlo!");
+                }
+
+            }
+            else
+            {
+                throw new ArgumentException("No se puede agregar la acción. ¡Vuelva a intentarlo!");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
         private void mostrarLista(List<ParadaDeColectivo> listaFiltrada, String palabraBusqueda)
         {
             if (listaFiltrada.Count > 0)

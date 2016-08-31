@@ -221,6 +221,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accion.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrador.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\POI.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
+    <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Usuario.cs" />
