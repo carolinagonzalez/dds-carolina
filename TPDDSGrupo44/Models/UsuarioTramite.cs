@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace TPDDSGrupo44.Models
 {
     public class UsuarioTramite
     {
         ////////////////Atributos////////////////
-        public int id { get; set; }
-        public List<Accion> acciones { get; set; }
         public int dni { get; set; }
         public string contrasenia { get; set; }
+        public Rol rolUsuario { get; set; }
+
 
         public Boolean existeAcciones(int idAccion)
         {
             Boolean exist = false;
-            foreach (var accion in this.acciones)
+            foreach (var accion in this.rolUsuario.funcionalidades)
             {
                 if (accion.id == idAccion)
                 {

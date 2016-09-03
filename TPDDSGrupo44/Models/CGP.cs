@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
@@ -21,10 +22,10 @@ namespace TPDDSGrupo44.Models
         public new string entreCalles { get; set; }
         public new string palabraClave { get; set; }
         public new string tipoDePOI { get; set; }
-        public new List<HorarioAbierto> horarioAbierto { get; set; }
-        public new List<HorarioAbierto> horarioFeriado { get; set; }
+        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
+        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
         public int numeroDeComuna { get; set; }
-        public List<ServicioCGP> servicios { get; set; }
+        public virtual List<ServicioCGP> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         ////////////////Constructor Vacio////////////////
@@ -43,11 +44,88 @@ namespace TPDDSGrupo44.Models
         }
 
 
+        ////////////////Constructor generico////////////////
+        public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
+           string tipoDePOI, int numeroDeComuna)
+            /* agregar mas adelante
+             * , List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, int numeroDeComuna,
+           List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna*/
+        {
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabraClave = palabraClave;
+            this.tipoDePOI = tipoDePOI;
+            // TODO
+            this.numeroDeComuna = numeroDeComuna;
+            /*
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;
+            this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;*/
 
-        ////////////////Cálculo de Cercanía - Dentro de la zona de la Comuna////////////////
+        }
+
+
+    ////////////////Funcion manhattan////////////////
+    private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
+        {
+            double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
+            double long1InDegrees = (double)coordenadaDeDispositivoTactil.Longitude;
+
+            double lat2InDegrees = (double)coordenada.Latitude;
+            double long2InDegrees = (double)coordenada.Longitude;
+
+            double lats = (double)Math.Abs(lat1InDegrees - lat2InDegrees);
+            double lngs = (double)Math.Abs(long1InDegrees - long2InDegrees);
+
+            //grados a metros
+            double latm = lats * 60 * 1852;
+            double lngm = (lngs * Math.Cos((double)lat1InDegrees * Math.PI / 180)) * 60 * 1852;
+            double distInMeters = Math.Sqrt(Math.Pow(latm, 2) + Math.Pow(lngm, 2));
+            return distInMeters;
+
+        }
+
+        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
-            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < zonaDelimitadaPorLaComuna; //Cuadras
+            return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < zonaDelimitadaPorLaComuna;
         }
+
+
+        // -------------------- ABM CGP --------------------------
+        public void agregarCGP(CGP cgp)
+        {
+            using (var db = new BuscAR())
+            {
+                db.CGPs.Add(cgp);
+                db.SaveChanges();
+            }
+        }
+
+        public void eliminarCGP(int id)
+        {
+            using (var db = new BuscAR())
+            {
+
+                CGP cgp = db.CGPs.Where(p => p.id == id).Single();
+
+                db.CGPs.Remove(cgp);
+                db.SaveChanges();
+            }
+
+
+        }
+
     }
 }

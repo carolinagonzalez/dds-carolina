@@ -8,7 +8,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/scripts/jquery-2.2.3.js")
+    @Scripts.Render("~/scripts/jquery-3.1.0.js")
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYAVxWoAsXMvJ6zBUiwHjZc9q0q2-XG5g&language=es" async defer></script>
 
@@ -25,24 +25,30 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("UBICAR", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("BuscAR", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Cercanía", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Buscar Punto", "Location", "Home")</li>
+                        <li>@Html.ActionLink("Encuentra puntos", "Index", "Home")</li>
                         <li>@Html.ActionLink("Horarios", "Availability", "Home")</li>
                         <li>@Html.ActionLink("Busquedas Realizadas", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("ABM Parada", "ABMParada", "Admin")</li>
+                        <li>@Html.ActionLink("ABM Banco", "ABMBanco", "Admin")</li>
+                        <li>@Html.ActionLink("ABM CGP", "ABMCGP", "Admin")</li>
+
+                        
                     </ul>
-                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
         </div>
     </header>
+    <main>
+        @RenderBody()
+    </main>
     <footer >
         <div >
             @* <main class="container body-content">*@
-            @RenderBody()
+            
             @*<hr />*@
             <p class="foot">&copy; @DateTime.Now.Year - Grupo 44 DDS - UTN FRBA</p>
             @*</main>*@

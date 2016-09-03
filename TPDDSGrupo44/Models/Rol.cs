@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace TPDDSGrupo44.Models
 {
     public class Rol
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public List<Accion> funcionalidades { get; set; }
+        string nombre { get; set; }
+        public List<FuncionalidadUsuario> funcionalidades { get; set; }
+
+        public Rol (){ }
+
+        public Rol (string nombreRol)
+        {
+            nombre = nombreRol;
+            funcionalidades = new List<FuncionalidadUsuario>();
+        }
+
     }
 }

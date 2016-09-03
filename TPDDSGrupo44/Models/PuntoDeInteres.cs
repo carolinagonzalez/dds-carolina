@@ -23,12 +23,14 @@ namespace TPDDSGrupo44.Models
         public string pais { get; set; }
         public string entreCalles { get; set; }
         public string palabraClave { get; set; }
+        public List<string> palabrasClave { get; set; }
         public string tipoDePOI { get; set; }
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriado { get; set; }
 
         ////////////////Constructor vacio////////////////
-        public PuntoDeInteres() { }
+        public PuntoDeInteres() {
+        }
 
         ////////////////Constructor generico////////////////
         public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,

@@ -14,14 +14,15 @@
 }
 
 .foot{
-	margin-top: 50px;
 	color: white;
 	background: #222;
 	border-top: 1px solid #000;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-top: 0px;
-
+    padding: 20px 10%;
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: 0 !important;
 }
 
 .nav {
@@ -74,19 +75,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .result {
-    padding: 15px;
     border-radius: 5px;
     margin: 10px 0;
 }
 
 .ok {
-    border: 1px solid #AAFF00;
-    background-color: #D8FF8A;
+    border: 1px solid #ddd;
 }
 
 .error {
     border: 1px solid #FFAA00;
+    padding: 15px;
     background-color: #FFE0A3;
+}
+
+.result h2{
+    padding: 15px;
+    margin: 0; 
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+}
+
+.result h2:first-of-type {
+    border-radius: 5px 5px 0 0;
+}
+
+.poi {
+    padding: 5px 15px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.poi.selected {
+    background-color: #CCE1E8;
+}
+
+.poi:last-of-type {
+    border-bottom: 0;
+}
+
+
+.poi h3 {
+    margin: 0;
+    padding: 10px 0;
 }
 
 /*map*/
@@ -94,4 +126,12 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%; 
     border-radius: 5px;
     height: 350px;
+}
+
+main {
+    padding: 20px 10%;
+}
+
+.detalles {
+    display: none;
 }

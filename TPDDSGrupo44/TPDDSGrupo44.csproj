@@ -208,48 +208,49 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\POIsController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
+    <Compile Include="Controllers\TerminalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Accion.cs" />
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActualizacionAsincronica.cs" />
+    <Compile Include="Models\ActualizacionLocalComercial.cs" />
     <Compile Include="Models\Administrador.cs" />
+    <Compile Include="Models\AgregarAcciones.cs" />
+    <Compile Include="Models\BajaPOI.cs" />
     <Compile Include="Models\Banco.cs" />
     <Compile Include="Models\BuscAR.cs" />
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
+    <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Models\EnvioDeMails.cs" />
     <Compile Include="Models\GetJsonCGP.cs" />
     <Compile Include="Models\JsonBank.cs" />
     <Compile Include="Models\DispositivoTactil.cs" />
     <Compile Include="Models\HorarioAbierto.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
-    <Compile Include="Models\MainProbar.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
+    <Compile Include="Models\ProcesoMultiple.cs" />
     <Compile Include="Models\POI.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
     <Compile Include="Models\Servicio.cs" />
+    <Compile Include="Models\Terminal.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioTramite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -278,6 +279,8 @@
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <None Include="Scripts\jquery-3.1.0-vsdoc.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -300,34 +303,24 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Location.cshtml" />
-    <Content Include="Views\Home\Availability.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\SearchPerDay.cshtml" />
+    <Content Include="Views\Admin\ResultsPerSearch.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\CreateParada.cshtml" />
+    <Content Include="Views\Admin\DeleteParada.cshtml" />
+    <Content Include="Views\Admin\ABMParada.cshtml" />
+    <Content Include="Views\Admin\ABMBanco.cshtml" />
+    <Content Include="Views\Admin\CreateBanco.cshtml" />
+    <Content Include="Views\Admin\ABMCGP.cshtml" />
+    <Content Include="Views\Admin\CreateCGP.cshtml" />
+    <Content Include="Views\Admin\DeleteBanco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
+    <Folder Include="Views\Cosa\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
