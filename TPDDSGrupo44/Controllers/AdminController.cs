@@ -121,9 +121,50 @@ namespace TPDDSGrupo44.Controllers
             }
         }
 
-// ---------------------------------------------------------------------------------------
-//                             A B M   B A N C O
-//----------------------------------------------------------------------------------------
+
+
+        public ActionResult EditParada(int id)
+        {
+            ParadaDeColectivo parada;
+            using (var db = new BuscAR())
+            {
+                parada = db.Paradas.Where(p => p.id == id).Single();
+            }
+            return View(parada);
+        }
+
+        // POST: Default/Edit
+        [HttpPost]
+        public ActionResult EditParada(FormCollection collection)
+        {
+            try
+            {
+                ParadaDeColectivo parada;
+                using (var db = new BuscAR())
+                {
+                    int id = Convert.ToInt16(collection["id"]);
+                    parada = db.Paradas.Where(p => p.id == id).Single();
+
+                    parada.actualizar(collection["nombreDePOI"]);
+
+                    db.SaveChanges();
+                }
+
+                
+              
+                return RedirectToAction("ABMParada");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // ---------------------------------------------------------------------------------------
+        //                             A B M   B A N C O
+        //----------------------------------------------------------------------------------------
 
         public ActionResult ABMBanco()
         {
@@ -208,8 +249,10 @@ namespace TPDDSGrupo44.Controllers
                 List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
 
                 List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+                
 
                 HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                
 
                 horariosAbierto.Add(horarios);
 
