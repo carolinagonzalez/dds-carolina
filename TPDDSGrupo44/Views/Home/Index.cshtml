@@ -74,25 +74,31 @@
                 <h3>@punto.palabraClave <span>(cercano)</span></h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
-                    <h4>Horarios</h4>
-                    <ul>
-                    @foreach (var horario in punto.horarioAbierto)
+                    @if (punto.horarioAbierto.Count() != 0)
                     {
-                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                    }
+                        <h4>Horarios</h4>
+                        <ul>
+                            @foreach (var horario in punto.horarioAbierto)
+                            {
+                                <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                            }
                         </ul>
+                    }
                     <h4>Servicios</h4>
                     <ul>
                         @foreach (var servicio in punto.servicios)
                         {
                             <li>
                                 @servicio.nombre
-                                <ul>
-                                    @foreach (var horario in servicio.horarioAbierto)
-                                    {
-                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                                    }
-                                </ul>
+                                @if (servicio.horarioAbierto.Count() != 0)
+                                {
+                                    <ul>
+                                        @foreach (var horario in servicio.horarioAbierto)
+                                        {
+                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        }
+                                    </ul>
+                                }
                             </li>
                         }
                     </ul>
@@ -107,25 +113,31 @@
                 <h3>@punto.palabraClave</h3>
                 @punto.calle @punto.numeroAltura
                 <div class="detalles">
-                    <h4>Horarios</h4>
-                    <ul>
-                        @foreach (var horario in punto.horarioAbierto)
+                    @if (punto.horarioAbierto.Count() != 0)
                     {
-                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                        }
-                    </ul>
+                        <h4>Horarios</h4>
+                        <ul>
+                            @foreach (var horario in punto.horarioAbierto)
+                            {
+                                <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                            }
+                        </ul>
+                    }
                     <h4>Servicios</h4>
                     <ul>
                         @foreach (var servicio in punto.servicios)
                         {
                             <li>
                                 @servicio.nombre
-                                <ul>
-                                    @foreach (var horario in servicio.horarioAbierto)
-                                    {
-                                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                                    }
-                                </ul>
+                                @if (servicio.horarioAbierto.Count() != 0)
+                                {
+                                    <ul>
+                                        @foreach (var horario in servicio.horarioAbierto)
+                                        {
+                                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                                        }
+                                    </ul>
+                                }
                             </li>
                         }
                     </ul>
@@ -148,10 +160,10 @@
                     @punto.rubro.nombre
                     <h4>Horarios</h4>
                     <ul>
-                    @foreach (var horario in punto.horarioAbierto)
+                        @foreach (var horario in punto.horarioAbierto)
                     {
-                        <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
-                    }
+                            <li>@horario.dia abierto de @horario.horarioInicio a @horario.horarioFin</li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -250,8 +262,8 @@
 
     }
 
-        <p>@ViewBag.SearchText</p>
-    
+    <p>@ViewBag.SearchText</p>
+
 </div>
 
 <div id="map"></div>

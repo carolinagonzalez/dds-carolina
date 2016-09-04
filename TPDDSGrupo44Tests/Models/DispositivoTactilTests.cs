@@ -66,26 +66,26 @@ namespace TPDDSGrupo44.Tests
 
         }
 
-        [Test]
-        public void estaCercaBancoTest()
-        {
-            DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", DbGeography.FromText("POINT(-34.6597047 -58.4688947)"));
+        //[Test]
+        //public void estaCercaBancoTest()
+        //{
+        //    DispositivoTactil unDispositivo = new DispositivoTactil("UTN FRBA Campus", DbGeography.FromText("POINT(-34.6597047 -58.4688947)"));
 
-            // Agrego Banco Provincia
-            Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
-
-
-            // Agrego Banco Francés
-            Banco otroBanco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
-
-            Assert.IsTrue(unDispositivo.estaCerca(banco));
-
-            Assert.IsFalse(unDispositivo.estaCerca(otroBanco));
+        //    // Agrego Banco Provincia
+        //    Banco banco = new Banco("Banco Provincia", DbGeography.FromText("POINT(-34.660979 -58.469821)"));
 
 
+        //    // Agrego Banco Francés
+        //    Banco otroBanco = new Banco("Banco Francés", DbGeography.FromText("POINT(-34.6579153 -58.4791142)"));
+
+        //    Assert.IsTrue(unDispositivo.estaCerca(banco));
+
+        //    Assert.IsFalse(unDispositivo.estaCerca(otroBanco));
 
 
-        }
+
+
+        //}
 
 
 

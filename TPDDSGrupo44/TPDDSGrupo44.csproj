@@ -219,18 +219,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609031439507_PruebaBancos.cs" />
-    <Compile Include="Migrations\201609031439507_PruebaBancos.Designer.cs">
-      <DependentUpon>201609031439507_PruebaBancos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609031447592_PruebaBanco2.cs" />
-    <Compile Include="Migrations\201609031447592_PruebaBanco2.Designer.cs">
-      <DependentUpon>201609031447592_PruebaBanco2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609031450358_PruebaBanco3.cs" />
-    <Compile Include="Migrations\201609031450358_PruebaBanco3.Designer.cs">
-      <DependentUpon>201609031450358_PruebaBanco3.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
@@ -273,7 +261,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\json.json" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -339,17 +326,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609031439507_PruebaBancos.resx">
-      <DependentUpon>201609031439507_PruebaBancos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609031447592_PruebaBanco2.resx">
-      <DependentUpon>201609031447592_PruebaBanco2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609031450358_PruebaBanco3.resx">
-      <DependentUpon>201609031450358_PruebaBanco3.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

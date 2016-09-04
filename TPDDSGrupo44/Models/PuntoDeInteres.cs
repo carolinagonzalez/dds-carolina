@@ -62,7 +62,7 @@ namespace TPDDSGrupo44.Models
             this.coordenada = unaCordenada;
         }
 
-    /*    ////////////////Funcion manhattan////////////////
+       ////////////////Funcion manhattan////////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
@@ -86,14 +86,8 @@ namespace TPDDSGrupo44.Models
         public virtual bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 5;
-        }*/
-
-
-        ////////////////Cálculo de Cercanía - Debe estar a menos de una cuadra////////////////
-        public virtual bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
-        {
-            return (coordenadaDeDispositivoTactil.Distance(coordenada) / 100) < 5;
         }
+        
 
         ////////////////Cálculo de Disponibilidad Horaria genérico////////////////
         public virtual bool estaDisponible(DateTime searchTime)

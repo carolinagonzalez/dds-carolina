@@ -110,6 +110,11 @@ namespace TPDDSGrupo44.Controllers
                     }
 
                     List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+
+                    GetJsonBanks buscadorDeBancosJSON = new GetJsonBanks();
+                    List<Banco> resultadoBusquedaJSONBancos = buscadorDeBancosJSON.getJsonData().FindAll(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower()));
+                    resultadosBusquedaBancos.AddRange(resultadoBusquedaJSONBancos);
+
                     if (resultadosBusquedaBancos.Count() > 0)
                     {
                         foreach (Banco punto in resultadosBusquedaBancos)

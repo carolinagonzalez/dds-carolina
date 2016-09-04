@@ -26,15 +26,23 @@ namespace TPDDSGrupo44.Models
         public virtual List<ServicioBanco> servicios { get; set; }
 
         ////////////////Constructor vacio////////////////
-        public Banco() { }
+        public Banco():base() { }
 
-        ////////////////Constructor Viejo(Usado en controlador////////////////
-        public Banco(string nombre, DbGeography unaCoordenada)
-        : base(nombre, unaCoordenada)
+        ////////////////Constructor JSON (usado para generar bancos a partir del JSON que tiene poca data)////////////////
+        public Banco(string nombre, DbGeography unaCoordenada, List<string> serviciosJSON) :base(nombre, unaCoordenada)
         {
             palabraClave = nombre;
             coordenada = unaCoordenada;
             servicios = new List<ServicioBanco>();
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
+
+            foreach (string servicio in serviciosJSON)
+            {
+                ServicioBanco serv = new ServicioBanco(servicio);
+                servicios.Add(serv);
+            }
+
         }
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
