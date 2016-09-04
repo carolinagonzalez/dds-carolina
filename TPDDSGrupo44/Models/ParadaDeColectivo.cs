@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 
@@ -21,8 +22,10 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new string palabraClave { get; set; }
+        public new List<string> palabrasClave { get; set; }
+        public new string nombreDePOI { get; set; }
         public new string tipoDePOI { get; set; }
+
 
 
         ////////////////Constructor vacio////////////////
@@ -30,8 +33,8 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
-           string tipoDePOI)
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI,string tipoDePOI)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -44,7 +47,8 @@ namespace TPDDSGrupo44.Models
             this.provincia = provincia;
             this.pais = pais;
             this.entreCalles = entreCalles;
-            this.palabraClave = palabraClave;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
             this.tipoDePOI = tipoDePOI;
         }
 
@@ -56,7 +60,7 @@ namespace TPDDSGrupo44.Models
         public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
         : base(nombre, unaCoordenada)
         {
-            palabraClave = nombre;
+            nombreDePOI = nombre;
             coordenada = unaCoordenada;
         }
 
@@ -80,7 +84,7 @@ namespace TPDDSGrupo44.Models
 
         }
 
-        ////////////////Cálculo de Cercanía genérico - distancia menor a 5 cuadras////////////////
+        ////////////////Cálculo de Cercanía genérico - distancia menor a 1 cuadras////////////////
         public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 1;

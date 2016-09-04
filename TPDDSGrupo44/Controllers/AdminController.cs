@@ -52,7 +52,7 @@ namespace TPDDSGrupo44.Controllers
             using (var db = new BuscAR())
             {
                 paradas = (from p in db.Paradas
-                             orderby p.palabraClave
+                             orderby p.nombreDePOI
                              select p).ToList();
             }
 
@@ -74,12 +74,12 @@ namespace TPDDSGrupo44.Controllers
 
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
 
-                ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                    Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
-                    collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                    collection["palabraClave"], collection["tipoDePOI"]);
+                //ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                //    Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                //    collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                //    collection["palabrasClave"],collection["nombreDePOI"], collection["tipoDePOI"]);
 
-                parada.agregarParada(parada);
+                //parada.agregarParada(parada);
 
                 return RedirectToAction("ABMParada");
             }
@@ -131,7 +131,7 @@ namespace TPDDSGrupo44.Controllers
             using (var db = new BuscAR())
             {
                 bancos = (from p in db.Bancos
-                           orderby p.palabraClave
+                           orderby p.nombreDePOI
                            select p).ToList();
             }
 
@@ -183,7 +183,7 @@ namespace TPDDSGrupo44.Controllers
             using (var db = new BuscAR())
             {
                 cgp = (from p in db.CGPs
-                          orderby p.palabraClave
+                          orderby p.nombreDePOI
                           select p).ToList();
             }
 
@@ -208,13 +208,13 @@ namespace TPDDSGrupo44.Controllers
                 /* convert list to string -- 
                  * var result = string.Join(",", list.ToArray()); */
 
-                CGP cgp = new CGP(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
-                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      collection["palabraClave"], collection["tipoDePOI"], Convert.ToInt32(collection["numeroDeComuna"]));
+                //CGP cgp = new CGP(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                //      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                //      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                //      collection["palabraClave"], collection["tipoDePOI"], Convert.ToInt32(collection["numeroDeComuna"]));
 
-                //collection["horarioAbierto"], collection["horarioFeriado"], collection["servicios"], collection["zonaDelimitadaPorLaComuna"]
-                cgp.agregarCGP(cgp);
+                ////collection["horarioAbierto"], collection["horarioFeriado"], collection["servicios"], collection["zonaDelimitadaPorLaComuna"]
+                //cgp.agregarCGP(cgp);
 
                 return RedirectToAction("ABMCGP");
             }

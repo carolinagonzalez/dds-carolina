@@ -17,14 +17,22 @@
     {
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.coordenada, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.coordenada.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.coordenada.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.coordenada.Latitude}, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.coordenada.Longitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.coordenada.Longitude}, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.coordenada.Latitude, "", new { @class = "text-danger" })
+
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.coordenada.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coordenada.Longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coordenada.Longitude, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.calle, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -33,6 +41,7 @@
                 @Html.ValidationMessageFor(model => model.calle, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.numeroAltura, htmlAttributes: new { @class = "control-label col-md-2" })

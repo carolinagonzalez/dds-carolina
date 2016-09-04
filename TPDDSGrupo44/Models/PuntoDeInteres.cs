@@ -22,11 +22,12 @@ namespace TPDDSGrupo44.Models
         public string provincia { get; set; }
         public string pais { get; set; }
         public string entreCalles { get; set; }
-        public string palabraClave { get; set; }
         public List<string> palabrasClave { get; set; }
+        public string nombreDePOI { get; set; }
         public string tipoDePOI { get; set; }
         public List<HorarioAbierto> horarioAbierto { get; set; }
         public List<HorarioAbierto> horarioFeriado { get; set; }
+
 
         ////////////////Constructor vacio////////////////
         public PuntoDeInteres() {
@@ -34,8 +35,8 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public PuntoDeInteres(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
-           string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI,string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -48,7 +49,7 @@ namespace TPDDSGrupo44.Models
             this.provincia = provincia;
             this.pais = pais;
             this.entreCalles = entreCalles;
-            this.palabraClave = palabraClave;
+            this.palabrasClave = palabrasClave;
             this.tipoDePOI = tipoDePOI;
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriados;
@@ -57,7 +58,7 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor Viejo(Usado en controlador////////////////
         public PuntoDeInteres(string nombre, DbGeography unaCordenada)
         {
-            this.palabraClave = nombre;
+            this.nombreDePOI = nombre;
             this.coordenada = unaCordenada;
         }
 

@@ -20,7 +20,8 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new string palabraClave { get; set; }
+        public new List<string> palabrasClave { get; set; }
+        public new string nombreDePOI { get; set; }
         public new string tipoDePOI { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
@@ -37,7 +38,7 @@ namespace TPDDSGrupo44.Models
         public CGP(string nombre, DbGeography unaCoordenada, int zona)
         : base (nombre, unaCoordenada)
         {
-            palabraClave = nombre;
+            nombreDePOI = nombre;
             coordenada = unaCoordenada;
             zonaDelimitadaPorLaComuna = zona;
             servicios = new List<ServicioCGP>();
@@ -46,11 +47,9 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave,
-           string tipoDePOI, int numeroDeComuna)
-            /* agregar mas adelante
-             * , List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, int numeroDeComuna,
-           List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna*/
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
+           List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
             this.coordenada = unaCoordenada;
             this.calle = calle;
@@ -63,16 +62,14 @@ namespace TPDDSGrupo44.Models
             this.provincia = provincia;
             this.pais = pais;
             this.entreCalles = entreCalles;
-            this.palabraClave = palabraClave;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
             this.tipoDePOI = tipoDePOI;
-            // TODO
             this.numeroDeComuna = numeroDeComuna;
-            /*
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
-            this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;*/
-
+            this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
         }
 
 

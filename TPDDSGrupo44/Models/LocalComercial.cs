@@ -23,14 +23,17 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new string palabraClave { get; set; }
+        public new string nombreDePOI { get; set; }
         public virtual new List<string> palabrasClave { get; set; }
         public new string tipoDePOI { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
-        public string nombreFantasia { get; set; }
+       
         //public new List<String> tags { get; set; }
         public Rubro rubro { get; set; }
+
+
+
 
         ////////////////Constructor vacio////////////////
         public LocalComercial() { }
@@ -42,25 +45,44 @@ namespace TPDDSGrupo44.Models
         {
             this.rubro = rubro;
             coordenada = unaCoordenada;
-            palabraClave = nombre;
+            nombreDePOI = nombre;
         }
 
-        public LocalComercial(string nombreRubro, int radioCercania, DbGeography unaCoordenada, Rubro rubro, DateTime dateRubro, string direccion, int piso, char dto)
+        public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
+           Rubro rubro)
         {
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
+            this.tipoDePOI = tipoDePOI;
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriados;
             this.rubro = rubro;
-            palabraClave = nombreRubro;
-            coordenada = unaCoordenada;
+
         }
+
 
         //E4 - JM - Constructor para actualización asincrónica
         public LocalComercial (string nombre, List<string> palabras)
         {
-            nombreFantasia = nombre;
+            nombreDePOI = nombre;
             palabrasClave = palabras;
         }
 
 
-        ////////////////Funcion manhattan////////////////
+        ////////////////Funcion manhattan////////////
         private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
@@ -164,9 +186,9 @@ namespace TPDDSGrupo44.Models
 
 
         //public void proceso4ActualizarPOILocalComercial(string nombreDeFantasia, List<string> palabrasClaves)
-        public void proceso4ActualizarPOILocalComercial(string nombreDeFantasia, string palabraClave)
+        public void proceso4ActualizarPOILocalComercial(string nombreDeFantasia, string nombreDePOI)
         {
-            if (!noExistePOI(nombreDeFantasia) && !noExistePOI(palabraClave))
+            if (!noExistePOI(nombreDeFantasia) && !noExistePOI(nombreDePOI))
             {
                 List<string> listaFiltradaDeLocales = new List<string>(listaDeLocales.Where(x => x == nombreDeFantasia.ToString()).ToList());
 

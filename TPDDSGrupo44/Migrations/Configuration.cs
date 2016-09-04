@@ -37,10 +37,10 @@ new DispositivoTactil
 
             //Paradas
             context.Paradas.AddOrUpdate(
-            p => p.palabraClave,
+            p => p.nombreDePOI,
             new ParadaDeColectivo
             {
-                palabraClave = "114",
+                nombreDePOI = "114",
                 calle = "Mozart",
                 numeroAltura = 2389,
                 localidad = "Ciudad Autónoma de Buenos Aires",
@@ -52,7 +52,7 @@ new DispositivoTactil
             },
 new ParadaDeColectivo
 {
-    palabraClave = "36",
+    nombreDePOI = "36",
     calle = "Av Escalada",
     numeroAltura = 2680,
     localidad = "Ciudad Autónoma de Buenos Aires",
@@ -82,10 +82,10 @@ new ParadaDeColectivo
 
             //Locales
             context.Locales.AddOrUpdate(
-            l => l.palabraClave,
+            l => l.nombreDePOI,
             new LocalComercial
             {
-                palabraClave = "Librería CEIT",
+                nombreDePOI = "Librería CEIT",
                 coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
                 rubro = new Rubro("librería escolar", 5),
                 horarioAbierto = horarios,
@@ -93,7 +93,7 @@ new ParadaDeColectivo
             },
 new LocalComercial
 {
-    palabraClave = "Kiosco Las Flores",
+    nombreDePOI = "Kiosco Las Flores",
     coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
     rubro = new Rubro("kiosco de diarios", 5)
 });
@@ -127,10 +127,10 @@ new LocalComercial
 
             //CGPs
             context.CGPs.AddOrUpdate(
-            c => c.palabraClave,
+            c => c.nombreDePOI,
             new CGP
             {
-                palabraClave = "Sede Comunal 8",
+                nombreDePOI = "Sede Comunal 8",
                 calle = "Av Coronel Roca",
                 numeroAltura = 5252,
                 codigoPostal = 1439,
@@ -241,7 +241,7 @@ new LocalComercial
             },
 new CGP
 {
-    palabraClave = "Sede Comunal 10",
+    nombreDePOI = "Sede Comunal 10",
     calle = "Bacacay",
     numeroAltura = 3968,
     codigoPostal = 1407,
