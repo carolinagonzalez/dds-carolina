@@ -308,48 +308,141 @@ new CGP
             context.SaveChanges();
 
 
-            //// Horarios Banco Provincia
-            //ServicioBanco servicio3 = new ServicioBanco("Depósitos");
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            //servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            //List<ServicioBanco> servicios3 = new List<ServicioBanco>();
-            //servicios3.Add(servicio3);
+            // Horarios Banco Provincia
+            ServicioBanco servicio3 = new ServicioBanco("Depósitos");
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            List<ServicioBanco> servicios3 = new List<ServicioBanco>();
+            servicios3.Add(servicio3);
 
-            //horarios = new List<HorarioAbierto>();
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
-            //horarios.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
+            horarios = new List<HorarioAbierto>();
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Monday, 10, 15));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 10, 15));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 10, 15));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Thursday, 10, 15));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Friday, 10, 15));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
+            horarios.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
 
-            //// Horarios Banco Francés
+            // Horarios Banco Francés
 
-            ////Bancos
-            //context.Bancos.AddOrUpdate(
-            //b => b.nombreDelPOI,
-            //new Banco
-            //{
-            //    palabraClave = "Banco Provincia",
-            //    nombreDelPOI = "Banco Provincia",
-            //    coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
-            //    servicios = servicios3,
-            //    horarioAbierto = horarios
-            //},
-            //new Banco
-            //{
-            //    palabraClave = "Banco Francés",
-            //    nombreDelPOI = "Banco Francés",
-            //    coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
-            //    servicios = servicios3,
-            //    horarioAbierto = horarios
-            //});
+            //Bancos
+            context.Bancos.AddOrUpdate(
+            b => b.palabraClave,
+            new Banco
+            {
+                palabraClave = "Banco Provincia",
+                coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
+                servicios = servicios3,
+                horarioAbierto = horarios
+            },
+            new Banco
+            {
+                palabraClave = "Banco Francés",
+                coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
+                servicios = new List<ServicioBanco>()
+                {
+                     new ServicioBanco()
+                    {
+                         horarioAbierto = new List<HorarioAbierto>()
+                                         {
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Monday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Tuesday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Wednesday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Thursday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Friday,
+                                horarioInicio = 8,
+                                horarioFin = 18
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Saturday,
+                                horarioInicio = 10,
+                                horarioFin = 16
+                                             },
+                             new HorarioAbierto()
+                            {
+                                 dia = System.DayOfWeek.Sunday,
+                                horarioInicio = 0,
+                                horarioFin = 0
+                                             }
+                                         }
+                                              }
+
+                                    },
+                horarioAbierto = new List<HorarioAbierto>()
+                    {
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Monday,
+                        horarioInicio = 8,
+                        horarioFin = 18
+                                             },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Tuesday,
+    horarioInicio = 8,
+    horarioFin = 18
+                         },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Wednesday,
+    horarioInicio = 8,
+    horarioFin = 18
+                         },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Thursday,
+    horarioInicio = 8,
+    horarioFin = 18
+                         },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Friday,
+    horarioInicio = 8,
+    horarioFin = 18
+                         },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Saturday,
+    horarioInicio = 0,
+    horarioFin = 0
+                         },
+ new HorarioAbierto()
+{
+     dia = System.DayOfWeek.Sunday,
+    horarioInicio = 0,
+    horarioFin = 0
+                         }
+                    }
+            });
 
             //context.SaveChanges();
 
