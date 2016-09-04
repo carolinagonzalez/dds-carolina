@@ -25,7 +25,7 @@ namespace TPDDSGrupo44.Models
                 using (var db = new BuscAR())
                 {
                     LocalComercial local = (from l in db.Locales
-                                            where l.nombreFantasia == nombre
+                                            where l.nombreDePOI == nombre
                                             select l).Single();
                     // si el local ya existe, lo actualizo
                     if (local != null)

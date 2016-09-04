@@ -41,7 +41,7 @@ namespace TPDDSGrupo44.Controllers
                     if (int.TryParse(palabraBusqueda, out linea) && linea > 0)
                     {
 
-                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.palabraClave == palabraBusqueda).ToList();
+                        List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.nombreDePOI == palabraBusqueda).ToList();
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 
@@ -50,7 +50,7 @@ namespace TPDDSGrupo44.Controllers
                                 modeloVista.paradasEncontradasCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                ViewBag.TextoLugar = "Parada del " + punto.palabraClave;
+                                ViewBag.TextoLugar = "Parada del " + punto.nombreDePOI;
 
                                 ViewBag.Search = "ok";
                             }
@@ -88,7 +88,7 @@ namespace TPDDSGrupo44.Controllers
                         // Si la palabra ingresada no era parada ni rubro, la busco como local
                     }
 
-                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaLocales.Count() > 0)
                     {
                         foreach (LocalComercial punto in resultadosBusquedaLocales)
@@ -98,7 +98,7 @@ namespace TPDDSGrupo44.Controllers
                                 modeloVista.localesEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.TextoLugar = punto.nombreDePOI;
                                 ViewBag.Search = "ok";
                             }
                             else
@@ -109,10 +109,10 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
 
-                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<Banco> resultadosBusquedaBancos = db.Bancos.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
 
                     GetJsonBanks buscadorDeBancosJSON = new GetJsonBanks();
-                    List<Banco> resultadoBusquedaJSONBancos = buscadorDeBancosJSON.getJsonData().FindAll(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower()));
+                    List<Banco> resultadoBusquedaJSONBancos = buscadorDeBancosJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
                     resultadosBusquedaBancos.AddRange(resultadoBusquedaJSONBancos);
 
                     if (resultadosBusquedaBancos.Count() > 0)
@@ -124,7 +124,7 @@ namespace TPDDSGrupo44.Controllers
                                 modeloVista.bancosEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.TextoLugar = punto.nombreDePOI;
                                 ViewBag.Search = "ok";
                             }
                             else
@@ -134,7 +134,7 @@ namespace TPDDSGrupo44.Controllers
                             }
                         }
                     }
-                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.palabraClave.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                    List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaCGP.Count() > 0)
                     {
                         foreach (CGP punto in resultadosBusquedaCGP)
@@ -144,7 +144,7 @@ namespace TPDDSGrupo44.Controllers
                                 modeloVista.cgpsEncontradosCerca.Add(punto);
                                 ViewBag.Latitud = punto.coordenada.Latitude.ToString();
                                 ViewBag.Longitud = punto.coordenada.Longitude.ToString();
-                                ViewBag.TextoLugar = punto.palabraClave;
+                                ViewBag.TextoLugar = punto.nombreDePOI;
                                 ViewBag.Search = "ok";
                             }
                             else

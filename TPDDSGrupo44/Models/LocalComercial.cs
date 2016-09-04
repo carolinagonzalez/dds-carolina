@@ -28,9 +28,9 @@ namespace TPDDSGrupo44.Models
         public new string tipoDePOI { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
-       
+
         //public new List<String> tags { get; set; }
-        public Rubro rubro { get; set; }
+        public virtual Rubro rubro { get; set; }
 
 
 
@@ -108,7 +108,34 @@ namespace TPDDSGrupo44.Models
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < rubro.radioDeCercania; //Cuadras
         }
 
-        
+
+        //////////////// ABM Local Comercial ////////////////
+        public void agregarLocComercial(LocalComercial localComercial)
+        {
+            using (var db = new BuscAR())
+            {
+                db.Locales.Add(localComercial);
+                db.SaveChanges();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public List<String> localesComerciales { get; set; }

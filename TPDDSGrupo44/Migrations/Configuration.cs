@@ -333,17 +333,17 @@ new CGP
 
             //Bancos
             context.Bancos.AddOrUpdate(
-            b => b.palabraClave,
+            b => b.nombreDePOI,
             new Banco
             {
-                palabraClave = "Banco Provincia",
+                nombreDePOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
                 servicios = servicios3,
                 horarioAbierto = horarios
             },
             new Banco
             {
-                palabraClave = "Banco Francés",
+                nombreDePOI = "Banco Francés",
                 coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
                 servicios = new List<ServicioBanco>()
                 {
@@ -444,19 +444,9 @@ new CGP
                     }
             });
 
-            //context.SaveChanges();
+            context.SaveChanges();
 
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

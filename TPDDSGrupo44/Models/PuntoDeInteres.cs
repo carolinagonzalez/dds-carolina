@@ -22,11 +22,11 @@ namespace TPDDSGrupo44.Models
         public string provincia { get; set; }
         public string pais { get; set; }
         public string entreCalles { get; set; }
-        public List<string> palabrasClave { get; set; }
+        public virtual List<string> palabrasClave { get; set; }
         public string nombreDePOI { get; set; }
         public string tipoDePOI { get; set; }
-        public List<HorarioAbierto> horarioAbierto { get; set; }
-        public List<HorarioAbierto> horarioFeriado { get; set; }
+        public virtual List<HorarioAbierto> horarioAbierto { get; set; }
+        public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
 
         ////////////////Constructor vacio////////////////

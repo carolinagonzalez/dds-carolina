@@ -19,7 +19,8 @@ namespace TPDDSGrupo44.Models
         public new string provincia { get; set; }
         public new string pais { get; set; }
         public new string entreCalles { get; set; }
-        public new string palabraClave { get; set; }
+        public new string nombreDePOI { get; set; }
+        public virtual new List<string> palabrasClave { get; set; }
         public new string tipoDePOI { get; set; }
         public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
@@ -31,7 +32,7 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor JSON (usado para generar bancos a partir del JSON que tiene poca data)////////////////
         public Banco(string nombre, DbGeography unaCoordenada, List<string> serviciosJSON) :base(nombre, unaCoordenada)
         {
-            palabraClave = nombre;
+            nombreDePOI = nombre;
             coordenada = unaCoordenada;
             servicios = new List<ServicioBanco>();
             horarioAbierto = new List<HorarioAbierto>();
@@ -65,7 +66,7 @@ namespace TPDDSGrupo44.Models
             this.provincia = provincia;
             this.pais = pais;
             this.entreCalles = entreCalles;
-            this.palabraClave = palabraClave;
+            this.nombreDePOI = palabraClave;
             this.tipoDePOI = tipoDePOI;
             // TODO 
            /* this.horarioAbierto = horarioAbierto;
