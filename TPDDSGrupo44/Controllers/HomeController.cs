@@ -134,7 +134,16 @@ namespace TPDDSGrupo44.Controllers
                             }
                         }
                     }
+
+
+
                     List<CGP> resultadosBusquedaCGP = db.CGPs.Include("horarioAbierto").Include("horarioFeriado").Include("servicios").Include("servicios.horarioAbierto").Include("servicios.horarioFeriados").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+
+                 /*   GetJsonCGP buscadorDeCGPJSON = new GetJsonCGP();
+                    List<Banco> resultadoBusquedaJSONCGP = buscadorDeCGPJSON.getJsonData().FindAll(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower()));
+                    resultadoBusquedaJSONCGP.AddRange(resultadoBusquedaJSONCGP);*/
+
+
                     if (resultadosBusquedaCGP.Count() > 0)
                     {
                         foreach (CGP punto in resultadosBusquedaCGP)

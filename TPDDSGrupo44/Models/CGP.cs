@@ -7,6 +7,13 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
+        private int comuna;
+        private string director;
+        private string domicilio;
+        private List<string> servicios1;
+        private string telefono;
+        private string zonas;
+
         ////////////////Atributos////////////////
         public new int id { get; set; }
         public new DbGeography coordenada { get; set; }
@@ -30,20 +37,47 @@ namespace TPDDSGrupo44.Models
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         ////////////////Constructor Vacio////////////////
-        public CGP() {
+        public CGP(){
             servicios = new List<ServicioCGP>();
         }
 
-        ////////////////Constructor Viejo(Usado en controlador////////////////
-        public CGP(string nombre, DbGeography unaCoordenada, int zona)
-        : base (nombre, unaCoordenada)
+        //public CGP() : base(){}
+
+        /*  ////////////////Constructor Viejo(Usado en controlador////////////////
+          public CGP(string nombre, DbGeography unaCoordenada, int zona)
+          : base (nombre, unaCoordenada)
+          {
+              nombreDePOI = nombre;
+              coordenada = unaCoordenada;
+              zonaDelimitadaPorLaComuna = zona;
+              servicios = new List<ServicioCGP>();
+          }*/
+
+/*  Ver bien 
+       ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
+        public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<string> serviciosJSON) : base()
         {
-            nombreDePOI = nombre;
-            coordenada = unaCoordenada;
-            zonaDelimitadaPorLaComuna = zona;
             servicios = new List<ServicioCGP>();
+            horarioAbierto = new List<HorarioAbierto>();
+            horarioFeriado = new List<HorarioAbierto>();
+
+            foreach (string servicio in serviciosJSON)
+            {
+                ServicioCGP serv = new ServicioCGP(servicio);
+                servicios.Add(serv);
+            }
         }
 
+        public CGP(int comuna, string director, string domicilio, List<string> servicios1, string telefono, string zonas)
+        {
+            this.comuna = comuna;
+            this.director = director;
+            this.domicilio = domicilio;
+            this.servicios1 = servicios1;
+            this.telefono = telefono;
+            this.zonas = zonas;
+        }
+        */
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
@@ -72,9 +106,9 @@ namespace TPDDSGrupo44.Models
             this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
         }
 
-
-    ////////////////Funcion manhattan////////////////
-    private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
+    
+        ////////////////Funcion manhattan////////////////
+        private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
             double long1InDegrees = (double)coordenadaDeDispositivoTactil.Longitude;
