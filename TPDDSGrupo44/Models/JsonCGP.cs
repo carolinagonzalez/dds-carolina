@@ -10,6 +10,9 @@ namespace TPDDSGrupo44.Models
         public string domicilio { get; set; }
         public string telefono { get; set; }
         public List<string> servicios { get; set; }
-       // nroDiaDeLaSemana - horarioDesde - minutosDesde - horarioHasta - minutosHasta 
+        // nroDiaDeLaSemana - horarioDesde - minutosDesde - horarioHasta - minutosHasta 
+
+        //public List<object> servicios { get; set; }
+
     }
 }

@@ -9,10 +9,8 @@ namespace TPDDSGrupo44.Models
 
 {
    public class GetJsonBanks 
-   //public class GetJsonBanks
     {
         public List<Banco> getJsonData()
-        //protected void Page_Load(object sender, EventArgs e)
         {
             //depende de la búsqueda
             //string url = "http://trimatek.org/Consultas/banco?banco=" + bank + "&servicio=" + service;
@@ -35,8 +33,6 @@ namespace TPDDSGrupo44.Models
                 Banco nuevoBanco = new Banco(banco.banco, DbGeography.FromText("POINT(" +banco.x.ToString().Replace(",", ".")+ " "+banco.y.ToString().Replace(",", ".") + ")"), banco.servicios);
                 bancos.Add(nuevoBanco);
             }
-
-            Console.Write(bancos);
             return bancos;
         }
         
