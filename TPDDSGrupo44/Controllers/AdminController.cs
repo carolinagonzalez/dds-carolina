@@ -192,17 +192,31 @@ namespace TPDDSGrupo44.Controllers
               try
               {
 
-                  DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
 
-               /* convert list to string -- 
-                * var result = string.Join(",", list.ToArray()); */
+                DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+
+                List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+
+                List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+
+
+                HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+
+
+                horariosAbierto.Add(horarios);
+
+                List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+                List<ServicioBanco> servicios = new List<ServicioBanco>();
+
+                /* convert list to string -- 
+                 * var result = string.Join(",", list.ToArray()); */
 
                 Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      collection["palabraClave"], collection["tipoDePOI"]);
+                      collection["palabraClave"], collection["tipoDePOI"], horariosAbierto, horariosFeriado, servicios);
 
-                //collection["horarioAbierto"], collection["horarioFeriado"], collection["servicios"]
                 banco.agregarBanco(banco);
 
                   return RedirectToAction("ABMBanco");

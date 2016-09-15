@@ -7,12 +7,12 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
-        private int comuna;
-        private string director;
-        private string domicilio;
-        private List<string> servicios1;
-        private string telefono;
-        private string zonas;
+        //private int comuna;
+        //private string director;
+        //private string domicilio;
+        //private List<string> servicios1;
+        //private string telefono;
+        //private string zonas;
 
         ////////////////Atributos////////////////
         public new int id { get; set; }
