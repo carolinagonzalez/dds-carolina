@@ -13,7 +13,11 @@ namespace TPDDSGrupo44.Controllers
         // GET: Cuenta
         public ActionResult Index()
         {
-            return View();
+            using (POIDbContext db = new POIDbContext())
+            {
+                return View(db.cuentaDeUsuario.ToList());
+            }
+            
         }
 
         public ActionResult Registrar()
@@ -22,7 +26,7 @@ namespace TPDDSGrupo44.Controllers
         }
 
         [HttpPost]
-        public Action Registrar(CuentaDeUsuario cuenta)
+        public ActionResult Registrar(CuentaDeUsuario cuenta)
         {
             if (ModelState.IsValid)
             {
@@ -34,7 +38,50 @@ namespace TPDDSGrupo44.Controllers
                 ModelState.Clear();
                 ViewBag.Message = cuenta.Nombre + " " + cuenta.Apellido + "Usuario Registrado Correctamente.";
             }
-            return ViewBag.Message;
-        }             
+            return View();
+        }
+
+
+        /* Login */
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(CuentaDeUsuario usuario)
+        {
+            using (POIDbContext db = new POIDbContext())
+            {
+                var usu = db.cuentaDeUsuario.Single(us => us.NombreDeUsuario == usuario.NombreDeUsuario && us.Contrasenia == usuario.Contrasenia);
+                if (usu != null)
+                {
+                    Session["IdUsuario"] = usu.IdUsuario.ToString();
+                    Session["NombreDeUsuario"] = usu.NombreDeUsuario.ToString();
+                    return RedirectToAction("Logueado");
+                }
+                else
+                {
+                    ModelState.AddModelError("","El Usuario o Contraseña son incorrectos");
+                }
+               
+            }
+            return View();
+
+
+        }
+
+        public ActionResult Logueado()
+        {
+            if (Session["IdUsuario"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
     }
 }
