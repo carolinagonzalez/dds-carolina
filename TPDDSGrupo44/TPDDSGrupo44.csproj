@@ -329,6 +329,7 @@
     <Content Include="Views\Admin\CreateLocal.cshtml" />
     <Content Include="Views\Admin\CreateCGP.cshtml" />
     <Content Include="Views\Cuenta\Registrar.cshtml" />
+    <Content Include="Views\Cuenta\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
