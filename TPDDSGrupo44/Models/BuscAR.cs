@@ -38,6 +38,7 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<Rubro> Rubros { get; set; }
         public virtual DbSet<HorarioAbierto> Horarios { get; set; }
         public virtual DbSet<ServicioCGP> ServiciosCPG { get; set; }
+        public virtual DbSet<CuentaDeUsuario> cuentaDeUsuario { get; set; }
     }
 
 }

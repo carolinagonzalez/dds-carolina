@@ -13,7 +13,7 @@ namespace TPDDSGrupo44.Controllers
         // GET: Cuenta
         public ActionResult Index()
         {
-            using (POIDbContext db = new POIDbContext())
+            using (BuscAR db = new BuscAR())
             {
                 return View(db.cuentaDeUsuario.ToList());
             }
@@ -30,7 +30,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (POIDbContext db = new POIDbContext())
+                using (BuscAR db = new BuscAR())
                 {
                     db.cuentaDeUsuario.Add(cuenta);
                     db.SaveChanges();
@@ -52,13 +52,13 @@ namespace TPDDSGrupo44.Controllers
         [HttpPost]
         public ActionResult Login(CuentaDeUsuario usuario)
         {
-            using (POIDbContext db = new POIDbContext())
+            using (BuscAR db = new BuscAR())
             {
-                var usu = db.cuentaDeUsuario.Single(us => us.NombreDeUsuario == usuario.NombreDeUsuario && us.Contrasenia == usuario.Contrasenia);
+                var usu = db.cuentaDeUsuario.Single(us => us.Dni == usuario.Dni && us.Contrasenia == usuario.Contrasenia);
                 if (usu != null)
                 {
                     Session["IdUsuario"] = usu.IdUsuario.ToString();
-                    Session["NombreDeUsuario"] = usu.NombreDeUsuario.ToString();
+                    Session["DNI"] = usu.Dni.ToString();
                     return RedirectToAction("Logueado");
                 }
                 else
@@ -76,7 +76,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (Session["IdUsuario"] != null)
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
             else
             {
