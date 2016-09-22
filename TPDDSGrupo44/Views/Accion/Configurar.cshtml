@@ -1,0 +1,36 @@
+﻿@model TPDDSGrupo44.Models.ConfiguracionDeAcciones
+
+@{
+    ViewBag.Title = "Acciones Ante La Búsqueda";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function (){
+            $.getJSON("/Home/Acciones/List", function(data){
+                var items = "<option>-------------------------</option>";
+                $.each(data, function (i, country){
+                    items += "<option value='" +country.Value + "'>" + country.Text + "</option>";
+                });
+                $("#Acciones").html(items);
+            });
+        });
+    </script>    
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h2>Configurar</h2>
+
+@using (Html.BeginForm())
+{
+    <label for ="Acciones">Acciones</label>
+    <select id="Acciones" name="Acciones"></select>
+    <input type="submit" value="AGREGAR"/>
+
+    <br />
+    <input type="submit" value="OK" />
+
+    <input type="submit" value="Cancelar" />
+}
+
