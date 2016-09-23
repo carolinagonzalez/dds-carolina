@@ -30,13 +30,17 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (BuscAR db = new BuscAR())
-                {
-                    db.cuentaDeUsuario.Add(cuenta);
-                    db.SaveChanges();
-                }
-                ModelState.Clear();
-                ViewBag.Message = cuenta.Nombre + " " + cuenta.Apellido + "Usuario Registrado Correctamente.";
+
+                Session["IdUsuario"] = cuenta.IdUsuario.ToString();
+                Session["DNI"] = cuenta.Dni.ToString();
+                return RedirectToAction("Login");
+                /* using (BuscAR db = new BuscAR())
+                  {
+                      db.cuentaDeUsuario.Add(cuenta);
+                      db.SaveChanges();
+                  }
+                  ModelState.Clear();
+                  ViewBag.Message = cuenta.Nombre + " " + cuenta.Apellido + "Usuario Registrado Correctamente.";*/
             }
             return View();
         }
@@ -54,7 +58,9 @@ namespace TPDDSGrupo44.Controllers
         {
             using (BuscAR db = new BuscAR())
             {
-                var usu = db.cuentaDeUsuario.Single(us => us.Dni == usuario.Dni && us.Contrasenia == usuario.Contrasenia);
+                //var usu = db.cuentaDeUsuario.Single(us => us.Dni == usuario.Dni && us.Contrasenia == usuario.Contrasenia);
+                var usu = usuario;
+
                 if (usu != null)
                 {
                     Session["IdUsuario"] = usu.IdUsuario.ToString();
