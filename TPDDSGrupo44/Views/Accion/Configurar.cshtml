@@ -6,19 +6,17 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(function (){
-            $.getJSON("/Home/Acciones/List", function(data){
-                var items = "<option>-------------------------</option>";
-                $.each(data, function (i, country){
-                    items += "<option value='" +country.Value + "'>" + country.Text + "</option>";
+        $(document).ready(function () {
+            $.getJSON("/Home/Acciones/List", function (data) {
+                var items = "";
+                $.each(data, function (i, country) {
+                    items += "<option value='" + country.Value + "'>" + country.Text + "</option>";
                 });
                 $("#Acciones").html(items);
             });
-        });
 
-       
 
-        $("#agregarAccion").on('click',function () {
+             $("#agregarAccion").on('click',function () {
             var valor = $("#Acciones").val();
             var texto = $("#Acciones option:selected").text();
             var exist = 0;
@@ -33,18 +31,21 @@
 
             if (exist == 0) {
                 console.log("agregar item no existente");
-                $("#accionesSeleccionadas").append('<li><input type="hidden" value="' + valor + '" class="itemAgregado"/><label>' + texto + '  </label>    <input type="button" value="Eliminar" class="deleteItem" /></li>');
+                $("#accionesSeleccionadas").append('<li id="lista' + valor +'"><input type="hidden" value="' + valor + '" class="itemAgregado"/><label>' + texto + '  </label>    <input type="button" value="Eliminar"  onclick="eliminarItem('+ valor +')"/></li>');
 
             } else {
                 alert("Acción ya agregada.");
             }
         });
 
-        $("·deleteItem").click(function () {
-            alert("eliminar");
-            $(this).parent().remove();
         });
 
+        function eliminarItem(id) {
+            $("#lista" + id).remove();
+        }
+
+
+     
         
     </script>    
 }
