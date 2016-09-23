@@ -22,6 +22,14 @@ namespace TPDDSGrupo44.Models
                 new Acciones{
                     AccionID = 2,
                     AccionNombre = "Bajar POI"
+                },
+                new Acciones{
+                    AccionID = 3,
+                    AccionNombre = "Totalizar por fecha"
+                },
+                new Acciones{
+                    AccionID = 4,
+                    AccionNombre = "Totalizar por usuario"
                 }
             }.AsQueryable();
         }

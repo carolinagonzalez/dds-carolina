@@ -15,6 +15,37 @@
                 $("#Acciones").html(items);
             });
         });
+
+       
+
+        $("#agregarAccion").on('click',function () {
+            var valor = $("#Acciones").val();
+            var texto = $("#Acciones option:selected").text();
+            var exist = 0;
+
+            
+
+            $(".itemAgregado").each(function () {
+                if ($(this).val() == valor) {
+                    exist = 1;
+                }
+            });
+
+            if (exist == 0) {
+                console.log("agregar item no existente");
+                $("#accionesSeleccionadas").append('<li><input type="hidden" value="' + valor + '" class="itemAgregado"/><label>' + texto + '  </label>    <input type="button" value="Eliminar" class="deleteItem" /></li>');
+
+            } else {
+                alert("Acción ya agregada.");
+            }
+        });
+
+        $("·deleteItem").click(function () {
+            alert("eliminar");
+            $(this).parent().remove();
+        });
+
+        
     </script>    
 }
 
@@ -26,23 +57,21 @@
 {
     
     <select id="Acciones" name="Acciones"></select>
-    <input type="submit" value="AGREGAR"/>
+    <input type="button" value="AGREGAR" id="agregarAccion"/>
 
     <br />
     <h2>_______________________________________________________________________________</h2>
     <h3>Acciones</h3>
     <h4>_________________________________________________________________________________________________________________________________</h4>
-    
-   
-    <label for="Acciones">Totalizar por Fecha   </label>    <input type="submit" value="Eliminar" />
-    <br />
-    <label for="Acciones">Totalizar por Usuario </label>    <input type="submit" value="Eliminar" />
-
-    <br />
+    <div>
+        <ul style="list-style: none;" id="accionesSeleccionadas">
+         
+        </ul>
+    </div>
     <h7>___________________________________________________________________________________________</h7>
     <br />
     <input type="submit" value="OK" />
 
-    <input type="submit" value="Cancelar" />
+    <input type="button" value="Cancelar" />
 }
 
