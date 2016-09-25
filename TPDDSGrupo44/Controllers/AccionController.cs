@@ -13,7 +13,7 @@ namespace TPDDSGrupo44.Controllers
         // GET: Accion
         public ActionResult Index()
         {
-            using (POIDbContext db = new POIDbContext())
+            using (BuscAR db = new BuscAR())
             {
                 return View(db.configuracionDeAcciones.ToList());
 
@@ -31,7 +31,7 @@ namespace TPDDSGrupo44.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (POIDbContext db = new POIDbContext())
+                using (BuscAR db = new BuscAR())
                 {
                     db.configuracionDeAcciones.Add(accion);
                     db.SaveChanges();

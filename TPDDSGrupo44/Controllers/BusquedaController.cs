@@ -26,12 +26,32 @@ namespace TPDDSGrupo44.Controllers
         };
 
 
-
+        /* E5 - Servicio Rest - Búsqueda de puntos de interés
+          •	Búsqueda de puntos de interés
+            o	recibe un criterio o una combinación de ellos,
+            o	devuelve la lista de puntos de interés
+        */
 
         // GET: api/Busqueda
         public IEnumerable<Busqueda> Get()
         {
            return this.busquedas;
+        }
+
+
+        /* E5 - Servicio Rest - Historial de consultas realizadas
+         •	Historial de consultas realizadas
+            o	se pasa el criterio de búsqueda (por rango de fechas / usuario)
+            o	devuelve la lista de consultas realizadas
+         */
+
+        [Route("api/Busqueda/{fecha1}/{fecha2}/{usuario}")]
+        public IEnumerable<Busqueda> get(string fecha1, string fecha2, string usuario)
+        {
+            
+            return this.busquedas;
+
+
         }
 
         // GET: api/Busqueda/5

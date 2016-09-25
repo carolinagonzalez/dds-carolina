@@ -34,11 +34,7 @@ namespace TPDDSGrupo44.Controllers
         }
 
 
-        /* E5 - Rest
-        Deben generar un componente en el servidor que provea el siguiente servicio:
-        •	Búsqueda de puntos de interés
-            o	recibe un criterio o una combinación de ellos,
-            o	devuelve la lista de puntos de interés*/
+
 
         [Route("api/POIs/")]
         public IEnumerable<PuntoDeInteres> Get()
@@ -56,9 +52,9 @@ namespace TPDDSGrupo44.Controllers
             return this.listaPois;
         }
 
-       
 
 
+        
         // GET: api/POIs/5
         public PuntoDeInteres Get(int id)
         {
