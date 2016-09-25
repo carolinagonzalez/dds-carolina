@@ -28,6 +28,9 @@ namespace TPDDSGrupo44.Models
         public virtual List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
+        //E4 - Baja de POI
+        public DateTime fechaBaja { get; set; }
+
 
         ////////////////Constructor vacio////////////////
         public PuntoDeInteres() {
