@@ -10,26 +10,59 @@ namespace TPDDSGrupo44.Controllers
     public class POIsController : ApiController
     {
         int manejoError = 1;
-        POI[] listaPois = new POI[] {
-            new POI { id=1,fechaBaja= DateTime.Parse("2015-05-01T07:34:42-5:00") },
-            new POI { id=2,fechaBaja= DateTime.Parse("2014-05-01T07:34:42-5:00") },
-            new POI { id=3,fechaBaja= DateTime.Parse("2008-05-01T07:34:42-5:00") }
+        PuntoDeInteres[] listaPoisBaja = new PuntoDeInteres[] {
+            new PuntoDeInteres { id=1,fechaBaja= DateTime.Parse("2015-05-01T07:34:42-5:00") },
+            new PuntoDeInteres { id=2,fechaBaja= DateTime.Parse("2014-05-01T07:34:42-5:00") },
+            new PuntoDeInteres { id=3,fechaBaja= DateTime.Parse("2008-05-01T07:34:42-5:00") }
         };
+
+
+        PuntoDeInteres[] listaPois = new PuntoDeInteres[] {
+            new PuntoDeInteres { id=1, nombreDePOI =  "Victoria Impala", calle = "Fco. de Beiró 4801"},
+            new PuntoDeInteres { id=2, nombreDePOI = "J Perez Cotillón", calle = "Av. Alvarez Jonte  5232 1º" },
+            new PuntoDeInteres { id=3, nombreDePOI = "CGP 6", calle = "Patricias Argentinas 277" }
+        };
+               
 
         List<LogAction> logs = new List<LogAction>();
 
-        // GET: api/POIs
-        public IEnumerable<POI> Get()
+        [Route("api/POIs/baja")]
+        public IEnumerable<PuntoDeInteres> GetBajas()
+        {
+            //Hacer peticion a la base de datos y traer todos los pois
+            return this.listaPoisBaja;
+        }
+
+
+        /* E5 - Rest
+        Deben generar un componente en el servidor que provea el siguiente servicio:
+        •	Búsqueda de puntos de interés
+            o	recibe un criterio o una combinación de ellos,
+            o	devuelve la lista de puntos de interés*/
+
+        [Route("api/POIs/")]
+        public IEnumerable<PuntoDeInteres> Get()
         {
             //Hacer peticion a la base de datos y traer todos los pois
             return this.listaPois;
         }
+
+     
+            
+        [Route("api/POIs/{poi}")]
+        public IEnumerable<PuntoDeInteres> Get(string poi)
+        {
+            //Hacer peticion a la base de datos y traer todos los pois
+            return this.listaPois;
+        }
+
        
 
+
         // GET: api/POIs/5
-        public POI Get(int id)
+        public PuntoDeInteres Get(int id)
         {
-            POI poiBuscado = null;
+            PuntoDeInteres poiBuscado = null;
             foreach (var POI in this.listaPois)
             {
                 if (POI.id == id)
@@ -71,20 +104,16 @@ namespace TPDDSGrupo44.Controllers
             
         }
 
-        // POST: api/POIs
-        public void Post([FromBody]string value)
-        {
-        }
-
+    
         // PUT: api/POIs/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE: api/POIs/5
-        public POI Delete(int id)
+        public PuntoDeInteres Delete(int id)
         {
-            POI poiEliminado = null;
+            PuntoDeInteres poiEliminado = null;
             foreach (var POI in this.listaPois)
             {
                 if (POI.id == id)
