@@ -11,11 +11,32 @@ namespace TPDDSGrupo44.Controllers
 {
     public class HomeController : Controller
     {
-
+        List<PuntoDeInteres> resultados = new List<PuntoDeInteres>();
         public ActionResult Index()
         {
             return View();
+
         }
+
+
+        //Configuracion de acciones
+
+        public ActionResult AccionList()
+        {
+            IQueryable acciones = Acciones.GetAcciones();
+
+            if (HttpContext.Request.IsAjaxRequest())
+            {
+                return Json(new SelectList(
+                            acciones,
+                            "AccionID",
+                            "AccionNombre"), JsonRequestBehavior.AllowGet
+                             );
+            }
+            return View(acciones);
+        }
+
+
 
         [HttpPost]
         public ActionResult Index(FormCollection search)
@@ -42,6 +63,7 @@ namespace TPDDSGrupo44.Controllers
                     {
 
                         List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.nombreDePOI == palabraBusqueda).ToList();
+                        resultados.AddRange(resultadosBusqueda);
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 
@@ -69,6 +91,7 @@ namespace TPDDSGrupo44.Controllers
                     {
 
                         List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
+                        resultados.AddRange(resultadosBusqueda);
                         foreach (LocalComercial punto in resultadosBusqueda)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
@@ -91,6 +114,7 @@ namespace TPDDSGrupo44.Controllers
                     List<LocalComercial> resultadosBusquedaLocales = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Include("rubro").Where(b => b.nombreDePOI.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                     if (resultadosBusquedaLocales.Count() > 0)
                     {
+                        resultados.AddRange(resultadosBusquedaLocales);
                         foreach (LocalComercial punto in resultadosBusquedaLocales)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
@@ -117,6 +141,7 @@ namespace TPDDSGrupo44.Controllers
 
                     if (resultadosBusquedaBancos.Count() > 0)
                     {
+                        resultados.AddRange(resultadosBusquedaBancos);
                         foreach (Banco punto in resultadosBusquedaBancos)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
@@ -146,6 +171,7 @@ namespace TPDDSGrupo44.Controllers
 
                     if (resultadosBusquedaCGP.Count() > 0)
                     {
+                        resultados.AddRange(resultadosBusquedaCGP);
                         foreach (CGP punto in resultadosBusquedaCGP)
                         {
                             if (punto.estaCerca(dispositivoTactil.coordenada))
@@ -164,8 +190,8 @@ namespace TPDDSGrupo44.Controllers
                         }
                     }
 
-                    int resultados = modeloVista.bancosEncontrados.Count() + modeloVista.bancosEncontradosCerca.Count() + modeloVista.cgpsEncontrados.Count() + modeloVista.localesEncontrados.Count() + modeloVista.localesEncontradosCerca.Count() + modeloVista.paradasEncontradas.Count() + modeloVista.paradasEncontradasCerca.Count();
-                    if (resultados == 0)
+                     
+                    if (resultados.Count == 0)
                     {
                         ViewBag.Search = "error";
                         ViewBag.SearchText = "Disculpa, pero no encontramos ningún punto con esa palabra clave.";

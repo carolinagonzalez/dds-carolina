@@ -18,7 +18,7 @@
                 @Html.Encode(group.Key.nombre)
             </td>
             <td>
-                @group.Sum(i => i.cantidadDeResultados)
+                @group.Sum(i => i.poisEncontrados.Count)
             </td>
         </tr>
 
