@@ -110,7 +110,7 @@ namespace TPDDSGrupo44.Models
         {
             using (var db = new BuscAR())
             {
-                
+
                 ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
 
                 db.Paradas.Remove(parada);
@@ -121,11 +121,22 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        public void actualizar(string nombre)
+        public void actualizar(string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
+            string entreCalles, List<string> palabrasClave, string nombreDePOI)
         {
-            this.nombreDePOI = nombre;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.palabrasClave = palabrasClave;
+            this.nombreDePOI = nombreDePOI;
         }
 
-        
-        }
+
+
     }
+}

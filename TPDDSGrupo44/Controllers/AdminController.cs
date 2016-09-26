@@ -73,13 +73,15 @@ namespace TPDDSGrupo44.Controllers
             {
 
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
 
-                //ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                //    Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
-                //    collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                //    collection["palabrasClave"],collection["nombreDePOI"], collection["tipoDePOI"]);
+ 
 
-                //parada.agregarParada(parada);
+                ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                    0, 0,Convert.ToInt32(collection["codigoPostal"]),collection["localidad"], collection["barrio"], collection["provincia"], 
+                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo");
+
+                parada.agregarParada(parada);
 
                 return RedirectToAction("ABMParada");
             }
@@ -145,12 +147,17 @@ namespace TPDDSGrupo44.Controllers
                     int id = Convert.ToInt16(collection["id"]);
                     parada = db.Paradas.Where(p => p.id == id).Single();
 
-                    parada.actualizar(collection["nombreDePOI"]);
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                    List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+
+
+                    parada.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                        Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
+                        collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"]);
+
 
                     db.SaveChanges();
                 }
-
-                
               
                 return RedirectToAction("ABMParada");
             }
@@ -194,28 +201,21 @@ namespace TPDDSGrupo44.Controllers
 
 
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-
                 List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-
                 List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
 
-
-                HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-
-
-                horariosAbierto.Add(horarios);
+    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+    //         horariosAbierto.Add(horarios);
 
                 List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
                 List<ServicioBanco> servicios = new List<ServicioBanco>();
 
-                /* convert list to string -- 
-                 * var result = string.Join(",", list.ToArray()); */
 
                 Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      collection["palabraClave"], collection["tipoDePOI"], horariosAbierto, horariosFeriado, servicios);
+                      collection["palabraClave"], collection["nombreDePOI"], "Banco", horariosAbierto, horariosFeriado, servicios);
 
                 banco.agregarBanco(banco);
 
@@ -226,6 +226,92 @@ namespace TPDDSGrupo44.Controllers
                   return View();
               }
           }
+
+        public ActionResult DeleteBanco(int id)
+        {
+            Banco banco;
+            using (var db = new BuscAR())
+            {
+                banco = db.Bancos.Where(p => p.id == id).Single();
+            }
+            return View(banco);
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult DeleteBanco(int id, FormCollection collection)
+        {
+            try
+            {
+                Banco banco;
+                using (var db = new BuscAR())
+                {
+                    banco = db.Bancos.Where(p => p.id == id).Single();
+                }
+
+                banco.eliminarBanco(id);
+
+                return RedirectToAction("ABMBanco");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        public ActionResult EditBanco(int id)
+        {
+            Banco banco;
+            using (var db = new BuscAR())
+            {
+                banco = db.Bancos.Where(p => p.id == id).Single();
+            }
+            return View(banco);
+        }
+
+        // POST: Default/Edit
+        [HttpPost]
+        public ActionResult EditBanco(FormCollection collection)
+        {
+            try
+            {
+                Banco banco;
+                using (var db = new BuscAR())
+                {
+                    int id = Convert.ToInt16(collection["id"]);
+                    banco = db.Bancos.Where(p => p.id == id).Single();
+
+
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                    List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+                    List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+
+                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                    //         horariosAbierto.Add(horarios);
+
+                    List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+                    List<ServicioBanco> servicios = new List<ServicioBanco>();
+
+                    banco.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                      collection["nombreDePOI"], palabrasClave, horariosAbierto, horariosFeriado, servicios);
+
+
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("ABMBanco");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
 
         // ---------------------------------------------------------------------------------------
@@ -259,21 +345,14 @@ namespace TPDDSGrupo44.Controllers
             {
                 
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
-       
                 List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-
                 List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
-                
-
-                HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
-                
-
-                horariosAbierto.Add(horarios);
+               
+                //HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                //horariosAbierto.Add(horarios);
 
                 List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-
                 List<ServicioCGP> servicios = new List<ServicioCGP>();
-
 
 
                 /* convert list to string -- 
@@ -282,10 +361,9 @@ namespace TPDDSGrupo44.Controllers
                 CGP cgp = new CGP(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      palabrasClave, collection["nombreDePOI"], collection["tipoDePOI"], Convert.ToInt32(collection["numeroDeComuna"]),
+                      palabrasClave, collection["nombreDePOI"], "CGP", Convert.ToInt32(collection["numeroDeComuna"]),
                           servicios, Convert.ToInt32(collection["zonaDelimitadaPorLaComuna"]),horariosAbierto, horariosFeriado);
 
-                //collection["horarioAbierto"], collection["horarioFeriado"], collection["servicios"], collection["zonaDelimitadaPorLaComuna"]
                 cgp.agregarCGP(cgp);
 
                 return RedirectToAction("ABMCGP");
@@ -295,6 +373,103 @@ namespace TPDDSGrupo44.Controllers
                 return View();
             }
         }
+
+
+        public ActionResult DeleteCGP(int id)
+        {
+            CGP cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = db.CGPs.Where(p => p.id == id).Single();
+            }
+            return View(cgp);
+        }
+
+        // POST: Default/Create
+        [HttpPost]
+        public ActionResult DeleteCGP(int id, FormCollection collection)
+        {
+            try
+            {
+                CGP cgp;
+                using (var db = new BuscAR())
+                {
+                    cgp = db.CGPs.Where(p => p.id == id).Single();
+                }
+
+                cgp.eliminarCGP(id);
+
+                return RedirectToAction("ABMCGP");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        public ActionResult EditCGP(int id)
+        {
+            CGP cgp;
+            using (var db = new BuscAR())
+            {
+                cgp = db.CGPs.Where(p => p.id == id).Single();
+            }
+            return View(cgp);
+        }
+
+        // POST: Default/Edit
+        [HttpPost]
+        public ActionResult EditCGP(FormCollection collection)
+        {
+            try
+            {
+                CGP cgp;
+                using (var db = new BuscAR())
+                {
+                    int id = Convert.ToInt16(collection["id"]);
+                    cgp = db.CGPs.Where(p => p.id == id).Single();
+
+
+                    DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
+                    List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
+                    List<HorarioAbierto> horariosAbierto = new List<HorarioAbierto>();
+
+                    //         HorarioAbierto horarios = new HorarioAbierto(DayOfWeek.Monday, Convert.ToInt32(collection["abreLunes"]), Convert.ToInt32(collection["cierraLunes"]));
+                    //         horariosAbierto.Add(horarios);
+
+                    List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
+
+                    List<ServicioCGP> servicios = new List<ServicioCGP>();
+
+
+
+                    cgp.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
+                      Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
+                      collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
+                      palabrasClave, collection["nombreDePOI"], Convert.ToInt32(collection["numeroDeComuna"]),
+                          servicios, Convert.ToInt32(collection["zonaDelimitadaPorLaComuna"]), horariosAbierto, horariosFeriado);
+
+
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("ABMCGP");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
+
+
+
+
 
 
 
