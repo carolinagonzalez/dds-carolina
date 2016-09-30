@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace TPDDSGrupo44.Models
@@ -6,6 +7,8 @@ namespace TPDDSGrupo44.Models
     [DataContract] 
     public class UsuarioTramite
     {
+        [Key]
+        public int id { get; set; }
         ////////////////Atributos////////////////
         public int dni { get; set; }
         public string contrasenia { get; set; }

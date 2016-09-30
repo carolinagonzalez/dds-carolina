@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Historial De Búsquedas Realizadas";
+}
+
+<h1>@ViewBag.Title</h1>
+
+
+<h2>Criterio de Búsqueda</h2>
+
+
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+</head>
+
+@using (Html.BeginForm())
+{
+    <h3>Usuario</h3>    <h4>Fecha</h4>
+    <select id="Acciones" name="Acciones"></select>
+    <input type="button" value="Buscar" id="agregarAccion" />
+
+   <div>
+        <ul style="list-style: none;" id="accionesSeleccionadas"></ul>
+    </div>
+
+    @Html.EditorForModel()
+    <br />
+    <input type="submit" value="Validar" />
+
+
+}

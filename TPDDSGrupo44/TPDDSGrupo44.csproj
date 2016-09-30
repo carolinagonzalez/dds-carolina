@@ -211,8 +211,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccionController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BusquedaController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
+    <Compile Include="Controllers\HistorialDeBusquedaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\POIsController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -221,6 +224,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Acciones.cs" />
     <Compile Include="Models\ActualizacionAsincronica.cs" />
     <Compile Include="Models\ActualizacionLocalComercial.cs" />
     <Compile Include="Models\Administrador.cs" />
@@ -230,6 +234,7 @@
     <Compile Include="Models\BuscAR.cs" />
     <Compile Include="Models\Busqueda.cs" />
     <Compile Include="Models\CGP.cs" />
+    <Compile Include="Models\ConfiguracionDeAcciones.cs" />
     <Compile Include="Models\CuentaDeUsuario.cs" />
     <Compile Include="Models\FuncionalidadUsuario.cs" />
     <Compile Include="Models\EnvioDeMails.cs" />
@@ -241,9 +246,7 @@
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
-    <Compile Include="Models\POIDbContext.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
-    <Compile Include="Models\POI.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
@@ -330,10 +333,13 @@
     <Content Include="Views\Admin\CreateCGP.cshtml" />
     <Content Include="Views\Cuenta\Registrar.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
+    <Content Include="Views\Accion\Configurar.cshtml" />
+    <Content Include="Views\HistorialDeBusqueda\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
+    <Folder Include="Views\Busqueda\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
