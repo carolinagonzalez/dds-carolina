@@ -3,7 +3,33 @@
     ViewBag.Title = "Busqueda";
 }
 
+
+@section scripts{
+  <script type="text/javascript">
+    $(document).ready(function () {
+      
+
+          
+
+
+
+    });
+    </script>
+}
 <h2>Criterio de Búsqueda</h2>
 
 <h4 style="text-align:left">Nombre </h4>
 <input type="text" id="nombre_ip" style="margin-right:20px"/> <input type="button" id="agregar"  value="Agregar "style="margin-right:20px" /> <input type="button" id="buscar" value="Buscar " style="margin-right:20px" />
+<div id="busquedas"></div>
+
+<h4>Resultado</h4>
+<table style="width:100%">
+    <tr>
+        <th>Nombre</th>
+        <th>Direccion</th>
+    </tr>
+    <tr>
+        <td>Nombre Prueba</td>
+        <td>Direccion Prueba</td>
+    </tr>
+</table>
