@@ -214,6 +214,7 @@
     <Compile Include="Controllers\AccionController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BusquedaController.cs" />
+    <Compile Include="Controllers\BusquedaDePoiController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HistorialDeBusquedaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -339,11 +340,11 @@
     <Content Include="Views\Admin\EditBanco.cshtml" />
     <Content Include="Views\Admin\EditCGP.cshtml" />
     <Content Include="Views\Admin\EditParada.cshtml" />
+    <Content Include="Views\BusquedaDePoi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\json\" />
-    <Folder Include="Views\Busqueda\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
