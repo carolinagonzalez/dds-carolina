@@ -21,7 +21,7 @@ namespace TPDDSGrupo44.Controllers
             new PuntoDeInteres { id=1, nombreDePOI =  "Victoria Impala", calle = "Fco. de Beiró 4801", tipoDePOI = "paradaDeColectivo", lineaDeColectivo = "7 Ramal Samore"},
             new PuntoDeInteres { id=2, nombreDePOI = "J Perez Cotillón", calle = "Av. Alvarez Jonte  5232 1º" , tipoDePOI = "localComercial"},
             new PuntoDeInteres { id=3, nombreDePOI = "CGP 6", calle = "Patricias Argentinas 277", tipoDePOI = "cgp" },
-            new PuntoDeInteres { id=4, nombreDePOI = "Banco Nacion", calle = "Maipu 277", tipoDePOI = "banco" }
+            new PuntoDeInteres { id=4, nombreDePOI = "Banco Nacion", calle = "Maipu 277", tipoDePOI = "banco", barrio = "Retiro" }
         };
                
 
