@@ -1,9 +1,56 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Busqueda";
 }
 
-<h2>Criterio de Búsqueda</h2>
 
-<h4 style="text-align:left">Nombre </h4>
-<input type="text" id="nombre_ip" style="margin-right:20px"/> <input type="button" id="agregar"  value="Agregar "style="margin-right:20px" /> <input type="button" id="buscar" value="Buscar " style="margin-right:20px" />
+@section scripts{
+    <script type="text/javascript">
+   $(document).ready(function () {
+
+       $("#agregar").on("click", function () {
+           var valor = $("#nombre_ip").val();
+           $("#busquedas").append('<p>' + valor + '<a class="eliminarOpcion"> eliminar </a></p>');
+           $("#nombre_ip").val("");
+       });
+   });
+
+   $(document).on('click', ".eliminarOpcion", function () {
+       $(this).parent().remove();
+   });
+    </script>
+}
+<div class="container">
+    <h1 style="text-align:center">Criterio de Búsqueda</h1>
+
+    <h2>Nombre </h2>
+    <input type="text" id="nombre_ip" style="margin-right:20px" /> <input type="button" id="agregar" value="Agregar " style="margin-right:20px" /> <input type="button" id="buscar" value="Buscar " style="margin-right:20px" />
+    <div id="busquedas">
+
+    </div>
+</div>
+
+<div class="container">
+    <h2><b>Resultados</b></h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
