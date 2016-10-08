@@ -45,20 +45,20 @@ namespace TPDDSGrupo44.Controllers
 
      
             
-        [Route("api/POIs/{poi}")]
+        [Route("api/POIs/busqueda/{poi}")]
         public IEnumerable<PuntoDeInteres> Get(string poi)
         {
             //Hacer peticion a la base de datos y traer todos los pois
             return this.listaPois;
         }
 
-
-
-        
+       
         // GET: api/POIs/5
         public PuntoDeInteres Get(int id)
         {
             PuntoDeInteres poiBuscado = null;
+
+            /*
             foreach (var POI in this.listaPois)
             {
                 if (POI.id == id)
@@ -97,7 +97,18 @@ namespace TPDDSGrupo44.Controllers
                     ReasonPhrase = "Critical Exception"
                 });
             }
+            */
+
+            foreach (var POI in this.listaPois)
+            {
+                if (POI.id == id)
+                {
+                    poiBuscado = POI;
+                };
+            }
             
+
+            return poiBuscado;
         }
 
     

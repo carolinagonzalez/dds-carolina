@@ -18,12 +18,41 @@
            } else {
                alert("Ingrese un criterio de búsqueda");
            }
-           });
+       });
+
+
+
    });
 
    $(document).on('click', ".eliminarOpcion", function () {
        $(this).parent().parent().remove();
    });
+
+   $("#buscar").on("click", function () {
+
+       $.getJSON("../api/POIs/", function (data) {
+
+           $.each(data, function (i, poi) {
+               $("#ResultadoBusqueda").append('<tr><th onclick="detallePoi('+ poi.id +')">' + poi.nombreDePOI
+                   + '</th><th> ' + poi.calle + '</th></tr>');
+
+           });
+
+       });
+   });
+
+   function detallePoi(id) {
+       var url = "../api/POIs/" + id;
+       alert(url);
+       $.getJSON( url, function (data) {
+           console.log(data);
+
+
+
+       });
+   }
+
+   
     </script>
 }
 <div class="container">
@@ -40,7 +69,7 @@
         </table>
     </div>
     </div>
-</div>
+
 
 <div class="container">
     <h2><b>Resultados</b></h2>
@@ -51,19 +80,10 @@
                 <th>Direccion</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-            </tr>
+        <tbody id="ResultadoBusqueda">
+            
+      
+            
         </tbody>
     </table>
 </div>

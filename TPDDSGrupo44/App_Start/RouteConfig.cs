@@ -9,10 +9,12 @@ namespace TPDDSGrupo44
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
             routes.MapRoute(
                 "AccionList",
                 "Home/Acciones/List/{AccionID}",
-                new { controller = "Home", action = "AccionList", AccionID = ""}
+                new { controller = "Home", action = "AccionList", AccionID = "" }
                 );
 
             routes.MapRoute(

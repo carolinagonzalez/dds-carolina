@@ -9,8 +9,8 @@
         $(document).ready(function () {
             $.getJSON("/Home/Acciones/List", function (data) {
                 var items = "";
-                $.each(data, function (i, country) {
-                    items += "<option value='" + country.Value + "'>" + country.Text + "</option>";
+                $.each(data, function (i, accion) {
+                    items += "<option value='" + accion.Value + "'>" + accion.Text + "</option>";
                 });
                 $("#Acciones").html(items);
             });
