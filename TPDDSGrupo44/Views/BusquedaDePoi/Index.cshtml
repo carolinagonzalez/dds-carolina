@@ -43,16 +43,43 @@
 
    function detallePoi(id) {
        var url = "../api/POIs/" + id;
-       alert(url);
-       $.getJSON( url, function (data) {
-           console.log(data);
+       $.getJSON(url, function (data) {
+
+           var dialog = $('#dialogPoi');
+           dialog.modal('show');
+           dialog.find('.modal-title').text(data.nombreDePOI);
+
+           switch (data.tipoDePOI) {
+               case "paradaDeColectivo":
+
+                   dialog.find('.modal-body').html('<img src= "../../Content/img/bus.png" alt="Image" />');
+                   dialog.find('.modal-body').append("<p> Linea de Colectivo: " + data.lineaDeColectivo + "</p>");
+
+                   ; break;
+
+               case "localComercial":
+                   dialog.find('.modal-body').html('');
+                   ; break;
+
+               case "cgp":
+                   dialog.find('.modal-body').html('');
+                   ; break;
+
+               case "banco":
+                   dialog.find('.modal-body').html('');
+                   ; break;
+               default:
+
+           }
+
+
 
 
 
        });
    }
 
-   
+
     </script>
 }
 <div class="container">
@@ -87,3 +114,24 @@
         </tbody>
     </table>
 </div>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="dialogPoi">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

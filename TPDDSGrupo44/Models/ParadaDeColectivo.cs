@@ -27,6 +27,8 @@ namespace TPDDSGrupo44.Models
         public new string tipoDePOI { get; set; }
 
 
+        public new string lineaDeColectivo { get; set; }
+
 
         ////////////////Constructor vacio////////////////
         public ParadaDeColectivo() { }
