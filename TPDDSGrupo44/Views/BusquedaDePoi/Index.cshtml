@@ -58,7 +58,10 @@
                    ; break;
 
                case "localComercial":
-                   dialog.find('.modal-body').html('');
+                   dialog.find('.modal-body').html('<img src= "../../Content/img/store.png" alt="Image" />');
+                   dialog.find('.modal-body').append("<p> Dirección: " + data.calle + "</p>");
+                   dialog.find('.modal-body').append("<p> Nombre comercial o de fantasia: " + data.nombreDePOI + "</p>");
+                   dialog.find('.modal-body').append("<p> Rubro: " + data.rubro + "</p>");
 
                    ; break;
 

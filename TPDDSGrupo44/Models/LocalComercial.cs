@@ -32,7 +32,7 @@ namespace TPDDSGrupo44.Models
         //public new List<String> tags { get; set; }
         public virtual Rubro rubro { get; set; }
 
-
+        public new string nombreComercialOFantasia { get; set; }
 
 
         ////////////////Constructor vacio////////////////

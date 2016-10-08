@@ -31,6 +31,11 @@ namespace TPDDSGrupo44.Models
 
         public new string lineaDeColectivo { get; set; }
 
+        public new string nombreComercialOFantasia { get; set; }
+
+        public string rubro { get; set; }
+        // public virtual Rubro rubro { get; set; }
+
         //E4 - Baja de POI
         public DateTime fechaBaja { get; set; }
 
