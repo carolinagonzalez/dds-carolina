@@ -9,13 +9,20 @@
 
        $("#agregar").on("click", function () {
            var valor = $("#nombre_ip").val();
-           $("#busquedas").append('<p>' + valor + '<a class="eliminarOpcion"> eliminar </a></p>');
-           $("#nombre_ip").val("");
-       });
+
+           if (valor != "") {
+               $("#busquedas").append('<tr>  <td>' + valor + '<a class="eliminarOpcion"> eliminar </a></td> </tr>');
+
+               $("#nombre_ip").val("");
+
+           } else {
+               alert("Ingrese un criterio de búsqueda");
+           }
+           });
    });
 
    $(document).on('click', ".eliminarOpcion", function () {
-       $(this).parent().remove();
+       $(this).parent().parent().remove();
    });
     </script>
 }
@@ -24,8 +31,14 @@
 
     <h2>Nombre </h2>
     <input type="text" id="nombre_ip" style="margin-right:20px" /> <input type="button" id="agregar" value="Agregar " style="margin-right:20px" /> <input type="button" id="buscar" value="Buscar " style="margin-right:20px" />
-    <div id="busquedas">
-
+    <div>
+        <table class="table table-bordered">            
+            <tbody id="busquedas">
+               
+                
+            </tbody>
+        </table>
+    </div>
     </div>
 </div>
 
