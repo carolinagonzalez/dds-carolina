@@ -3,36 +3,91 @@
     ViewBag.Title = "Historial De Búsquedas Realizadas";
 }
 
-<h1>@ViewBag.Title</h1>
 
-
-<h2>Criterio de Búsqueda</h2>
-
+<h1 style="text-align:left">Criterio de Búsqueda</h1>
 
 
 
 
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
-    <script src="~/Scripts/jquery.datetimepicker.js"></script>
-</head>
+@section scripts{
+    <script type="text/javascript">
 
-@using (Html.BeginForm())
-{
-    <h3>Usuario</h3>    <h4>Fecha</h4>
-    <select id="Acciones" name="Acciones"></select>
-    <input type="button" value="Buscar" id="agregarAccion" />
+   $("#buscar").on("click", function () {
 
-   <div>
-        <ul style="list-style: none;" id="accionesSeleccionadas"></ul>
-    </div>
+       $.getJSON("../api/Busqueda/{fecha1}/{fecha2}/{usuario}", function (data){
+           
+           console.log(data);
+           $.each(data, function (i, consulta) {
+               $("#ResultadoBusqueda").append('<tr>'+
+                    '<th>' + consulta.fecha + '</th>' +
+                    '<th>' + consulta.usuario.nombre + '</th>' +
+                    '<th>' + consulta.textoBuscado + '</th>' +
+                    '<th onclick="detallePoi()">' + consulta.poisEncontrados.length + '</th>' +
+                  '</tr>')
+           });
 
-    @Html.EditorForModel()
-    <br />
-    <input type="submit" value="Validar" />
+       });
+   });
+
+   function detallePoi() {
+       alert("detalle! ");
+   }
 
 
+    </script>
 }
+
+
+
+<div class="container">
+    <table style="width:100%">
+        <tr>
+            <th>Usuario</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="usuario" style="margin-right:20px" /> </td>
+            <td><input type="text" id="fecha_inicio" style="margin-right:20px" /></td>
+            <td><input type="text" id="fecha_fin" style="margin-right:20px" /></td>
+            <td><input type="button" id="buscar" value="Buscar " style="margin-right:20px" /></td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="container">
+    <h2><b>Resultado</b></h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Párametros</th>
+                <th>POIs</th>
+            </tr>
+        </thead>
+        <tbody id="ResultadoBusqueda"></tbody>
+    </table>
+</div>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="dialogPoi">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
