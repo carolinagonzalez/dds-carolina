@@ -66,7 +66,11 @@
                    ; break;
 
                case "cgp":
-                   dialog.find('.modal-body').html('');
+                   dialog.find('.modal-body').html('<img src= "../../Content/img/clipboard-text.png" alt="Image" />');
+                   dialog.find('.modal-body').append("<p> Dirección: " + data.calle + "</p>");
+                   dialog.find('.modal-body').append("<p> Zona que le corresponde: " + data.barrio + "</p>");
+                   dialog.find('.modal-body').append("<p> Lista de servicios que presta: " + data.lineaDeColectivo + "</p>");
+
                    ; break;
 
                case "banco":
