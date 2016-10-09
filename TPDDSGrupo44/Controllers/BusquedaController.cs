@@ -19,7 +19,7 @@ namespace TPDDSGrupo44.Controllers
  
 
         Busqueda[] busquedas = new Busqueda[] {
-            new Busqueda {  fecha = DateTime.Parse("2015-06-10T07:34:42-5:00"), usuario = new UsuarioTramite("JPerez"), textoBuscado = "texto buscado ",  poisEncontrados = puntosDeInteres},
+            new Busqueda {  fecha = DateTime.Parse("2015-06-10T07:34:42-5:00"), usuario = new UsuarioTramite("JPerez"), textoBuscado = "texto buscado 1",  poisEncontrados = puntosDeInteres},
             new Busqueda {  fecha = DateTime.Parse("2015-06-10T07:34:42-5:00"), usuario = new UsuarioTramite("JPerez"), textoBuscado = "texto buscado ",  poisEncontrados = puntosDeInteres},
             new Busqueda {  fecha = DateTime.Parse("2015-06-10T07:34:42-5:00"), usuario = new UsuarioTramite("JPerez"), textoBuscado = "texto buscado ",  poisEncontrados = puntosDeInteres},
             new Busqueda {  fecha = DateTime.Parse("2015-06-10T07:34:42-5:00"), usuario = new UsuarioTramite("JPerez"), textoBuscado = "texto buscado ",  poisEncontrados = puntosDeInteres}

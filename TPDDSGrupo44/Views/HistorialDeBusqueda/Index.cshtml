@@ -30,9 +30,31 @@
    });
 
    function detallePoi() {
-       alert("detalle! ");
-   }
+       //alert("detalle! ");
+       var url = "../api/Busqueda/{fecha1}/{fecha2}/{usuario}";
+       $.getJSON(url, function (data) {
+       
+           var dialog = $('#dialogPoi');
+           dialog.modal('show');
+           dialog.find('.modal-title').text(data.textoBuscado);
 
+           
+
+           switch (data.textoBuscado) {
+               case "texto buscado 1":
+                   alert("texto buscado 1");
+                   dialog.find('.modal-body').html('<img src= "../../Content/img/bus.png" alt="Image" />');
+                   dialog.find('.modal-body').append("<p> Detalle POIs: " + data.poisEncontrados + "</p>");
+  
+                   ; break;
+               default:
+                   
+                   dialog.find('.modal-body').html('<img src= "../../Content/img/bus.png" alt="Image" />');
+                   dialog.find('.modal-body').append("<p> Detalle POIs: " + data.poisEncontrados.nombreDePOI + "</p>");
+           }
+           
+        });
+   }
 
     </script>
 }
