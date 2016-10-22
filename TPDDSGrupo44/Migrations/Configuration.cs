@@ -4,7 +4,7 @@ namespace TPDDSGrupo44.Migrations
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Spatial;
-
+    using System.Linq;
     internal sealed class Configuration : DbMigrationsConfiguration<TPDDSGrupo44.Models.BuscAR>
     {
         public Configuration()
@@ -31,23 +31,63 @@ namespace TPDDSGrupo44.Migrations
             });
 
             context.SaveChanges();
+            
+            //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego Roles
+
+            // Funcionalidades
+            FuncionalidadUsuario funcionalidad1 = new FuncionalidadUsuario("Funcionalidad 1");
+            FuncionalidadUsuario funcionalidad2 = new FuncionalidadUsuario("Funcionalidad 2");
+            FuncionalidadUsuario funcionalidad3 = new FuncionalidadUsuario("Funcionalidad 3");
+            FuncionalidadUsuario funcionalidad4 = new FuncionalidadUsuario("Funcionalidad 4");
+
+            // Funcionalidades Admin
+            List<FuncionalidadUsuario> funcionalidadesAdmin = new List<FuncionalidadUsuario>();
+            funcionalidadesAdmin.Add(funcionalidad1);
+            funcionalidadesAdmin.Add(funcionalidad2);
+
+            // Funcionalidades Usuario Tramite
+            List<FuncionalidadUsuario> funcionalidadesUsuarioTramite = new List<FuncionalidadUsuario>();
+            funcionalidadesUsuarioTramite.Add(funcionalidad3);
+            funcionalidadesUsuarioTramite.Add(funcionalidad4);
+
+            context.Roles.AddOrUpdate(
+            x => x.nombre,
+            new Rol
+            {
+                nombre = "Admin",
+                funcionalidades = funcionalidadesAdmin
+
+            },
+            new Rol
+            {
+                nombre = "Usuario Tramite",
+                funcionalidades = funcionalidadesUsuarioTramite
+            });
+
+            context.SaveChanges();
+
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego Usuarios
-            context.Usuarios.AddOrUpdate(
+            var db = new BuscAR();
+            Rol rolUsuario = db.Roles.Where(i => i.nombre == "Usuario Tramite").Single();
+            Rol rolAdmin = db.Roles.Where(i => i.nombre == "Admin").Single();
+
+           context.Usuarios.AddOrUpdate(
             x => x.dni,
             new Usuario
             {
                 dni = "3626171",
                 nombre = "caro",
-                contrasenia = "1234"
+                contrasenia = "1234",
+                rolUsuario =rolUsuario
             },
             new Usuario
             {
                 dni = "12345678",
                 nombre = "admin",
-                contrasenia = "admin"
-            }
-            );
+                contrasenia = "admin",
+                rolUsuario = rolAdmin
+            });
 
             context.SaveChanges();
 

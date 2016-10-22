@@ -7,7 +7,7 @@ namespace TPDDSGrupo44.Models
 
     public class Usuario
     {
-
+        [Key]
         public int id { get; set; }
         ////////////////Atributos////////////////
         public string dni { get; set; }
@@ -22,10 +22,11 @@ namespace TPDDSGrupo44.Models
             this.nombre = nombre;
         }
 
-        public Usuario(string dni, string nombre, string contrasenia) {
+        public Usuario(string dni, string nombre, string contrasenia, Rol rol) {
             this.dni = dni;
             this.nombre = nombre;
             this.contrasenia = contrasenia;
+            this.rolUsuario = rol;
         }
 
         public Boolean existeAcciones(int idAccion)

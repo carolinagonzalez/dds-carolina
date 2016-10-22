@@ -37,8 +37,8 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<CuentaDeUsuario> cuentaDeUsuario { get; set; }
         public virtual DbSet<ConfiguracionDeAcciones> configuracionDeAcciones { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Rol> Roles { get; set; }
 
-      
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
