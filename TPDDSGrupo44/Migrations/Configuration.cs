@@ -50,27 +50,15 @@ namespace TPDDSGrupo44.Migrations
             funcionalidadesUsuarioTramite.Add(funcionalidad3);
             funcionalidadesUsuarioTramite.Add(funcionalidad4);
 
+            Rol rolUsuario = new Rol("Admin", funcionalidadesAdmin);
+            Rol rolAdmin = new Rol("Usuario Tramite", funcionalidadesUsuarioTramite);
+           
             context.Roles.AddOrUpdate(
-            x => x.nombre,
-            new Rol
-            {
-                nombre = "Admin",
-                funcionalidades = funcionalidadesAdmin
-
-            },
-            new Rol
-            {
-                nombre = "Usuario Tramite",
-                funcionalidades = funcionalidadesUsuarioTramite
-            });
+            x => x.nombre, rolUsuario, rolAdmin);
 
             context.SaveChanges();
 
-
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego Usuarios
-            var db = new BuscAR();
-            Rol rolUsuario = db.Roles.Where(i => i.nombre == "Usuario Tramite").Single();
-            Rol rolAdmin = db.Roles.Where(i => i.nombre == "Admin").Single();
 
            context.Usuarios.AddOrUpdate(
             x => x.dni,
