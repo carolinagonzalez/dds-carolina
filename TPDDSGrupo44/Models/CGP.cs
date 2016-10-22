@@ -15,23 +15,7 @@ namespace TPDDSGrupo44.Models
         //private string zonas;
 
         ////////////////Atributos////////////////
-        public new int id { get; set; }
-        public new DbGeography coordenada { get; set; }
-        public new string calle { get; set; }
-        public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
-        public new int unidad { get; set; }
-        public new int codigoPostal { get; set; }
-        public new string localidad { get; set; }
-        public new string barrio { get; set; }
-        public new string provincia { get; set; }
-        public new string pais { get; set; }
-        public new string entreCalles { get; set; }
-        public new List<string> palabrasClave { get; set; }
-        public new string nombreDePOI { get; set; }
-        public new string tipoDePOI { get; set; }
-        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
-        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
+     
         public int numeroDeComuna { get; set; }
         public virtual List<ServicioCGP> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
@@ -81,27 +65,27 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
-           List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
+        int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+        string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
+        List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
-            this.coordenada = unaCoordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
+            base.coordenada = unaCoordenada;
+            base.calle = calle;
+            base.numeroAltura = numeroAltura;
+            base.piso = piso;
+            base.unidad = unidad;
+            base.codigoPostal = codigoPostal;
+            base.localidad = localidad;
+            base.barrio = barrio;
+            base.provincia = provincia;
+            base.pais = pais;
+            base.entreCalles = entreCalles;
+            base.palabrasClave = palabrasClave;
+            base.nombreDePOI = nombreDePOI;
+            base.tipoDePOI = tipoDePOI;
+            base.horarioAbierto = horarioAbierto;
+            base.horarioFeriado = horarioFeriado;
             this.numeroDeComuna = numeroDeComuna;
-            this.horarioAbierto = horarioAbierto;
-            this.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
             this.zonaDelimitadaPorLaComuna = zonaDelimitadaPorLaComuna;
         }

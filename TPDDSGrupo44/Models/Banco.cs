@@ -8,23 +8,6 @@ namespace TPDDSGrupo44.Models
     public class Banco : PuntoDeInteres
     {
         ////////////////Atributos////////////////
-        public new int id { get; set; }
-        public new DbGeography coordenada { get; set; }
-        public new string calle { get; set; }
-        public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
-        public new int unidad { get; set; }
-        public new int codigoPostal { get; set; }
-        public new string localidad { get; set; }
-        public new string barrio { get; set; }
-        public new string provincia { get; set; }
-        public new string pais { get; set; }
-        public new string entreCalles { get; set; }
-        public new string nombreDePOI { get; set; }
-        public virtual new List<string> palabrasClave { get; set; }
-        public new string tipoDePOI { get; set; }
-        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
-        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
         public virtual List<ServicioBanco> servicios { get; set; }
 
         ////////////////Constructor vacio///////////////
@@ -74,7 +57,27 @@ namespace TPDDSGrupo44.Models
             this.horarioAbierto = horarioAbierto;
             this.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
-        
+
+            /*
+            base.coordenada = unaCoordenada;
+            base.calle = calle;
+            base.numeroAltura = numeroAltura;
+            base.piso = piso;
+            base.unidad = unidad;
+            base.codigoPostal = codigoPostal;
+            base.localidad = localidad;
+            base.barrio = barrio;
+            base.provincia = provincia;
+            base.pais = pais;
+            base.entreCalles = entreCalles;
+            base.nombreDePOI = palabraClave;
+            base.nombreDePOI = nombreDePOI;
+            base.tipoDePOI = tipoDePOI;
+            base.horarioAbierto = horarioAbierto;
+            base.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;
+            */
+
         }
 
         ////////////////Funcion manhattan////////////////

@@ -13,7 +13,7 @@ namespace TPDDSGrupo44.Models
         public DateTime fecha { get; set; }
         public DispositivoTactil terminal { get; set; }
         public int duracionDeBusqueda { get; set; }
-        public UsuarioTramite usuario { get; set; }
+        public Usuario usuario { get; set; }
         public List<PuntoDeInteres> poisEncontrados { get; set; }
 
         ////////////////Constructor vacio////////////////

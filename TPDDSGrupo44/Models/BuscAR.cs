@@ -1,20 +1,16 @@
 namespace TPDDSGrupo44.Models
 {
     using System.Data.Entity;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     public class BuscAR : DbContext
     {
-        // Your context has been configured to use a 'Busqueda' connection string from your application's 
-        // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'TPDDSGrupo44.Models.Busqueda' database on your LocalDb instance. 
-        // 
-        // If you wish to target a different database and/or database provider, modify the 'Busqueda' 
-        // connection string in the application configuration file.
+        
         public BuscAR singleton { get; set; }
         
 
         public BuscAR()
-            : base("name=BuscAR")
+            : base("name=PoiConnectionString")
         {
             
         }
@@ -31,7 +27,7 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<ParadaDeColectivo> Paradas { get; set; }
 
         //tablas de sistema
-        public virtual DbSet<DispositivoTactil> Terminales { get; set; }
+        public virtual DbSet<DispositivoTactil> DispositivoTactiles { get; set; }
         //public virtual DbSet<ActualizacionAsincronica> LogProcesosAsincronicos { get; set; }
 
         // tablas accesorias
@@ -40,7 +36,16 @@ namespace TPDDSGrupo44.Models
         public virtual DbSet<ServicioCGP> ServiciosCPG { get; set; }
         public virtual DbSet<CuentaDeUsuario> cuentaDeUsuario { get; set; }
         public virtual DbSet<ConfiguracionDeAcciones> configuracionDeAcciones { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+
+      
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
+
+
 
     }
-
 }

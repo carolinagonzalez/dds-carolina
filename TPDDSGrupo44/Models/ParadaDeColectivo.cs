@@ -8,50 +8,33 @@ namespace TPDDSGrupo44.Models
 
     public class ParadaDeColectivo : PuntoDeInteres
     {
-
-        ////////////////Atributos////////////////
-        public new int id { get; set; }
-        public new DbGeography coordenada { get; set; }
-        public new string calle { get; set; }
-        public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
-        public new int unidad { get; set; }
-        public new int codigoPostal { get; set; }
-        public new string localidad { get; set; }
-        public new string barrio { get; set; }
-        public new string provincia { get; set; }
-        public new string pais { get; set; }
-        public new string entreCalles { get; set; }
-        public new List<string> palabrasClave { get; set; }
-        public new string nombreDePOI { get; set; }
-        public new string tipoDePOI { get; set; }
-
-
+        
         public new string lineaDeColectivo { get; set; }
-
-
+        
         ////////////////Constructor vacio////////////////
         public ParadaDeColectivo() { }
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI,string tipoDePOI)
+           string nombreDePOI,string tipoDePOI, string lineaDeColectivo)
         {
-            this.coordenada = unaCoordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
+            
+            base.coordenada = unaCoordenada;
+            base.calle = calle;
+            base.numeroAltura = numeroAltura;
+            base.piso = piso;
+            base.unidad = unidad;
+            base.codigoPostal = codigoPostal;
+            base.localidad = localidad;
+            base.barrio = barrio;
+            base.provincia = provincia;
+            base.pais = pais;
+            base.entreCalles = entreCalles;
+            base.palabrasClave = palabrasClave;
+            base.nombreDePOI = nombreDePOI;
+            base.tipoDePOI = tipoDePOI;
+            this.lineaDeColectivo = lineaDeColectivo;
         }
 
 
@@ -59,11 +42,10 @@ namespace TPDDSGrupo44.Models
 
 
         ////////////////Constructor Viejo(Usado en controlador////////////////
-        public ParadaDeColectivo(string nombre, DbGeography unaCoordenada)
-        : base(nombre, unaCoordenada)
+        public ParadaDeColectivo(string nombre, DbGeography unaCoordenada):base(nombre, unaCoordenada)
         {
-            nombreDePOI = nombre;
-            coordenada = unaCoordenada;
+            this.nombreDePOI = nombre;
+            this.coordenada = unaCoordenada;
         }
 
         ////////////////Funcion manhattan////////////////
@@ -87,13 +69,15 @@ namespace TPDDSGrupo44.Models
         }
 
         ////////////////Cálculo de Cercanía genérico - distancia menor a 1 cuadras////////////////
-        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+       // public override
+        public bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 1;
         }
 
         ////////////////Cálculo de Disponibilidad Horaria - Siempre está disponible////////////////
-        public override bool estaDisponible(DateTime searchTime)
+        // public override
+        public bool estaDisponible(DateTime searchTime)
         {
             return true;
         }

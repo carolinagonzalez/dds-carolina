@@ -55,7 +55,7 @@ namespace TPDDSGrupo44.Controllers
                     SearchViewModel modeloVista = new SearchViewModel();
 
                     //Defino ubicación actual (UTN/CAMPUS)
-                    DispositivoTactil dispositivoTactil = db.Terminales.Where(i => i.nombre == "UTN FRBA Lugano").Single();
+                    DispositivoTactil dispositivoTactil = db.DispositivoTactiles.Where(i => i.nombre == "UTN FRBA Lugano").Single();
 
                     //Si la persona ingresó un número, asumo que busca una parada de bondi
                     int linea = 0;
@@ -63,7 +63,7 @@ namespace TPDDSGrupo44.Controllers
                     {
 
                         List<ParadaDeColectivo> resultadosBusqueda = db.Paradas.Where(b => b.nombreDePOI == palabraBusqueda).ToList();
-                        resultados.AddRange(resultadosBusqueda);
+                        
                         foreach (ParadaDeColectivo punto in resultadosBusqueda)
                         {
 
@@ -89,7 +89,6 @@ namespace TPDDSGrupo44.Controllers
                     //Si la persona ingresó una palabra, me fijo si es un rubro
                     if (db.Rubros.Where(b => b.nombre.Contains(palabraBusqueda.ToLower())).ToList().Count() > 0)
                     {
-
                         List<LocalComercial> resultadosBusqueda = db.Locales.Include("horarioAbierto").Include("horarioFeriado").Where(b => b.rubro.nombre.ToLower().Contains(palabraBusqueda.ToLower())).ToList();
                         resultados.AddRange(resultadosBusqueda);
                         foreach (LocalComercial punto in resultadosBusqueda)
@@ -208,8 +207,9 @@ namespace TPDDSGrupo44.Controllers
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return View();
             }
         }

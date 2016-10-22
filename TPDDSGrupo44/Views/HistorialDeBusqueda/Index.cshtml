@@ -43,13 +43,11 @@
            switch (data.textoBuscado) {
                case "texto buscado 1":
                    alert("texto buscado 1");
-                   dialog.find('.modal-body').html('<img src= "../../Content/img/bus.png" alt="Image" />');
-                   dialog.find('.modal-body').append("<p> Detalle POIs: " + data.poisEncontrados + "</p>");
+                   dialog.find('.modal-body').append("<p> Detalle POIs: " + data.poisEncontrados.nombreDePOI + "</p>");
   
                    ; break;
                default:
                    
-                   dialog.find('.modal-body').html('<img src= "../../Content/img/bus.png" alt="Image" />');
                    dialog.find('.modal-body').append("<p> Detalle POIs: " + data.poisEncontrados.nombreDePOI + "</p>");
            }
            

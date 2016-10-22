@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPDDSGrupo44.Models
 {
@@ -28,15 +29,11 @@ namespace TPDDSGrupo44.Models
         public virtual List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual List<HorarioAbierto> horarioFeriado { get; set; }
 
+       
 
-        public new string lineaDeColectivo { get; set; }
-
-        public new string nombreComercialOFantasia { get; set; }
-
-        public string rubro { get; set; }
-        // public virtual Rubro rubro { get; set; }
 
         //E4 - Baja de POI
+        [Column(TypeName = "datetime2")]
         public DateTime fechaBaja { get; set; }
 
 
@@ -121,9 +118,5 @@ namespace TPDDSGrupo44.Models
                 return todaysHours.horarioValido(searchTime);
             }
         }
-
-
-
-
     }
 }

@@ -16,22 +16,40 @@ namespace TPDDSGrupo44.Migrations
         protected override void Seed(TPDDSGrupo44.Models.BuscAR context)
         {
             //  This method will be called after migrating to the latest version.
-
+            
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego terminales
-            context.Terminales.AddOrUpdate(d => d.nombre,
+            context.DispositivoTactiles.AddOrUpdate(d => d.nombre,
             new DispositivoTactil
             {
                 nombre = "UTN FRBA Lugano",
                 coordenada = DbGeography.FromText("POINT(-34.6597047 -58.4688947)")
             },
-new DispositivoTactil
-{
-    nombre = "Teatro Gran Rivadavia",
-    coordenada = DbGeography.FromText("POINT(-34.6349293 -58.4853798)")
-});
+            new DispositivoTactil
+            {
+                nombre = "Teatro Gran Rivadavia",
+                coordenada = DbGeography.FromText("POINT(-34.6349293 -58.4853798)")
+            });
 
             context.SaveChanges();
 
+            //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego Usuarios
+            context.Usuarios.AddOrUpdate(
+            x => x.dni,
+            new Usuario
+            {
+                dni = "3626171",
+                nombre = "caro",
+                contrasenia = "1234"
+            },
+            new Usuario
+            {
+                dni = "12345678",
+                nombre = "admin",
+                contrasenia = "admin"
+            }
+            );
+
+            context.SaveChanges();
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego listas de POIs
 
@@ -50,21 +68,20 @@ new DispositivoTactil
                 entreCalles = "Saraza y Dellepiane Sur",
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
             },
-new ParadaDeColectivo
-{
-    nombreDePOI = "36",
-    calle = "Av Escalada",
-    numeroAltura = 2680,
-    localidad = "Ciudad Autónoma de Buenos Aires",
-    barrio = "Lugano",
-    provincia = "Ciudad Autónoma de Buenos Aires",
-    pais = "Argentina",
-    entreCalles = "Av Derqui y Dellepiane Norte",
-    coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
-});
+            new ParadaDeColectivo
+            {
+                nombreDePOI = "36",
+                calle = "Av Escalada",
+                numeroAltura = 2680,
+                localidad = "Ciudad Autónoma de Buenos Aires",
+                barrio = "Lugano",
+                provincia = "Ciudad Autónoma de Buenos Aires",
+                pais = "Argentina",
+                entreCalles = "Av Derqui y Dellepiane Norte",
+                coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
+            });
 
             context.SaveChanges();
-
 
             //Horarios de locales
             List<HorarioAbierto> horarios = new List<HorarioAbierto>();
@@ -91,12 +108,12 @@ new ParadaDeColectivo
                 horarioAbierto = horarios,
                 //horarioFeriados = feriados
             },
-new LocalComercial
-{
-    nombreDePOI = "Kiosco Las Flores",
-    coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
-    rubro = new Rubro("kiosco de diarios", 5)
-});
+            new LocalComercial
+            {
+                nombreDePOI = "Kiosco Las Flores",
+                coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
+                rubro = new Rubro("kiosco de diarios", 5)
+            });
 
             context.SaveChanges();
 
@@ -201,58 +218,58 @@ new LocalComercial
                         horarioInicio = 8,
                         horarioFin = 18
                                              },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Tuesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Wednesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Thursday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Friday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Saturday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Sunday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         }
-                    }
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Tuesday,
+                        horarioInicio = 8,
+                        horarioFin = 18
+                                             },
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Wednesday,
+                        horarioInicio = 8,
+                        horarioFin = 18
+                                             },
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Thursday,
+                        horarioInicio = 8,
+                        horarioFin = 18
+                                             },
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Friday,
+                        horarioInicio = 8,
+                        horarioFin = 18
+                                             },
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Saturday,
+                        horarioInicio = 0,
+                        horarioFin = 0
+                                             },
+                     new HorarioAbierto()
+                    {
+                         dia = System.DayOfWeek.Sunday,
+                        horarioInicio = 0,
+                        horarioFin = 0
+                                             }
+                                        }
             },
-new CGP
-{
-    nombreDePOI = "Sede Comunal 10",
-    calle = "Bacacay",
-    numeroAltura = 3968,
-    codigoPostal = 1407,
-    localidad = "Ciudad Autónoma de Buenos Aires",
-    barrio = "Vélez Sarsfield",
-    provincia = "Ciudad Autónoma de Buenos Aires",
-    pais = "Argentina",
-    entreCalles = "Mercedes y Av Chivilcoy",
-    coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
-    zonaDelimitadaPorLaComuna = 10,
-    servicios = new List<ServicioCGP>()
+    new CGP
+    {
+        nombreDePOI = "Sede Comunal 10",
+        calle = "Bacacay",
+        numeroAltura = 3968,
+        codigoPostal = 1407,
+        localidad = "Ciudad Autónoma de Buenos Aires",
+        barrio = "Vélez Sarsfield",
+        provincia = "Ciudad Autónoma de Buenos Aires",
+        pais = "Argentina",
+        entreCalles = "Mercedes y Av Chivilcoy",
+        coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
+        zonaDelimitadaPorLaComuna = 10,
+        servicios = new List<ServicioCGP>()
                 {
                      new ServicioCGP()
                     {
@@ -301,10 +318,9 @@ new CGP
                                 horarioFin = 0
                                              }
                                          }
-                                              }
-
+                                      }
                                     }
-});
+    });
             context.SaveChanges();
 
 
@@ -405,43 +421,43 @@ new CGP
                         horarioInicio = 8,
                         horarioFin = 18
                                              },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Tuesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Wednesday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Thursday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Friday,
-    horarioInicio = 8,
-    horarioFin = 18
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Saturday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         },
- new HorarioAbierto()
-{
-     dia = System.DayOfWeek.Sunday,
-    horarioInicio = 0,
-    horarioFin = 0
-                         }
-                    }
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Tuesday,
+                    horarioInicio = 8,
+                    horarioFin = 18
+                                         },
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Wednesday,
+                    horarioInicio = 8,
+                    horarioFin = 18
+                                         },
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Thursday,
+                    horarioInicio = 8,
+                    horarioFin = 18
+                                         },
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Friday,
+                    horarioInicio = 8,
+                    horarioFin = 18
+                                         },
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Saturday,
+                    horarioInicio = 0,
+                    horarioFin = 0
+                                         },
+                 new HorarioAbierto()
+                {
+                     dia = System.DayOfWeek.Sunday,
+                    horarioInicio = 0,
+                    horarioFin = 0
+                                         }
+                                    }
             });
 
             context.SaveChanges();

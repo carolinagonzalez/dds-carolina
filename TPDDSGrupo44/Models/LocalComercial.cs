@@ -11,28 +11,10 @@ namespace TPDDSGrupo44.Models
     {
         [Key]
         ////////////////Atributos////////////////
-        public new int id { get; set; }
-        public new DbGeography coordenada { get; set; }
-        public new string calle { get; set; }
-        public new int numeroAltura { get; set; }
-        public new int piso { get; set; }
-        public new int unidad { get; set; }
-        public new int codigoPostal { get; set; }
-        public new string localidad { get; set; }
-        public new string barrio { get; set; }
-        public new string provincia { get; set; }
-        public new string pais { get; set; }
-        public new string entreCalles { get; set; }
-        public new string nombreDePOI { get; set; }
-        public virtual new List<string> palabrasClave { get; set; }
-        public new string tipoDePOI { get; set; }
-        public virtual new List<HorarioAbierto> horarioAbierto { get; set; }
-        public virtual new List<HorarioAbierto> horarioFeriado { get; set; }
-
-        //public new List<String> tags { get; set; }
+        
         public virtual Rubro rubro { get; set; }
 
-        public new string nombreComercialOFantasia { get; set; }
+        public new string nombreFantasia { get; set; }
 
 
         ////////////////Constructor vacio////////////////
@@ -41,7 +23,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor Viejo(Usado en controlador////////////////
         public LocalComercial(string nombre, DbGeography unaCoordenada, Rubro rubro)
-        : base(nombre, unaCoordenada)
+        :base (nombre, unaCoordenada)
         {
             this.rubro = rubro;
             coordenada = unaCoordenada;
@@ -51,25 +33,27 @@ namespace TPDDSGrupo44.Models
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
            string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
-           Rubro rubro)
+           Rubro rubro, string nombreFantasia)
         {
-            this.coordenada = unaCoordenada;
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.piso = piso;
-            this.unidad = unidad;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
-            this.tipoDePOI = tipoDePOI;
-            this.horarioAbierto = horarioAbierto;
-            this.horarioFeriado = horarioFeriados;
+
+            base.coordenada = unaCoordenada;
+            base.calle = calle;
+            base.numeroAltura = numeroAltura;
+            base.piso = piso;
+            base.unidad = unidad;
+            base.codigoPostal = codigoPostal;
+            base.localidad = localidad;
+            base.barrio = barrio;
+            base.provincia = provincia;
+            base.pais = pais;
+            base.entreCalles = entreCalles;
+            base.palabrasClave = palabrasClave;
+            base.nombreDePOI = nombreDePOI;
+            base.tipoDePOI = tipoDePOI;
+            base.horarioAbierto = horarioAbierto;
+            base.horarioFeriado = horarioFeriados;
             this.rubro = rubro;
+            this.nombreFantasia = nombreFantasia;
 
         }
 

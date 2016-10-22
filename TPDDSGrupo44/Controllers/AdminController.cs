@@ -79,7 +79,7 @@ namespace TPDDSGrupo44.Controllers
 
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                     0, 0,Convert.ToInt32(collection["codigoPostal"]),collection["localidad"], collection["barrio"], collection["provincia"], 
-                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo");
+                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo", "7 remal Samoré");
 
                 parada.agregarParada(parada);
 
@@ -504,7 +504,7 @@ namespace TPDDSGrupo44.Controllers
                 LocalComercial localC = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"], palabrasClave,
-                      collection["nombreDePOI"], collection["tipoDePOI"], horariosAbierto, horariosFeriado,rubro);
+                      collection["nombreDePOI"], collection["tipoDePOI"], horariosAbierto, horariosFeriado,rubro, "nombreFantasia");
                 /* convert list to string -- 
                  * var result = string.Join(",", list.ToArray()); */
 
