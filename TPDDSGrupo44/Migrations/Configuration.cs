@@ -81,6 +81,10 @@ namespace TPDDSGrupo44.Migrations
 
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego listas de POIs
 
+            List<string> entreCalles = new List<string>();
+            entreCalles.Add("Saraza");
+            entreCalles.Add("Dellepiane Sur");
+
             //Paradas
             context.Paradas.AddOrUpdate(
             p => p.nombreDePOI,
@@ -93,7 +97,7 @@ namespace TPDDSGrupo44.Migrations
                 barrio = "Lugano",
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
-                entreCalles = "Saraza y Dellepiane Sur",
+                entreCalles = entreCalles,
                 coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
             },
             new ParadaDeColectivo
@@ -105,7 +109,7 @@ namespace TPDDSGrupo44.Migrations
                 barrio = "Lugano",
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
-                entreCalles = "Av Derqui y Dellepiane Norte",
+                entreCalles = new List<string>() { "Av Derqui", "Dellepiane Norte" } ,
                 coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
             });
 
@@ -183,7 +187,7 @@ namespace TPDDSGrupo44.Migrations
                 barrio = "Lugano",
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
-                entreCalles = "Av Escalda y Av General Paz",
+                entreCalles = new List<string>() { "Av Escalda", "Av General Paz" },
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
                 zonaDelimitadaPorLaComuna = 50,
                 servicios = new List<ServicioCGP>()
@@ -294,7 +298,7 @@ namespace TPDDSGrupo44.Migrations
         barrio = "Vélez Sarsfield",
         provincia = "Ciudad Autónoma de Buenos Aires",
         pais = "Argentina",
-        entreCalles = "Mercedes y Av Chivilcoy",
+        entreCalles = new List<string>() { "Mercedes", "Av Chivilcoy" } ,
         coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
         zonaDelimitadaPorLaComuna = 10,
         servicios = new List<ServicioCGP>()

@@ -31,7 +31,7 @@ namespace TPDDSGrupo44.Models
         }
 
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, List<string> palabrasClave,
            string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
            Rubro rubro, string nombreFantasia)
         {

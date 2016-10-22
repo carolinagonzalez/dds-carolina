@@ -74,12 +74,10 @@ namespace TPDDSGrupo44.Controllers
 
                 DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
                 List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
-
- 
-
+    
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                    0, 0,Convert.ToInt32(collection["codigoPostal"]),collection["localidad"], collection["barrio"], collection["provincia"], 
-                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo", "7 remal Samoré");
+                    0, 0, Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
+                    collection["pais"], collection["entreCalles"].Split(new char[] { ',' }).ToList(),palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo", "7 remal Samoré");
 
                 parada.agregarParada(parada);
 
