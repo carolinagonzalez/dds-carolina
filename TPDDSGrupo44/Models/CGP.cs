@@ -7,6 +7,13 @@ namespace TPDDSGrupo44.Models
 {
     public class CGP : PuntoDeInteres
     {
+        //private int comuna;
+        //private string director;
+        //private string domicilio;
+        //private List<string> servicios1;
+        //private string telefono;
+        //private string zonas;
+
         ////////////////Atributos////////////////
      
         public int numeroDeComuna { get; set; }
@@ -58,7 +65,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-        int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, List<string> palabrasClave,
+        int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
         string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
         List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
@@ -136,7 +143,7 @@ namespace TPDDSGrupo44.Models
         }
 
         public void actualizar(string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, List<string> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
            string nombreDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {

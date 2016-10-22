@@ -16,7 +16,7 @@ namespace TPDDSGrupo44.Models
 
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, List<string> palabrasClave,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
            string nombreDePOI,string tipoDePOI, string lineaDeColectivo)
         {
             
@@ -69,8 +69,8 @@ namespace TPDDSGrupo44.Models
         }
 
         ////////////////Cálculo de Cercanía genérico - distancia menor a 1 cuadras////////////////
-        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
-       // public bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+       // public override
+        public bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 1;
         }
@@ -108,7 +108,7 @@ namespace TPDDSGrupo44.Models
 
 
         public void actualizar(string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
-            List<string> entreCalles, List<string> palabrasClave, string nombreDePOI)
+            string entreCalles, List<string> palabrasClave, string nombreDePOI)
         {
             this.calle = calle;
             this.numeroAltura = numeroAltura;

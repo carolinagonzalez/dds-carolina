@@ -36,11 +36,29 @@ namespace TPDDSGrupo44.Models
         }
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, List<string> palabrasClave,string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string palabraClave
+           ,string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
 
           {
-            
-            
+            this.coordenada = unaCoordenada;
+            this.calle = calle;
+            this.numeroAltura = numeroAltura;
+            this.piso = piso;
+            this.unidad = unidad;
+            this.codigoPostal = codigoPostal;
+            this.localidad = localidad;
+            this.barrio = barrio;
+            this.provincia = provincia;
+            this.pais = pais;
+            this.entreCalles = entreCalles;
+            this.nombreDePOI = palabraClave;
+            this.nombreDePOI = nombreDePOI;
+            this.tipoDePOI = tipoDePOI;
+            this.horarioAbierto = horarioAbierto;
+            this.horarioFeriado = horarioFeriado;
+            this.servicios = servicios;
+
+            /*
             base.coordenada = unaCoordenada;
             base.calle = calle;
             base.numeroAltura = numeroAltura;
@@ -52,13 +70,13 @@ namespace TPDDSGrupo44.Models
             base.provincia = provincia;
             base.pais = pais;
             base.entreCalles = entreCalles;
-            base.palabrasClave = palabrasClave;
+            base.nombreDePOI = palabraClave;
             base.nombreDePOI = nombreDePOI;
             base.tipoDePOI = tipoDePOI;
             base.horarioAbierto = horarioAbierto;
             base.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
-            
+            */
 
         }
 
@@ -115,7 +133,7 @@ namespace TPDDSGrupo44.Models
         }
 
         public void actualizar(string calle, int numeroAltura, int piso, int unidad,
-           int codigoPostal, string localidad, string barrio, string provincia, string pais, List<string> entreCalles, string nombreDePOI,
+           int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string nombreDePOI,
            List<string> palabrasClave, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
         {
             this.calle = calle;
