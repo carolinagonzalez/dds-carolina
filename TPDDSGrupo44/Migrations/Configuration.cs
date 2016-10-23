@@ -375,6 +375,7 @@ namespace TPDDSGrupo44.Migrations
 
             // Horarios Banco Francés
 
+            
             //Bancos
             context.Bancos.AddOrUpdate(
             b => b.nombreDePOI,
@@ -383,12 +384,16 @@ namespace TPDDSGrupo44.Migrations
                 nombreDePOI = "Banco Provincia",
                 coordenada = DbGeography.FromText("POINT( 34.660979  58.469821)"),
                 servicios = servicios3,
-                horarioAbierto = horarios
+                horarioAbierto = horarios,
+                calle = "Calle Falsa",
+                numeroAltura = 123
             },
             new Banco
             {
                 nombreDePOI = "Banco Frances",
                 coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
+                calle = "Calle Falsa2",
+                numeroAltura = 345,
                 servicios = new List<ServicioBanco>()
                 {
                      new ServicioBanco()
