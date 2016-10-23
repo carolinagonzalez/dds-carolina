@@ -69,15 +69,13 @@ namespace TPDDSGrupo44.Models
         }
 
         ////////////////Cálculo de Cercanía genérico - distancia menor a 1 cuadras////////////////
-       // public override
-        public bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
+        public override bool estaCerca(DbGeography coordenadaDeDispositivoTactil)
         {
             return (functionManhattan(coordenada, coordenadaDeDispositivoTactil) / 100) < 1;
         }
 
         ////////////////Cálculo de Disponibilidad Horaria - Siempre está disponible////////////////
-        // public override
-        public bool estaDisponible(DateTime searchTime)
+        public override bool estaDisponible(DateTime searchTime)
         {
             return true;
         }
