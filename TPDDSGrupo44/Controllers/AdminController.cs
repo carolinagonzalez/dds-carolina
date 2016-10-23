@@ -215,7 +215,7 @@ namespace TPDDSGrupo44.Controllers
                 Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      collection["palabraClave"], collection["nombreDePOI"], "Banco", horariosAbierto, horariosFeriado, servicios);
+                      palabrasClave, collection["nombreDePOI"], "Banco", horariosAbierto, horariosFeriado, servicios);
 
                 banco.agregarBanco(banco);
 
