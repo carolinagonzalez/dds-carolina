@@ -71,7 +71,7 @@ namespace TPDDSGrupo44.Models
         }
 
        ////////////////Funcion manhattan////////////////
-        private static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
+        public static double functionManhattan(DbGeography coordenadaDeDispositivoTactil, DbGeography coordenada)
         {
             double lat1InDegrees = (double)coordenadaDeDispositivoTactil.Latitude;
             double long1InDegrees = (double)coordenadaDeDispositivoTactil.Longitude;
