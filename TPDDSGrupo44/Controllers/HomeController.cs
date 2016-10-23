@@ -140,6 +140,7 @@ namespace TPDDSGrupo44.Controllers
 
                     if (resultadosBusquedaBancos.Count() > 0)
                     {
+                       
                         resultados.AddRange(resultadosBusquedaBancos);
                         foreach (Banco punto in resultadosBusquedaBancos)
                         {

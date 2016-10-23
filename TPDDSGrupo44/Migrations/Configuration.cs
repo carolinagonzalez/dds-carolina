@@ -387,7 +387,7 @@ namespace TPDDSGrupo44.Migrations
             },
             new Banco
             {
-                nombreDePOI = "Banco Francés",
+                nombreDePOI = "Banco Frances",
                 coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
                 servicios = new List<ServicioBanco>()
                 {
