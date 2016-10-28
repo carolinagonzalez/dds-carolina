@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPDDSGrupo44.Models
 {
+    [Table("Horarios")]
     public class HorarioAbierto
     {
         [Key]
