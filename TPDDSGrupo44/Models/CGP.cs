@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
+    [Table("CGPS")]
     public class CGP : PuntoDeInteres
     {
-        //private int comuna;
-        //private string director;
-        //private string domicilio;
-        //private List<string> servicios1;
-        //private string telefono;
-        //private string zonas;
-
         ////////////////Atributos////////////////
      
         public int numeroDeComuna { get; set; }
-        public virtual List<ServicioCGP> servicios { get; set; }
+        public virtual ICollection<Servicio> servicios { get; set; }
         public int zonaDelimitadaPorLaComuna { get; set; }
 
         ////////////////Constructor Vacio////////////////
         public CGP(){
-            servicios = new List<ServicioCGP>();
+            servicios = new List<Servicio>();
         }
 
         //public CGP() : base(){}
@@ -34,20 +29,20 @@ namespace TPDDSGrupo44.Models
               nombreDePOI = nombre;
               coordenada = unaCoordenada;
               zonaDelimitadaPorLaComuna = zona;
-              servicios = new List<ServicioCGP>();
+              servicios = new List<Servicio>();
           }*/
 
 /*  Ver bien 
        ////////////////Constructor JSON (usado para generar cgp a partir del JSON que tiene poca data)////////////////
         public CGP(int comuna, string zonas, string director, string domicilio, string telefono, List<string> serviciosJSON) : base()
         {
-            servicios = new List<ServicioCGP>();
+            servicios = new List<Servicio>();
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
 
             foreach (string servicio in serviciosJSON)
             {
-                ServicioCGP serv = new ServicioCGP(servicio);
+                Servicio serv = new Servicio(servicio);
                 servicios.Add(serv);
             }
         }
@@ -66,9 +61,10 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor generico////////////////
         public CGP(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
         int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-        string nombreDePOI,string tipoDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
+        string nombreDePOI, int numeroDeComuna, List<Servicio> servicios, int zonaDelimitadaPorLaComuna,
         List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
+
             base.coordenada = unaCoordenada;
             base.calle = calle;
             base.numeroAltura = numeroAltura;
@@ -82,7 +78,6 @@ namespace TPDDSGrupo44.Models
             base.entreCalles = entreCalles;
             base.palabrasClave = palabrasClave;
             base.nombreDePOI = nombreDePOI;
-            base.tipoDePOI = tipoDePOI;
             base.horarioAbierto = horarioAbierto;
             base.horarioFeriado = horarioFeriado;
             this.numeroDeComuna = numeroDeComuna;
@@ -103,7 +98,7 @@ namespace TPDDSGrupo44.Models
         {
             using (var db = new BuscAR())
             {
-                db.CGPs.Add(cgp);
+                db.puntosInteres.Add(cgp);
                 db.SaveChanges();
             }
         }
@@ -113,9 +108,9 @@ namespace TPDDSGrupo44.Models
             using (var db = new BuscAR())
             {
 
-                CGP cgp = db.CGPs.Where(p => p.id == id).Single();
+                CGP cgp = (CGP) db.puntosInteres.Where(p => p.id == id).Single();
 
-                db.CGPs.Remove(cgp);
+                db.puntosInteres.Remove(cgp);
                 db.SaveChanges();
             }
 
@@ -124,7 +119,7 @@ namespace TPDDSGrupo44.Models
 
         public void actualizar(string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI, int numeroDeComuna, List<ServicioCGP> servicios, int zonaDelimitadaPorLaComuna,
+           string nombreDePOI, int numeroDeComuna, List<Servicio> servicios, int zonaDelimitadaPorLaComuna,
            List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado)
         {
             this.calle = calle;
