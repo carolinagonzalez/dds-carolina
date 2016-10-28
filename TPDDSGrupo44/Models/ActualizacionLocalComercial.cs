@@ -24,7 +24,7 @@ namespace TPDDSGrupo44.Models
 
                 using (var db = new BuscAR())
                 {
-                    LocalComercial local = (from l in db.Locales
+                    LocalComercial local = (from l in db.puntosInteres.OfType<LocalComercial>()
                                             where l.nombreDePOI == nombre
                                             select l).Single();
                     // si el local ya existe, lo actualizo
@@ -36,7 +36,7 @@ namespace TPDDSGrupo44.Models
                     {
                         //si el local no existe, lo agrego
                         local = new LocalComercial(nombre, palabrasClave);
-                        db.Locales.Add(local);
+                        db.puntosInteres.Add(local);
                         db.SaveChanges();
                     }
 

@@ -51,8 +51,8 @@ namespace TPDDSGrupo44.Controllers
             List<ParadaDeColectivo> paradas;
             using (var db = new BuscAR())
             {
-                paradas = (from p in db.Paradas
-                             orderby p.nombreDePOI
+                paradas = (from p in db.puntosInteres.OfType<ParadaDeColectivo>()
+                           orderby p.nombreDePOI
                              select p).ToList();
             }
 
@@ -79,7 +79,7 @@ namespace TPDDSGrupo44.Controllers
 
                 ParadaDeColectivo parada = new ParadaDeColectivo(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                     0, 0,Convert.ToInt32(collection["codigoPostal"]),collection["localidad"], collection["barrio"], collection["provincia"], 
-                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"],"ParadaDeColectivo", "7 remal Samoré");
+                    collection["pais"], collection["entreCalles"],palabrasClave, collection["nombreDePOI"], "7 remal Samoré");
 
                 parada.agregarParada(parada);
 
@@ -96,7 +96,7 @@ namespace TPDDSGrupo44.Controllers
             ParadaDeColectivo parada;
             using (var db = new BuscAR())
             {
-                parada = db.Paradas.Where(p => p.id == id).Single();
+                parada = (ParadaDeColectivo) db.puntosInteres.Where(p => p.id == id).Single();
             }
                 return View(parada);
         }
@@ -110,7 +110,7 @@ namespace TPDDSGrupo44.Controllers
                 ParadaDeColectivo parada;
                 using (var db = new BuscAR())
                 {
-                    parada = db.Paradas.Where(p => p.id == id).Single();
+                    parada = (ParadaDeColectivo) db.puntosInteres.Where(p => p.id == id).Single();
                 }
 
                 parada.eliminarParada(id);
@@ -130,7 +130,7 @@ namespace TPDDSGrupo44.Controllers
             ParadaDeColectivo parada;
             using (var db = new BuscAR())
             {
-                parada = db.Paradas.Where(p => p.id == id).Single();
+                parada = (ParadaDeColectivo) db.puntosInteres.Where(p => p.id == id).Single();
             }
             return View(parada);
         }
@@ -145,17 +145,28 @@ namespace TPDDSGrupo44.Controllers
                 using (var db = new BuscAR())
                 {
                     int id = Convert.ToInt16(collection["id"]);
-                    parada = db.Paradas.Where(p => p.id == id).Single();
+                    parada = (ParadaDeColectivo) db.puntosInteres.Where(p => p.id == id).Single();
 
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
                     List<string> palabrasClave = collection["palabrasClave"].Split(new char[] { ',' }).ToList();
 
 
-                    parada.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
-                        Convert.ToInt32(collection["codigoPostal"]), collection["localidad"], collection["barrio"], collection["provincia"],
-                        collection["pais"], collection["entreCalles"], palabrasClave, collection["nombreDePOI"]);
+                    ParadaDeColectivo paradaActalizada = new ParadaDeColectivo();
 
+                    paradaActalizada.calle = collection["calle"];
+                    paradaActalizada.numeroAltura = Convert.ToInt32(collection["numeroAltura"]);
+                    paradaActalizada.codigoPostal = Convert.ToInt32(collection["codigoPostal"]);
+                    paradaActalizada.localidad = collection["localidad"];
+                    paradaActalizada.barrio = collection["barrio"];
+                    paradaActalizada.calle = collection["calle"];
+                    paradaActalizada.provincia = collection["provincia"];
+                    paradaActalizada.pais = collection["pais"];
+                    paradaActalizada.entreCalles = collection["entreCalles"];
+                    paradaActalizada.palabrasClave = palabrasClave;
+                    paradaActalizada.calle = collection["nombreDePOI"];
 
+                   
+                    parada.actualizar(paradaActalizada);
                     db.SaveChanges();
                 }
               
@@ -178,7 +189,7 @@ namespace TPDDSGrupo44.Controllers
             List<Banco> bancos;
             using (var db = new BuscAR())
             {
-                bancos = (from p in db.Bancos
+                bancos = (from p in db.puntosInteres.OfType<Banco>()
                            orderby p.nombreDePOI
                            select p).ToList();
             }
@@ -209,13 +220,13 @@ namespace TPDDSGrupo44.Controllers
 
                 List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                List<ServicioBanco> servicios = new List<ServicioBanco>();
+                List<Servicio> servicios = new List<Servicio>();
 
 
                 Banco banco = new Banco(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      palabrasClave, collection["nombreDePOI"], "Banco", horariosAbierto, horariosFeriado, servicios);
+                      palabrasClave, collection["nombreDePOI"],  horariosAbierto, horariosFeriado, servicios);
 
                 banco.agregarBanco(banco);
 
@@ -232,7 +243,7 @@ namespace TPDDSGrupo44.Controllers
             Banco banco;
             using (var db = new BuscAR())
             {
-                banco = db.Bancos.Where(p => p.id == id).Single();
+                banco = (Banco) db.puntosInteres.Where(p => p.id == id).Single();
             }
             return View(banco);
         }
@@ -246,7 +257,7 @@ namespace TPDDSGrupo44.Controllers
                 Banco banco;
                 using (var db = new BuscAR())
                 {
-                    banco = db.Bancos.Where(p => p.id == id).Single();
+                    banco = (Banco) db.puntosInteres.Where(p => p.id == id).Single();
                 }
 
                 banco.eliminarBanco(id);
@@ -266,7 +277,7 @@ namespace TPDDSGrupo44.Controllers
             Banco banco;
             using (var db = new BuscAR())
             {
-                banco = db.Bancos.Where(p => p.id == id).Single();
+                banco = (Banco) db.puntosInteres.Where(p => p.id == id).Single();
             }
             return View(banco);
         }
@@ -281,7 +292,7 @@ namespace TPDDSGrupo44.Controllers
                 using (var db = new BuscAR())
                 {
                     int id = Convert.ToInt16(collection["id"]);
-                    banco = db.Bancos.Where(p => p.id == id).Single();
+                    banco = (Banco) db.puntosInteres.Where(p => p.id == id).Single();
 
 
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
@@ -293,7 +304,7 @@ namespace TPDDSGrupo44.Controllers
 
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                    List<ServicioBanco> servicios = new List<ServicioBanco>();
+                    List<Servicio> servicios = new List<Servicio>();
 
                     banco.actualizar(collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
@@ -323,8 +334,8 @@ namespace TPDDSGrupo44.Controllers
             List<CGP> cgp;
             using (var db = new BuscAR())
             {
-                cgp = (from p in db.CGPs
-                          orderby p.nombreDePOI
+                cgp = (from p in db.puntosInteres.OfType<CGP>()
+                       orderby p.nombreDePOI
                           select p).ToList();
             }
 
@@ -352,7 +363,7 @@ namespace TPDDSGrupo44.Controllers
                 //horariosAbierto.Add(horarios);
 
                 List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
-                List<ServicioCGP> servicios = new List<ServicioCGP>();
+                List<Servicio> servicios = new List<Servicio>();
 
 
                 /* convert list to string -- 
@@ -361,7 +372,7 @@ namespace TPDDSGrupo44.Controllers
                 CGP cgp = new CGP(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"],
-                      palabrasClave, collection["nombreDePOI"], "CGP", Convert.ToInt32(collection["numeroDeComuna"]),
+                      palabrasClave, collection["nombreDePOI"], Convert.ToInt32(collection["numeroDeComuna"]),
                           servicios, Convert.ToInt32(collection["zonaDelimitadaPorLaComuna"]),horariosAbierto, horariosFeriado);
 
                 cgp.agregarCGP(cgp);
@@ -380,7 +391,7 @@ namespace TPDDSGrupo44.Controllers
             CGP cgp;
             using (var db = new BuscAR())
             {
-                cgp = db.CGPs.Where(p => p.id == id).Single();
+                cgp = (CGP) db.puntosInteres.Where(p => p.id == id).Single();
             }
             return View(cgp);
         }
@@ -394,7 +405,7 @@ namespace TPDDSGrupo44.Controllers
                 CGP cgp;
                 using (var db = new BuscAR())
                 {
-                    cgp = db.CGPs.Where(p => p.id == id).Single();
+                    cgp = (CGP) db.puntosInteres.Where(p => p.id == id).Single();
                 }
 
                 cgp.eliminarCGP(id);
@@ -414,7 +425,7 @@ namespace TPDDSGrupo44.Controllers
             CGP cgp;
             using (var db = new BuscAR())
             {
-                cgp = db.CGPs.Where(p => p.id == id).Single();
+                cgp = (CGP) db.puntosInteres.Where(p => p.id == id).Single();
             }
             return View(cgp);
         }
@@ -429,7 +440,7 @@ namespace TPDDSGrupo44.Controllers
                 using (var db = new BuscAR())
                 {
                     int id = Convert.ToInt16(collection["id"]);
-                    cgp = db.CGPs.Where(p => p.id == id).Single();
+                    cgp = (CGP) db.puntosInteres.Where(p => p.id == id).Single();
 
 
                     DbGeography coordenada = DbGeography.FromText("POINT(" + collection["coordenada.Latitude"] + " " + collection["coordenada.Longitude"] + ")");
@@ -441,7 +452,7 @@ namespace TPDDSGrupo44.Controllers
 
                     List<HorarioAbierto> horariosFeriado = new List<HorarioAbierto>();
 
-                    List<ServicioCGP> servicios = new List<ServicioCGP>();
+                    List<Servicio> servicios = new List<Servicio>();
 
 
 
@@ -504,7 +515,7 @@ namespace TPDDSGrupo44.Controllers
                 LocalComercial localC = new LocalComercial(coordenada, collection["calle"], Convert.ToInt32(collection["numeroAltura"]),
                       Convert.ToInt32(collection["piso"]), Convert.ToInt32(collection["unidad"]), Convert.ToInt32(collection["codigoPostal"]),
                       collection["localidad"], collection["barrio"], collection["provincia"], collection["pais"], collection["entreCalles"], palabrasClave,
-                      collection["nombreDePOI"], collection["tipoDePOI"], horariosAbierto, horariosFeriado,rubro, "nombreFantasia");
+                      collection["nombreDePOI"], horariosAbierto, horariosFeriado,rubro, "nombreFantasia");
                 /* convert list to string -- 
                  * var result = string.Join(",", list.ToArray()); */
 
