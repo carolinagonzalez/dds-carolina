@@ -4,14 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPDDSGrupo44.Models
 {
+    [Table("LocalesComercial")]
     public class LocalComercial : PuntoDeInteres
     {
-        [Key]
+
         ////////////////Atributos////////////////
-        
+
         public virtual Rubro rubro { get; set; }
 
         public new string nombreFantasia { get; set; }
@@ -32,7 +34,7 @@ namespace TPDDSGrupo44.Models
 
         public LocalComercial(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
+           string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriados,
            Rubro rubro, string nombreFantasia)
         {
 
@@ -49,7 +51,6 @@ namespace TPDDSGrupo44.Models
             base.entreCalles = entreCalles;
             base.palabrasClave = palabrasClave;
             base.nombreDePOI = nombreDePOI;
-            base.tipoDePOI = tipoDePOI;
             base.horarioAbierto = horarioAbierto;
             base.horarioFeriado = horarioFeriados;
             this.rubro = rubro;
@@ -80,7 +81,7 @@ namespace TPDDSGrupo44.Models
         {
             using (var db = new BuscAR())
             {
-                db.Locales.Add(localComercial);
+                db.puntosInteres.Add(localComercial);
                 db.SaveChanges();
             }
         }
