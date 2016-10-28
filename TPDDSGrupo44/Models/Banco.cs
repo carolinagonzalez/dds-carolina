@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
+
+    [Table("Bancos")]
     public class Banco : PuntoDeInteres
     {
         ////////////////Atributos////////////////
-        public virtual List<ServicioBanco> servicios { get; set; }
+        public virtual ICollection<Servicio> servicios { get; set; }
 
         ////////////////Constructor vacio///////////////
         public Banco()
         {
-            servicios = new List<ServicioBanco>();
+            servicios = new List<Servicio>();
         }
 
     
@@ -22,13 +25,13 @@ namespace TPDDSGrupo44.Models
         {
             nombreDePOI = nombre;
             coordenada = unaCoordenada;
-            servicios = new List<ServicioBanco>();
+            servicios = new List<Servicio>();
             horarioAbierto = new List<HorarioAbierto>();
             horarioFeriado = new List<HorarioAbierto>();
 
             foreach (string servicio in serviciosJSON)
             {
-                ServicioBanco serv = new ServicioBanco(servicio);
+                Servicio serv = new Servicio(servicio);
                 servicios.Add(serv);
             }
 
@@ -36,9 +39,10 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor generico////////////////
         public Banco(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave
-           ,string nombreDePOI, string tipoDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+           ,string nombreDePOI, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<Servicio> servicios)
 
           {
+
             base.coordenada = unaCoordenada;
             base.calle = calle;
             base.numeroAltura = numeroAltura;
@@ -52,7 +56,6 @@ namespace TPDDSGrupo44.Models
             base.entreCalles = entreCalles;
             base.palabrasClave = palabrasClave;
             base.nombreDePOI = nombreDePOI;
-            base.tipoDePOI = tipoDePOI;
             base.horarioAbierto = horarioAbierto;
             base.horarioFeriado = horarioFeriado;
             this.servicios = servicios;
@@ -72,7 +75,7 @@ namespace TPDDSGrupo44.Models
         {
             using (var db = new BuscAR())
             {
-                db.Bancos.Add(banco);
+                db.puntosInteres.Add(banco);
                 db.SaveChanges();
             }
         }
@@ -82,9 +85,9 @@ namespace TPDDSGrupo44.Models
             using (var db = new BuscAR())
             {
 
-                Banco banco = db.Bancos.Where(p => p.id == id).Single();
+                Banco banco = (Banco) db.puntosInteres.Where(p => p.id == id).Single();
 
-                db.Bancos.Remove(banco);
+                db.puntosInteres.Remove(banco);
                 db.SaveChanges();
             }
 
@@ -93,7 +96,7 @@ namespace TPDDSGrupo44.Models
 
         public void actualizar(string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, string nombreDePOI,
-           List<string> palabrasClave, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<ServicioBanco> servicios)
+           List<string> palabrasClave, List<HorarioAbierto> horarioAbierto, List<HorarioAbierto> horarioFeriado, List<Servicio> servicios)
         {
             base.numeroAltura = numeroAltura;
             base.piso = piso;
