@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Spatial;
 using System.Linq;
 
 namespace TPDDSGrupo44.Models
 {
-
+    [Table("ParadasDeColectivos")]
     public class ParadaDeColectivo : PuntoDeInteres
     {
         
@@ -17,9 +19,9 @@ namespace TPDDSGrupo44.Models
         ////////////////Constructor generico////////////////
         public ParadaDeColectivo(DbGeography unaCoordenada, string calle, int numeroAltura, int piso, int unidad,
            int codigoPostal, string localidad, string barrio, string provincia, string pais, string entreCalles, List<string> palabrasClave,
-           string nombreDePOI,string tipoDePOI, string lineaDeColectivo)
+           string nombreDePOI, string lineaDeColectivo)
         {
-            
+
             base.coordenada = unaCoordenada;
             base.calle = calle;
             base.numeroAltura = numeroAltura;
@@ -33,7 +35,6 @@ namespace TPDDSGrupo44.Models
             base.entreCalles = entreCalles;
             base.palabrasClave = palabrasClave;
             base.nombreDePOI = nombreDePOI;
-            base.tipoDePOI = tipoDePOI;
             this.lineaDeColectivo = lineaDeColectivo;
         }
 
@@ -67,7 +68,7 @@ namespace TPDDSGrupo44.Models
         {
             using (var db = new BuscAR())
             {
-                db.Paradas.Add(parada);
+                db.puntosInteres.Add(parada);
                 db.SaveChanges();
             }
         }
@@ -77,9 +78,9 @@ namespace TPDDSGrupo44.Models
             using (var db = new BuscAR())
             {
 
-                ParadaDeColectivo parada = db.Paradas.Where(p => p.id == id).Single();
+                ParadaDeColectivo parada = db.puntosInteres.OfType<ParadaDeColectivo>().Where(p => p.id == id).Single();
 
-                db.Paradas.Remove(parada);
+                db.puntosInteres.Remove(parada);
                 db.SaveChanges();
             }
 
@@ -87,19 +88,13 @@ namespace TPDDSGrupo44.Models
         }
 
 
-        public void actualizar(string calle, int numeroAltura, int codigoPostal, string localidad, string barrio, string provincia, string pais,
-            string entreCalles, List<string> palabrasClave, string nombreDePOI)
+        public void actualizar(ParadaDeColectivo parada)
         {
-            this.calle = calle;
-            this.numeroAltura = numeroAltura;
-            this.codigoPostal = codigoPostal;
-            this.localidad = localidad;
-            this.barrio = barrio;
-            this.provincia = provincia;
-            this.pais = pais;
-            this.entreCalles = entreCalles;
-            this.palabrasClave = palabrasClave;
-            this.nombreDePOI = nombreDePOI;
+            using (var db = new BuscAR())
+            {        
+                db.puntosInteres.AddOrUpdate(parada);
+                db.SaveChanges();
+            }
         }
 
 
