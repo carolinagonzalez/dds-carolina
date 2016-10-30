@@ -246,10 +246,10 @@
     <Compile Include="Models\GetJsonBanks.cs" />
     <Compile Include="Models\LocalComercial.cs" />
     <Compile Include="Models\LogAction.cs" />
+    <Compile Include="Models\PalabraClave.cs" />
     <Compile Include="Models\ParadaDeColectivo.cs" />
     <Compile Include="Models\ProcesoMultiple.cs" />
     <Compile Include="Models\PuntoDeInteres.cs" />
-    <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubro.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Terminal.cs" />

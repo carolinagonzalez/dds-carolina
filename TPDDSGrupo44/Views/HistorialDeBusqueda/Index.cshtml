@@ -20,7 +20,7 @@
            $.each(data, function (i, consulta) {
                $("#ResultadoBusqueda").append('<tr>'+
                     '<th>' + consulta.fecha + '</th>' +
-                    '<th>' + consulta.usuario.nombre + '</th>' +
+                    '<th>' + consulta.usuarioTerminal.nombre + '</th>' +
                     '<th>' + consulta.textoBuscado + '</th>' +
                     '<th onclick="detallePoi()">' + consulta.poisEncontrados.length + '</th>' +
                   '</tr>')

@@ -33,8 +33,8 @@ namespace TPDDSGrupo44.Controllers
             /* E4 - Proceso 3: Agregar acciones para todos los usuarios
              Dada una lista de Acciones por Usuario el proceso debe asignar / actualizar las acciones que puede realizar cada Usuario*/
 
-            Rol rolModificar = new Rol(); // rol base de datos by id
-            rolModificar.funcionalidades.AddRange(funcionalidadesExtras);
+            Terminal usuarioTerminal = new Terminal(); // rol base de datos by id
+            usuarioTerminal.funcionalidades.Concat(funcionalidadesExtras);
 
             //actualizar en la base de datos. * ver el sabado a la tarde
             

@@ -13,13 +13,7 @@ namespace TPDDSGrupo44.Models
 
         [Required(ErrorMessage = "(*)Ingrese su Nombre.")]
         public string Nombre { get; set; }
-
-        [Required(ErrorMessage = "(*)Ingrese su Apellido.")]
-        public string Apellido { get; set; }
-
-        [Required(ErrorMessage = "(*)Ingrese su DNI.")]
-        public int Dni { get; set; }
-
+      
         [Required(ErrorMessage = "(*)Ingrese su Email.")]
        // [RegularExpression(@"^([\w-\.]+)@(())"))] --> Agregar expresión regular para el email
         public string Email { get; set; }

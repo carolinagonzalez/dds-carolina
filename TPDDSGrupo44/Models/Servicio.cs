@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPDDSGrupo44.Models
 {
+    [Table("Servicios")]
     public class Servicio
     {
         [Key]
         ////////////////Atributos////////////////
         public int Id { get; set;  }
-
         public string nombre { get; set; }
         public virtual List<HorarioAbierto> horarioAbierto { get; set; }
         public virtual List<HorarioAbierto> horarioFeriados { get; set; }
-
+        public virtual ICollection<Banco>  bancos{ get; set; }
+        public virtual ICollection<CGP> cgps { get; set; }
         ////////////////Constructor vacio////////////////
         public Servicio()
         {
@@ -54,53 +56,4 @@ namespace TPDDSGrupo44.Models
         }
 
     }
-
-
-    public class ServicioBanco : Servicio
-    {
-        [Key]
-        public new int Id { get; set; }
-
-        public new string nombre { get; set; }
-        public new virtual List<HorarioAbierto> horarioAbierto { get; set; }
-        public new virtual List<HorarioAbierto> horarioFeriados { get; set; }
-
-        public ServicioBanco() {
-            horarioAbierto = new List<HorarioAbierto>();
-            horarioFeriados = new List<HorarioAbierto>();
-        }
-
-        public ServicioBanco(string nombreDelServicio)
-        {
-            nombre = nombreDelServicio;
-            horarioAbierto = new List<HorarioAbierto>();
-            horarioFeriados = new List<HorarioAbierto>();
-        }
-    }
-
-    public class ServicioCGP : Servicio
-    {
-        [Key]
-        public new int Id { get; set; }
-
-        public new string nombre { get; set; }
-        public new virtual List<HorarioAbierto> horarioAbierto { get; set; }
-        public new virtual List<HorarioAbierto> horarioFeriados { get; set; }
-
-        public ServicioCGP()
-        {
-            horarioAbierto = new List<HorarioAbierto>();
-            horarioFeriados = new List<HorarioAbierto>();
-
-        }
-
-        public ServicioCGP(string nombreDelServicio)
-        {
-            nombre = nombreDelServicio;
-            horarioAbierto = new List<HorarioAbierto>();
-            horarioFeriados = new List<HorarioAbierto>();
-        }
-    }
-
-
 }

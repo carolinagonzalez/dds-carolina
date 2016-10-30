@@ -2,7 +2,7 @@
 
 namespace TPDDSGrupo44.Models
 {
-    public class ActualizacionAsincronica : FuncionalidadUsuario
+    public class ActualizacionAsincronica 
     {
 
         [Key]

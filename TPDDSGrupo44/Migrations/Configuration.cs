@@ -50,31 +50,22 @@ namespace TPDDSGrupo44.Migrations
             funcionalidadesUsuarioTramite.Add(funcionalidad3);
             funcionalidadesUsuarioTramite.Add(funcionalidad4);
 
-            Rol rolUsuario = new Rol("Admin", funcionalidadesAdmin);
-            Rol rolAdmin = new Rol("Usuario Tramite", funcionalidadesUsuarioTramite);
            
-            context.Roles.AddOrUpdate(
-            x => x.nombre, rolUsuario, rolAdmin);
-
-            context.SaveChanges();
-
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego Usuarios
 
            context.Usuarios.AddOrUpdate(
-            x => x.dni,
-            new Usuario
+            x => x.email,
+            new Terminal
             {
-                dni = "3626171",
+                email = "terminal@gmail.com",
                 nombre = "caro",
-                contrasenia = "1234",
-                rolUsuario =rolUsuario
+                contrasenia = "1234"
             },
-            new Usuario
+            new Administrador
             {
-                dni = "12345678",
+                email = "terminal2@gmail.com",
                 nombre = "admin",
                 contrasenia = "admin",
-                rolUsuario = rolAdmin
             });
 
             context.SaveChanges();
@@ -82,7 +73,7 @@ namespace TPDDSGrupo44.Migrations
             //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Agrego listas de POIs
 
             //Paradas
-            context.Paradas.AddOrUpdate(
+            context.puntosInteres.AddOrUpdate(
             p => p.nombreDePOI,
             new ParadaDeColectivo
             {
@@ -94,7 +85,8 @@ namespace TPDDSGrupo44.Migrations
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Saraza y Dellepiane Sur",
-                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)")
+                coordenada = DbGeography.FromText("POINT(-34.659690 -58.468764)"),
+                lineaDeColectivo = "114"
             },
             new ParadaDeColectivo
             {
@@ -106,7 +98,8 @@ namespace TPDDSGrupo44.Migrations
                 provincia = "Ciudad Autónoma de Buenos Aires",
                 pais = "Argentina",
                 entreCalles = "Av Derqui y Dellepiane Norte",
-                coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)")
+                coordenada = DbGeography.FromText("POINT(-34.662325 -58.473300)"),
+                lineaDeColectivo = "36"
             });
 
             context.SaveChanges();
@@ -125,29 +118,37 @@ namespace TPDDSGrupo44.Migrations
             feriados.Add(new HorarioAbierto(1, 1, 0, 0));
             feriados.Add(new HorarioAbierto(9, 7, 10, 16));
 
+            Rubro libreria = new Rubro("librería escolar", 5);
+            Rubro kioscoDiario = new Rubro("kiosco de diarios", 5);
+
+
+            context.Rubros.AddOrUpdate(l => l.nombre, libreria, kioscoDiario);
+            
+
             //Locales
-            context.Locales.AddOrUpdate(
+            context.puntosInteres.AddOrUpdate(
             l => l.nombreDePOI,
             new LocalComercial
             {
                 nombreDePOI = "Librería CEIT",
                 coordenada = DbGeography.FromText("POINT(-34.659492 -58.467906)"),
-                rubro = new Rubro("librería escolar", 5),
+                rubro =libreria,
                 horarioAbierto = horarios,
-                //horarioFeriados = feriados
+                nombreFantasia = "El principito"
             },
             new LocalComercial
             {
                 nombreDePOI = "Kiosco Las Flores",
                 coordenada = DbGeography.FromText("POINT(-34.634015 -58.482805)"),
-                rubro = new Rubro("kiosco de diarios", 5)
+                rubro = kioscoDiario,
+                nombreFantasia = "La vieja floreria"
             });
 
             context.SaveChanges();
 
 
             // servicios CGP Lugano
-            ServicioCGP servicio1 = new ServicioCGP("Rentas");
+            Servicio servicio1 = new Servicio("Rentas");
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -155,11 +156,11 @@ namespace TPDDSGrupo44.Migrations
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio1.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioCGP> servicios1 = new List<ServicioCGP>();
+            List<Servicio> servicios1 = new List<Servicio>();
             servicios1.Add(servicio1);
 
             //servicios CGP Floresta
-            ServicioCGP servicio2 = new ServicioCGP("Registro Civil");
+            Servicio servicio2 = new Servicio("Registro Civil");
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -167,11 +168,11 @@ namespace TPDDSGrupo44.Migrations
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 10, 16));
             servicio2.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioCGP> servicios2 = new List<ServicioCGP>();
+            List<Servicio> servicios2 = new List<Servicio>();
             servicios2.Add(servicio2);
 
             //CGPs
-            context.CGPs.AddOrUpdate(
+            context.puntosInteres.AddOrUpdate(
             c => c.nombreDePOI,
             new CGP
             {
@@ -186,9 +187,10 @@ namespace TPDDSGrupo44.Migrations
                 entreCalles = "Av Escalda y Av General Paz",
                 coordenada = DbGeography.FromText("POINT(-34.6862397 -58.4606666)"),
                 zonaDelimitadaPorLaComuna = 50,
-                servicios = new List<ServicioCGP>()
+                numeroDeComuna = 8,
+                servicios = new List<Servicio>()
                 {
-                     new ServicioCGP()
+                     new Servicio()
                     {
                          horarioAbierto = new List<HorarioAbierto>()
                                          {
@@ -297,9 +299,10 @@ namespace TPDDSGrupo44.Migrations
         entreCalles = "Mercedes y Av Chivilcoy",
         coordenada = DbGeography.FromText("POINT(-34.6318411 -58.4857468)"),
         zonaDelimitadaPorLaComuna = 10,
-        servicios = new List<ServicioCGP>()
+        numeroDeComuna = 10,
+        servicios = new List<Servicio>()
                 {
-                     new ServicioCGP()
+                     new Servicio()
                     {
                          horarioAbierto = new List<HorarioAbierto>()
                                          {
@@ -353,7 +356,7 @@ namespace TPDDSGrupo44.Migrations
 
 
             // Horarios Banco Provincia
-            ServicioBanco servicio3 = new ServicioBanco("Depósitos");
+            Servicio servicio3 = new Servicio("Depósitos");
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Monday, 8, 18));
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Tuesday, 8, 18));
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Wednesday, 8, 18));
@@ -361,7 +364,7 @@ namespace TPDDSGrupo44.Migrations
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Friday, 8, 18));
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Saturday, 0, 0));
             servicio3.horarioAbierto.Add(new HorarioAbierto(System.DayOfWeek.Sunday, 0, 0));
-            List<ServicioBanco> servicios3 = new List<ServicioBanco>();
+            List<Servicio> servicios3 = new List<Servicio>();
             servicios3.Add(servicio3);
 
             horarios = new List<HorarioAbierto>();
@@ -377,7 +380,7 @@ namespace TPDDSGrupo44.Migrations
 
             
             //Bancos
-            context.Bancos.AddOrUpdate(
+            context.puntosInteres.AddOrUpdate(
             b => b.nombreDePOI,
             new Banco
             {
@@ -394,9 +397,9 @@ namespace TPDDSGrupo44.Migrations
                 coordenada = DbGeography.FromText("POINT( 34.6579153  58.4791142)"),
                 calle = "Calle Falsa2",
                 numeroAltura = 345,
-                servicios = new List<ServicioBanco>()
+                servicios = new List<Servicio>()
                 {
-                     new ServicioBanco()
+                     new Servicio()
                     {
                          horarioAbierto = new List<HorarioAbierto>()
                                          {

@@ -15,7 +15,7 @@ namespace TPDDSGrupo44.Controllers
         {
             using (BuscAR db = new BuscAR())
             {
-                return View(db.cuentaDeUsuario.ToList());
+                return View(db.Usuarios.ToList());
             }
             
         }
@@ -26,13 +26,13 @@ namespace TPDDSGrupo44.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registrar(CuentaDeUsuario cuenta)
+        public ActionResult Registrar(Usuario cuenta)
         {
             if (ModelState.IsValid)
             {
 
-                Session["IdUsuario"] = cuenta.IdUsuario.ToString();
-                Session["DNI"] = cuenta.Dni.ToString();
+                Session["IdUsuario"] = cuenta.id.ToString();
+                Session["Email"] = cuenta.email.ToString();
                 return RedirectToAction("Login");
                 /* using (BuscAR db = new BuscAR())
                   {
@@ -54,7 +54,7 @@ namespace TPDDSGrupo44.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(CuentaDeUsuario usuario)
+        public ActionResult Login(Terminal usuario)
         {
             using (BuscAR db = new BuscAR())
             {
@@ -63,8 +63,8 @@ namespace TPDDSGrupo44.Controllers
 
                 if (usu != null)
                 {
-                    Session["IdUsuario"] = usu.IdUsuario.ToString();
-                    Session["DNI"] = usu.Dni.ToString();
+                    Session["IdUsuario"] = usu.id.ToString();
+                    Session["EMAIl"] = usu.email.ToString();
                     return RedirectToAction("Logueado");
                 }
                 else

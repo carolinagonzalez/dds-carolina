@@ -1,19 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace TPDDSGrupo44.Models
 {
-
+    [Table("Usuarios")]
     public class Usuario
     {
         [Key]
         public int id { get; set; }
-        ////////////////Atributos////////////////
-        public string dni { get; set; }
+        public string email { get; set; }
         public string contrasenia { get; set; }
         public string nombre { get; set; }
-        public Rol rolUsuario { get; set; }
 
 
         public Usuario() { }
@@ -22,26 +21,12 @@ namespace TPDDSGrupo44.Models
             this.nombre = nombre;
         }
 
-        public Usuario(string dni, string nombre, string contrasenia, Rol rol) {
-            this.dni = dni;
+        public Usuario(string email, string nombre, string contrasenia) {
+            this.email = email;
             this.nombre = nombre;
             this.contrasenia = contrasenia;
-            this.rolUsuario = rol;
         }
 
-        public Boolean existeAcciones(int idAccion)
-        {
-            Boolean exist = false;
-            foreach (var accion in this.rolUsuario.funcionalidades)
-            {
-                if (accion.id == idAccion)
-                {
-                    exist = true;
-                }
-            }
-
-            return exist;
-
-        }
+        
     }
 }

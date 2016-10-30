@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TPDDSGrupo44.Models
 {
+    [Table("Rubros")]
     public class Rubro
     {
         [Key]
@@ -20,6 +23,8 @@ namespace TPDDSGrupo44.Models
             nombre = nombreR;
             radioDeCercania = radio;
         }
+
+        public virtual ICollection<LocalComercial> localesComerciales { get; set; }
     }
 
 

@@ -19,9 +19,9 @@ namespace TPDDSGrupo44.Controllers
 
         PuntoDeInteres[] listaPois = new PuntoDeInteres[] {
         //    new ParadaDeColectivo { id=1, nombreDePOI =  "Victoria Impala", calle = "Fco. de Beiró 4801", tipoDePOI = "paradaDeColectivo", lineaDeColectivo = "7 Ramal Samore"},
-            new LocalComercial { id=2, nombreDePOI = "J Perez Cotillón", calle = "Av. Alvarez Jonte  5232 1º" , tipoDePOI = "localComercial", rubro = new Rubro ("Libería", 8)},
-            new CGP { id=3, nombreDePOI = "CGP 6", calle = "Patricias Argentinas 277", tipoDePOI = "cgp", barrio = "Caballito"  },
-            new Banco { id=4, nombreDePOI = "Banco Nacion", calle = "Maipu 277", tipoDePOI = "banco", barrio = "Retiro" }
+            new LocalComercial { id=2, nombreDePOI = "J Perez Cotillón", calle = "Av. Alvarez Jonte  5232 1º", rubro = new Rubro ("Libería", 8)},
+            new CGP { id=3, nombreDePOI = "CGP 6", calle = "Patricias Argentinas 277", barrio = "Caballito"  },
+            new Banco { id=4, nombreDePOI = "Banco Nacion", calle = "Maipu 277", barrio = "Retiro" }
         };
                
 
@@ -31,6 +31,7 @@ namespace TPDDSGrupo44.Controllers
         public IEnumerable<PuntoDeInteres> GetBajas()
         {
             //Hacer peticion a la base de datos y traer todos los pois
+            
             return this.listaPoisBaja;
         }
 
@@ -41,7 +42,8 @@ namespace TPDDSGrupo44.Controllers
         public IEnumerable<PuntoDeInteres> Get()
         {
             //Hacer peticion a la base de datos y traer todos los pois
-            return this.listaPois;
+            BuscAR db = new BuscAR();
+            return db.puntosInteres;
         }
 
      
